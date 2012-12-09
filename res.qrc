@@ -1,0 +1,22 @@
+<RCC>
+  <qresource prefix="res">
+    <file>res\application_exit.png</file>
+    <file>res\document_new.png</file>
+    <file>res\document_open.png</file>
+    <file>res\document_save.png</file>
+    <file>res\document_save_all.png</file>
+    <file>res\document_save_as.png</file>
+    <file>res\edit.png</file>
+    <file>res\help_about.png</file>
+    <file>res\help_contents.png</file>
+    <file>res\logo.gif</file>
+    <file>res\logo.svg</file>
+    <file>res\logo2.gif</file>
+    <file>res\media_playback_pause.png</file>
+    <file>res\media_playback_start.png</file>
+    <file>res\player_stop.png</file>
+    <file>res\project_open.png</file>
+    <file>res\run.png</file>
+    <file>res\spreadsheet.png</file>
+  </qresource>
+</RCC>

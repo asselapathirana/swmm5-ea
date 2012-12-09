@@ -98,6 +98,11 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
+    #Exit
+    @QtCore.pyqtSignature("")
+    def on_actionExit_triggered(self,checed=None):
+        self.close()
+
     #actionInitialize_model
     @QtCore.pyqtSignature("")
     def on_actionInitialize_model_triggered(self,checed=None):
@@ -228,7 +233,16 @@ mainwindow_.Ui_SWMM5EA):
         self.tabWidget.setCurrentWidget(self.textEdit_2_tab)
 
 
-
+    def closeEvent(self, event):
+    
+        quit_msg = "Are you sure you want to exit the SWMM5-EA?"
+        reply = QtGui.QMessageBox.question(self, 'Message', 
+                         quit_msg, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+    
+        if reply == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 # Do NOT start this application here. It should be started from swmm_ea_controller.py
 #if __name__ == "__main__":

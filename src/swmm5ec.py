@@ -7,7 +7,7 @@
 from random import Random
 import numpy
 from time import time, sleep
-import os
+import os, errno
 import inspyred
 #import matplotlib
 #matplotlib.use('GTKAgg')
@@ -48,6 +48,7 @@ def getFitness(fillers, linestring,parameters):
         import  os
         from multiprocessing import current_process
         filename = parameters.projectdirectory+os.sep+"tmp"+os.sep+("%07d" % (current_process().pid))+".inp"
+	make_sure_path_exists(os.path.dirname(filename))                
         dir = os.path.dirname(filename)
         try:
             os.stat(dir)
@@ -130,9 +131,19 @@ def swmmWrite(fillers, linestring, outfile):
     import pyratemp
     pt=pyratemp.Template(linestring)
     linestring=pt(**params)
+    make_sure_path_exists(os.path.dirname(outfile))
     f=open(outfile,'w')
     f.write(linestring)
     f.close()
+
+
+    
+def make_sure_path_exists(path):
+    try:
+	os.makedirs(path)
+    except OSError as exception:
+	if exception.errno != errno.EEXIST:
+	    raise
 
 def parse_parameters(fillers):
     ct=0

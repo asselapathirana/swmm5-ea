@@ -42,6 +42,8 @@
     <addaction name="action_Load_SWMM_File"/>
     <addaction name="separator"/>
     <addaction name="action_Insert_Slots"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuOptimization">
     <property name="title">
@@ -59,8 +61,8 @@
     <addaction name="actionHelp_Users_Guide"/>
     <addaction name="actionHelp_About"/>
    </widget>
-   <addaction name="menu_File"/>
    <addaction name="menu_File_2"/>
+   <addaction name="menu_File"/>
    <addaction name="menuOptimization"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -96,6 +98,8 @@
    <addaction name="separator"/>
    <addaction name="actionHelp_Users_Guide"/>
    <addaction name="actionHelp_About"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="curve_window">
@@ -300,6 +304,18 @@
    </property>
    <property name="toolTip">
     <string>Initialize the optimization</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/application_exit.png</normaloff>:/res/res/application_exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="toolTip">
+    <string>Exit SWMM5 EA</string>
    </property>
   </action>
  </widget>

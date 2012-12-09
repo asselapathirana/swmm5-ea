@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow_.ui'
 #
-# Created: Fri Dec 07 16:50:13 2012
+# Created: Sun Dec 09 14:00:25 2012
 #      by: PyQt4 UI code generator 4.8.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -148,6 +148,11 @@ class Ui_SWMM5EA(object):
         icon12.addPixmap(QtGui.QPixmap(_fromUtf8(":/res/res/run.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionInitialize_model.setIcon(icon12)
         self.actionInitialize_model.setObjectName(_fromUtf8("actionInitialize_model"))
+        self.actionExit = QtGui.QAction(SWMM5EA)
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap(_fromUtf8(":/res/res/application_exit.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionExit.setIcon(icon13)
+        self.actionExit.setObjectName(_fromUtf8("actionExit"))
         self.menu_File.addAction(self.action_NewProject)
         self.menu_File.addAction(self.action_OpenProject)
         self.menu_File.addSeparator()
@@ -158,14 +163,16 @@ class Ui_SWMM5EA(object):
         self.menu_File_2.addAction(self.action_Load_SWMM_File)
         self.menu_File_2.addSeparator()
         self.menu_File_2.addAction(self.action_Insert_Slots)
+        self.menu_File_2.addSeparator()
+        self.menu_File_2.addAction(self.actionExit)
         self.menuOptimization.addAction(self.actionInitialize_model)
         self.menuOptimization.addAction(self.actionRun_Optimization)
         self.menuOptimization.addAction(self.actionPause_Optimization)
         self.menuOptimization.addAction(self.actionStop_Optimization)
         self.menuHelp.addAction(self.actionHelp_Users_Guide)
         self.menuHelp.addAction(self.actionHelp_About)
-        self.menuBar.addAction(self.menu_File.menuAction())
         self.menuBar.addAction(self.menu_File_2.menuAction())
+        self.menuBar.addAction(self.menu_File.menuAction())
         self.menuBar.addAction(self.menuOptimization.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
         self.Main_toolbar.addAction(self.action_NewProject)
@@ -184,6 +191,8 @@ class Ui_SWMM5EA(object):
         self.Main_toolbar.addSeparator()
         self.Main_toolbar.addAction(self.actionHelp_Users_Guide)
         self.Main_toolbar.addAction(self.actionHelp_About)
+        self.Main_toolbar.addSeparator()
+        self.Main_toolbar.addAction(self.actionExit)
 
         self.retranslateUi(SWMM5EA)
         self.tabWidget.setCurrentIndex(1)
@@ -219,5 +228,7 @@ class Ui_SWMM5EA(object):
         self.actionHelp_Users_Guide.setToolTip(QtGui.QApplication.translate("SWMM5EA", "Users\' Guide", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInitialize_model.setText(QtGui.QApplication.translate("SWMM5EA", "Initialize_model", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInitialize_model.setToolTip(QtGui.QApplication.translate("SWMM5EA", "Initialize the optimization", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setText(QtGui.QApplication.translate("SWMM5EA", "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setToolTip(QtGui.QApplication.translate("SWMM5EA", "Exit SWMM5 EA", None, QtGui.QApplication.UnicodeUTF8))
 
 import res_rc
