@@ -5,7 +5,9 @@
 ##################################################################
 [user attributes]
 cache.last-mime-type = {loc('unknown:<untitled> #5'): 'text/x-diff',
-                        loc('unknown:<untitled> #3'): 'text/x-diff'}
+                        loc('unknown:<untitled> #3'): 'text/x-diff',
+                        loc('unknown:<untitled> #9'): 'text/x-diff',
+                        loc('unknown:<untitled> #7'): 'text/x-diff'}
 console.id-seed = 403
 console.toolbox = [{'autosave': False,
                     'ctype': ('loc',
@@ -389,6 +391,7 @@ guimgr.overall-gui-state = {'windowing-policy': 'combined-window',
         (0,
          1)],
                                  'selected-nodes': [(0,
+        0,
         0)],
                                  'top-node': (0,)}},
         'tree-style': 'deep'}}),

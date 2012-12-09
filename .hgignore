@@ -45,4 +45,8 @@ a.exe
 ex1/gui.wpr
 ex1/gui.wpu
 *untitiled*
+examples/*/output/*
+examples/*/tmp/*
+*.log
+
 

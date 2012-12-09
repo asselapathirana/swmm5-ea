@@ -4,9 +4,20 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+proj.directory-list = [{'dirloc': loc('../examples'),
+                        'excludes': [u'xt2/output',
+                                     u'xt2/outputstats.txt',
+                                     u'xt2/outputprofile.out',
+                                     u'xt2/stats.csv',
+                                     u'xt2/indis.csv',
+                                     u'xt2/swmm_ea.log',
+                                     u'xt2/tmp',
+                                     u'xt2/data'],
+                        'filter': '*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True}]
 proj.file-list = [loc('../prep.bat'),
-                  loc('../projects/myproject/param.yaml'),
-                  loc('../projects/start.yaml'),
                   loc('../res_rc.py'),
                   loc('../run.bat'),
                   loc('../src/about_dialog_.py'),
