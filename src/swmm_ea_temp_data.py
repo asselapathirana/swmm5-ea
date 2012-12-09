@@ -16,6 +16,7 @@ class data():
     cost_function : "v1*1000+v2*1000+v3*1000+v4*1000+v5*1000"
     # swmmout_cost_function is the function used to calculate the cost component use f to denote swmm output
     swmmout_cost_function : "f**2.*.1"
+    
     pop_size: 12
     num_selected : 12
     num_elites  : 2
@@ -30,8 +31,14 @@ class data():
     # In the interfacing guide of SWMM read section "Reading Results from the Output File" and "Output File - Reporting Variables"
     # k=10 for flooding rate. (later converted to total volume)
     
+    multiprocessor : True # True/False - mind the case!
     num_cpus : 4 # How many instances of evaluations should be run in parallel. 
-   
+    profiling : True # if True will 'profile' the application and write some useful information about performance to stdout. 
+    
+    # followiing need no changing!
+    gnuplot : "gnuplot/pgnuplot.exe" 
+    gnuplotscript : "plotfile.plt" # search in datadirectory
+    gnuplotdata : "data.dat" # search in datadirectory
     # end     
     """
     

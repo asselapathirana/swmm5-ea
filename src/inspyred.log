@@ -1,0 +1,21 @@
+2012-11-09 13:46:07,433 - inspyred.ec - DEBUG - generating initial population
+2012-11-09 13:46:07,434 - inspyred.ec - DEBUG - evaluating initial population
+2012-11-09 13:46:07,440 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-11-09 13:46:13,369 - inspyred.ec - DEBUG - population size is now 12
+2012-11-09 13:46:13,371 - inspyred.ec - DEBUG - archiving initial population
+2012-11-09 13:46:13,371 - inspyred.ec - DEBUG - archive size is now 0
+2012-11-09 13:46:13,371 - inspyred.ec - DEBUG - population size is now 12
+2012-11-09 13:46:13,371 - inspyred.ec - DEBUG - observation using observer_function at generation 0 and evaluation 12
+2012-11-09 13:46:19,904 - inspyred.ec - DEBUG - observation using file_observer at generation 0 and evaluation 12
+2012-11-09 13:46:19,907 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 0 and evaluation 12
+2012-11-09 13:46:19,910 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 0 and evaluation 12
+2012-11-09 13:46:19,910 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 0 and evaluation 12
+2012-11-09 13:46:19,917 - inspyred.ec - DEBUG - selection using tournament_selection at generation 0 and evaluation 12
+2012-11-09 13:46:19,921 - inspyred.ec - DEBUG - selected 24 candidates
+2012-11-09 13:46:19,930 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 0 and evaluation 12
+2012-11-09 13:46:19,934 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 0 and evaluation 12
+2012-11-09 13:46:19,940 - inspyred.ec - DEBUG - created 24 offspring
+2012-11-09 13:46:19,941 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 0 and evaluation 12
+2012-11-09 13:46:19,947 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-11-09 13:46:19,947 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-11-09 13:46:19,950 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp

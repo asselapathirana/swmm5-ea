@@ -2,10 +2,6 @@ from PyQt4 import QtCore, QtGui
 import guiqwt.plot
 
 import parameters_dialog_
-import swmm_ea_controller
-
- 
-
 
 class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
     
@@ -14,14 +10,6 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
                 #first        
         self.setupUi(self)
         self.Number_of_input_init()
-        # add choices to swmmp_1 combobox
-        self.add_choices()
-
-    
-    def add_choices(self):
-      
-        self.swmmp_1.clear()
-        self.swmmp_1.addItems(swmm_ea_controller.SWMMCHOICES)        
 
     def Number_of_input_init(self):
         self.value_widgets=[]
@@ -31,7 +19,7 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
     @QtCore.pyqtSignature("")
     def on_copyButton_clicked(self):
         for i in range(1,len(self.value_widgets)):
-                    for j in range(1,3):        
+                    for j in range(3):        
                         self.value_widgets[i][j].setText(self.value_widgets[0][j].text())
     @QtCore.pyqtSignature("int")
     def on_num_inputs_valueChanged(self,value=1):
@@ -51,15 +39,6 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
             for j in range(3):
                 self.gridLayout_3.addWidget(self.value_widgets[i][j], i+1, j, 1, 1)
 
-    @QtCore.pyqtSignature("int")
-    def on_swmmp_1_currentIndexChanged (self, index=0):
-        en=(index==swmm_ea_controller.SWMMREULTSTYPE_FLOOD)      
-        self.Cost_function_1.setEnabled(en)
-        self.Cost_function_2.setEnabled(en)
-        self.maximize.setEnabled(en)
-        self.minimize_button.setEnabled(en)
-            
-        
     def getDataMap(self):
         params={}
         params["num_inputs"]= self.num_inputs.value()
@@ -71,17 +50,7 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         params["max_evaluations"]=int(self.num_evaluations.text())
         params["cost_function"]=unicode(self.Cost_function_1.document().toPlainText())
         params["swmmout_cost_function"]=unicode(self.Cost_function_2.document().toPlainText())
-        v=self.swmmp_1.currentIndex()
-        if v==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-            #SWMMCHOICES flood volume
-            params["swmmResultCodes"]=[3,0,10]
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]
-        else:
-            #SWMMCHOICES calibration
-            params["swmmResultCodes"]=[0,0,0] # wel'll have to change this stage in the run. 
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_CALIB, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_CALIB]]
-            
-        
+        params["swmmResultCodes"]=[self.swmmp_1.value(),self.swmmp_2.value(),self.swmmp_3.value()]
         params["valuerange"]=map(lambda x: [float(x[1].text()),float(x[2].text())],self.value_widgets)
         params["num_cpus"]=self.Number_of_cpus.value()
         return params
@@ -97,23 +66,9 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         self.num_evaluations.setText(str(params["max_evaluations"]))        
         self.Cost_function_1.insertPlainText(QtCore.QString(params["cost_function"]))
         self.Cost_function_2.insertPlainText(QtCore.QString(params["swmmout_cost_function"]))
-        #self.swmmp_1.setValue(int(params["swmmResultCodes"][0]))
-        #self.swmmp_2.setValue(int(params["swmmResultCodes"][1]))
-        #self.swmmp_3.setValue(int(params["swmmResultCodes"][2]))
-        try:
-            if params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-                #SWMMCHOICES flood volume
-                self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_FLOOD)
-            elif params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
-                #SWMMCHOICES calibration
-                self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_CALIB)
-            else:
-                raise
-        except:
-            print "Problem : 'swmmouttype'"
-            import sys
-            sys.stderr.write("Problem : 'swmmouttype'")
-            
+        self.swmmp_1.setValue(int(params["swmmResultCodes"][0]))
+        self.swmmp_2.setValue(int(params["swmmResultCodes"][1]))
+        self.swmmp_3.setValue(int(params["swmmResultCodes"][2]))
         for ct in range(min(len(self.value_widgets), len(params["valuerange"]))):
             self.value_widgets[ct][1].setText(unicode(params["valuerange"][ct][0]))
             self.value_widgets[ct][2].setText(unicode(params["valuerange"][ct][1]))
@@ -131,3 +86,21 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
     def translate(self,name):
         return QtGui.QApplication.translate("Dialog", name, None, QtGui.QApplication.UnicodeUTF8)
             
+if __name__ == "__main__":
+    import sys
+    params={"crossover_rate" : 0.1 ,"swmmResultCodes" : [2, 3, 4] ,
+          "num_inputs" : 5 ,"cost_function" : "v1*2+v2"  ,"mutation_rate" : 0.1 ,
+          "num_elites" : 0 ,"maximize" : True ,
+          "pop_size" : 0 ,"swmmout_cost_function" : "f*.1" ,"max_evaluations" : 100 ,
+          "valuerange" : [[0.1, 250.0], [2.0, 30.0], [0.0, 2500.0], [0.0, 2500.0], [4.0, 20.0]] }
+    app = QtGui.QApplication(sys.argv)
+    ui = Ui_parameters_dialog()
+    ui.setDataMap(params)
+    ui.show()
+    app.exec_()
+    for k,v in ui.getDataMap().iteritems():
+        print "\""+k+"\" :",v ,","
+    if( params==ui.getDataMap()):
+        print "Values Same!"
+    else:
+        print "VALUES CHNANGED"

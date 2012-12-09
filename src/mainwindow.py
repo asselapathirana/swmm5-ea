@@ -15,7 +15,7 @@ mainwindow_.Ui_SWMM5EA):
         #first
 
         self.setupUi(self) # extremely important for on_<object>_<trigger> type (auto-connnect) to work. 
-        self.curve = guiqwt.plot.CurveWidget(self.curve_window,"Convergence Plot","Generation Number", "Cost","","")#QtGui.QWidget(self.dockWidgetContents)
+        self.curve = guiqwt.plot.CurveWidget(self.curve_window,"Convergence Plot","Generation Number", "Fitness","","")#QtGui.QWidget(self.dockWidgetContents)
         self.curve.plot.set_antialiasing(True)
         self.addguiqwtToolbar_and_context_menu()
         self.gridLayout_2.addWidget(self.curve, 0, 0, 1, 1)   
@@ -28,7 +28,6 @@ mainwindow_.Ui_SWMM5EA):
         self.status3=QtGui.QLabel()
         self.statusBar().addWidget(self.status3,5)  
 
-        
     def addguiqwtToolbar_and_context_menu(self):
         toolbar=self.addToolBar("Graph Tools")
         self.curve.add_toolbar(toolbar, "default")
@@ -36,8 +35,7 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
-    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", zoomextent=False):
-        self.curve.plot.set_titles(None,None,ytitle)
+    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0):
         #print run_status
         self.status1.setText("Project:"+(project or ""))
         #print "here", self
@@ -57,9 +55,6 @@ mainwindow_.Ui_SWMM5EA):
         self.actionPause_Optimization.setEnabled(False)
         self.actionStop_Optimization.setEnabled(False)     
         self.actionInitialize_model.setEnabled(False)
-        
-        # just set the state
-        self.action_Zoom_Extent.setChecked(zoomextent)
         if project:
             # 0
             self.actionSave_As.setEnabled(True)
@@ -103,16 +98,6 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
-    #Exit
-    @QtCore.pyqtSignature("")
-    def on_actionExit_triggered(self,checed=None):
-        self.close()
-        
-    #action_Zoom_Extent
-    @QtCore.pyqtSignature("bool")    
-    def on_action_Zoom_Extent_toggled(self, checked=False):
-        self.controller.zoomState(checked)
-        
     #actionInitialize_model
     @QtCore.pyqtSignature("")
     def on_actionInitialize_model_triggered(self,checed=None):
@@ -139,20 +124,10 @@ mainwindow_.Ui_SWMM5EA):
     @QtCore.pyqtSignature("")
     def on_action_Insert_Slots_triggered(self,checed=None):
         if(self.controller.project.swmmfilename):
-            tx=self.controller.get_slotted_data()
-            ids=self.controller.project.get_ids()
-            if not ids:
-                print "Problem retriving ids of objects. Check SWMM file."
-                return
-            self.slot_dialog_ui = swmmedit_dialog.Ui_swmmedit_dialog(self.controller, ids, text=tx)
+            self.slot_dialog_ui = swmmedit_dialog.Ui_swmmedit_dialog(text=self.controller.get_slotted_data())
             self.slot_dialog_ui.show()
             if QtGui.QDialog.Accepted==self.slot_dialog_ui.exec_():
                 self.controller.saveSlottedSwmmfile(self.slot_dialog_ui.text)
-                self.controller.project.parameters.calfile=self.slot_dialog_ui.calfile_
-                self.controller.project.parameters.caltype=self.slot_dialog_ui.caltype_
-                self.controller.project.parameters.calid=self.slot_dialog_ui.calid_
-                self.controller.saveproject()
-                
 
     #action_Load_SWMM_File
     @QtCore.pyqtSignature("")
@@ -211,7 +186,7 @@ mainwindow_.Ui_SWMM5EA):
         if(fileName):
             self.controller.LoadProject(str(self.qt_fix_path(fileName))) 
             self.controller.settings.setValue("lastprojectloc",fileName)
-        
+
 
     #actionHelp_About
     @QtCore.pyqtSignature("")
@@ -253,16 +228,7 @@ mainwindow_.Ui_SWMM5EA):
         self.tabWidget.setCurrentWidget(self.textEdit_2_tab)
 
 
-    def closeEvent(self, event):
-    
-        quit_msg = "Are you sure you want to exit the SWMM5-EA?"
-        reply = QtGui.QMessageBox.question(self, 'Message', 
-                         quit_msg, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
-    
-        if reply == QtGui.QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+
 
 # Do NOT start this application here. It should be started from swmm_ea_controller.py
 #if __name__ == "__main__":
