@@ -42,8 +42,7 @@ a.exe
 *.exe
 *.o
 *.obj
-ex1/gui.wpr
-ex1/gui.wpu
+*.wpu # wing project file that is not needed. 
 *untitiled*
 examples/*/output/*
 examples/*/tmp/*
