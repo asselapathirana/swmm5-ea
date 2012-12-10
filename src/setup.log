@@ -171,8 +171,9 @@ Adding module 'guiqwt' data files (images):
    C:\Python27\lib\site-packages\guiqwt\locale\fr\LC_MESSAGES\guiqwt.mo
 running build
 running build_exe
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\cx_Freeze\bases\Win32GUI.exe -> build\exe.win32-2.7\swmm5ec.exe
-copying E:\Urban_drainageI_II\2012\GA\inspyred\src\python27.dll -> build\exe.win32-2.7\python27.dll
+creating directory build\exe.win32-2.7
+copying C:\Python27\lib\site-packages\cx_Freeze\bases\Win32GUI.exe -> build\exe.win32-2.7\swmm5ec.exe
+copying E:\learn\swmm5ea-repo\swmm5-ea\src\python27.dll -> build\exe.win32-2.7\python27.dll
 Stamped: build\exe.win32-2.7\swmm5ec.exe
 writing zip file build\exe.win32-2.7\library.zip
 
@@ -278,7 +279,7 @@ m _ssl                      C:\Python27\DLLs\_ssl.pyd
 m _strptime                 C:\Python27\lib\_strptime.py
 m _struct                   
 m _subprocess               
-m _swmm5                    E:\Urban_drainageI_II\2012\GA\inspyred\src\_swmm5.pyd
+m _swmm5                    E:\learn\swmm5ea-repo\swmm5-ea\src\_swmm5.pyd
 m _symtable                 
 m _threading_local          C:\Python27\lib\_threading_local.py
 m _tkinter                  C:\Python27\DLLs\_tkinter.pyd
@@ -287,7 +288,7 @@ m _weakref
 m _weakrefset               
 m _winreg                   
 m abc                       
-m about_dialog_             E:\Urban_drainageI_II\2012\GA\inspyred\src\about_dialog_.py
+m about_dialog_             E:\learn\swmm5ea-repo\swmm5-ea\src\about_dialog_.py
 m anydbm                    C:\Python27\lib\anydbm.py
 m array                     
 m ast                       C:\Python27\lib\ast.py
@@ -329,7 +330,7 @@ m ctypes._endian            C:\Python27\lib\ctypes\_endian.py
 P curses                    C:\Python27\lib\curses\__init__.py
 m curses.has_key            C:\Python27\lib\curses\has_key.py
 m curses.wrapper            C:\Python27\lib\curses\wrapper.py
-m cx_Freeze__init__         C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\cx_Freeze\initscripts\Console.py
+m cx_Freeze__init__         C:\Python27\lib\site-packages\cx_Freeze\initscripts\Console.py
 m datetime                  
 P dateutil                  C:\Python27\lib\site-packages\dateutil\__init__.py
 m dateutil.easter           C:\Python27\lib\site-packages\dateutil\easter.py
@@ -620,8 +621,8 @@ m keyword                   C:\Python27\lib\keyword.py
 m linecache                 
 m locale                    C:\Python27\lib\locale.py
 P logging                   C:\Python27\lib\logging\__init__.py
-m mainwindow                E:\Urban_drainageI_II\2012\GA\inspyred\src\mainwindow.py
-m mainwindow_               E:\Urban_drainageI_II\2012\GA\inspyred\src\mainwindow_.py
+m mainwindow                E:\learn\swmm5ea-repo\swmm5-ea\src\mainwindow.py
+m mainwindow_               E:\learn\swmm5ea-repo\swmm5-ea\src\mainwindow_.py
 m marshal                   
 m math                      
 P matplotlib                C:\Python27\lib\site-packages\matplotlib\__init__.py
@@ -894,8 +895,8 @@ m opcode                    C:\Python27\lib\opcode.py
 m operator                  
 m optparse                  C:\Python27\lib\optparse.py
 m os                        
-m parameters_dialog         E:\Urban_drainageI_II\2012\GA\inspyred\src\parameters_dialog.py
-m parameters_dialog_        E:\Urban_drainageI_II\2012\GA\inspyred\src\parameters_dialog_.py
+m parameters_dialog         E:\learn\swmm5ea-repo\swmm5-ea\src\parameters_dialog.py
+m parameters_dialog_        E:\learn\swmm5ea-repo\swmm5-ea\src\parameters_dialog_.py
 m parser                    
 m pdb                       C:\Python27\lib\pdb.py
 m pickle                    C:\Python27\lib\pickle.py
@@ -915,7 +916,7 @@ P pyflakes                  C:\Python27\lib\site-packages\pyflakes\__init__.py
 m pyflakes.checker          C:\Python27\lib\site-packages\pyflakes\checker.py
 m pyflakes.messages         C:\Python27\lib\site-packages\pyflakes\messages.py
 m pylab                     C:\Python27\lib\site-packages\pylab.py
-m pyratemp                  E:\Urban_drainageI_II\2012\GA\inspyred\src\pyratemp.py
+m pyratemp                  E:\learn\swmm5ea-repo\swmm5-ea\src\pyratemp.py
 m pythoncom                 C:\Windows\system32\pythoncom27.dll
 P pytz                      C:\Python27\lib\site-packages\pytz\__init__.py
 m pytz.exceptions           C:\Python27\lib\site-packages\pytz\exceptions.py
@@ -935,7 +936,7 @@ m quopri
 m random                    C:\Python27\lib\random.py
 m re                        C:\Python27\lib\re.py
 m repr                      
-m res_rc                    E:\Urban_drainageI_II\2012\GA\inspyred\src\res_rc.py
+m res_rc                    E:\learn\swmm5ea-repo\swmm5-ea\src\res_rc.py
 m rfc822                    C:\Python27\lib\rfc822.py
 P scipy                     C:\Python27\lib\site-packages\scipy\__init__.py
 m scipy.__config__          C:\Python27\lib\site-packages\scipy\__config__.py
@@ -1023,7 +1024,6 @@ m shutil                    C:\Python27\lib\shutil.py
 m signal                    
 m sip                       C:\Python27\lib\site-packages\sip.pyd
 m site                      C:\Python27\lib\site.py
-m smtplib                   C:\Python27\lib\smtplib.py
 m socket                    C:\Python27\lib\socket.py
 P spyderlib                 C:\Python27\lib\site-packages\spyderlib\__init__.py
 m spyderlib.baseconfig      C:\Python27\lib\site-packages\spyderlib\baseconfig.py
@@ -1088,19 +1088,20 @@ m stringprep
 m strop                     
 m struct                    
 m subprocess                C:\Python27\lib\subprocess.py
-m swmm5                     E:\Urban_drainageI_II\2012\GA\inspyred\src\swmm5.py
-m swmm5ec                   E:\Urban_drainageI_II\2012\GA\inspyred\src\swmm5ec.py
+m swmm5                     E:\learn\swmm5ea-repo\swmm5-ea\src\swmm5.py
+m swmm5ec                   E:\learn\swmm5ea-repo\swmm5-ea\src\swmm5ec.py
 m swmm5ec__main__           swmm5ec.pyw
-m swmm_ea_controller        E:\Urban_drainageI_II\2012\GA\inspyred\src\swmm_ea_controller.py
-m swmm_ea_temp_data         E:\Urban_drainageI_II\2012\GA\inspyred\src\swmm_ea_temp_data.py
-m swmmeaproject             E:\Urban_drainageI_II\2012\GA\inspyred\src\swmmeaproject.py
-m swmmedit_dialog           E:\Urban_drainageI_II\2012\GA\inspyred\src\swmmedit_dialog.py
-m swmmedit_dialog_          E:\Urban_drainageI_II\2012\GA\inspyred\src\swmmedit_dialog_.py
+m swmm_ea_controller        E:\learn\swmm5ea-repo\swmm5-ea\src\swmm_ea_controller.py
+m swmm_ea_temp_data         E:\learn\swmm5ea-repo\swmm5-ea\src\swmm_ea_temp_data.py
+m swmmeaproject             E:\learn\swmm5ea-repo\swmm5-ea\src\swmmeaproject.py
+m swmmedit_dialog           E:\learn\swmm5ea-repo\swmm5-ea\src\swmmedit_dialog.py
+m swmmedit_dialog_          E:\learn\swmm5ea-repo\swmm5-ea\src\swmmedit_dialog_.py
 m symbol                    C:\Python27\lib\symbol.py
 m symtable                  C:\Python27\lib\symtable.py
 m sys                       
 m sysconfig                 C:\Python27\lib\sysconfig.py
 m tarfile                   C:\Python27\lib\tarfile.py
+m tee_test                  E:\learn\swmm5ea-repo\swmm5-ea\src\tee_test.py
 m tempfile                  C:\Python27\lib\tempfile.py
 m textwrap                  C:\Python27\lib\textwrap.py
 m thread                    
@@ -1147,18 +1148,6 @@ m win32pipe                 C:\Python27\lib\site-packages\win32\win32pipe.pyd
 m win32security             C:\Python27\lib\site-packages\win32\win32security.pyd
 m win32ui                   C:\Python27\lib\site-packages\Pythonwin\win32ui.pyd
 m winerror                  C:\Python27\lib\site-packages\win32\lib\winerror.py
-P wx                        C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\__init__.py
-m wx.__version__            C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\__version__.py
-m wx._controls              C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_controls.py
-m wx._controls_             C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_controls_.pyd
-m wx._core                  C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_core.py
-m wx._core_                 C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_core_.pyd
-m wx._gdi                   C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_gdi.py
-m wx._gdi_                  C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_gdi_.pyd
-m wx._misc                  C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_misc.py
-m wx._misc_                 C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_misc_.pyd
-m wx._windows               C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_windows.py
-m wx._windows_              C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_windows_.pyd
 P xml                       C:\Python27\lib\xml\__init__.py
 P xml.parsers               C:\Python27\lib\xml\parsers\__init__.py
 m xml.parsers.expat         C:\Python27\lib\xml\parsers\expat.py
@@ -1233,6 +1222,7 @@ Missing modules:
 ? queue imported from inspyred.ec.migrators
 ? scipy.io.BytesIO imported from scipy.io.matlab.mio5
 ? win32com.gen_py imported from win32com
+? wx imported from matplotlib.pyplot
 
 copying C:\Python27\lib\site-packages\PIL\_imaging.pyd -> build\exe.win32-2.7\PIL._imaging.pyd
 copying C:\Python27\lib\site-packages\PyQt4\Qsci.pyd -> build\exe.win32-2.7\PyQt4.Qsci.pyd
@@ -1265,7 +1255,7 @@ copying C:\Python27\lib\site-packages\PIL\_imaging.pyd -> build\exe.win32-2.7\_i
 copying C:\Python27\DLLs\_multiprocessing.pyd -> build\exe.win32-2.7\_multiprocessing.pyd
 copying C:\Python27\DLLs\_socket.pyd -> build\exe.win32-2.7\_socket.pyd
 copying C:\Python27\DLLs\_ssl.pyd -> build\exe.win32-2.7\_ssl.pyd
-copying E:\Urban_drainageI_II\2012\GA\inspyred\src\_swmm5.pyd -> build\exe.win32-2.7\_swmm5.pyd
+copying E:\learn\swmm5ea-repo\swmm5-ea\src\_swmm5.pyd -> build\exe.win32-2.7\_swmm5.pyd
 copying C:\Python27\DLLs\_tkinter.pyd -> build\exe.win32-2.7\_tkinter.pyd
 copying C:\Python27\DLLs\tcl85.dll -> build\exe.win32-2.7\tcl85.dll
 copying C:\Python27\DLLs\tk85.dll -> build\exe.win32-2.7\tk85.dll
@@ -1321,17 +1311,6 @@ copying C:\Python27\lib\site-packages\win32\win32pipe.pyd -> build\exe.win32-2.7
 copying C:\Python27\lib\site-packages\win32\win32security.pyd -> build\exe.win32-2.7\win32security.pyd
 copying C:\Python27\lib\site-packages\Pythonwin\win32ui.pyd -> build\exe.win32-2.7\win32ui.pyd
 copying C:\Python27\lib\site-packages\Pythonwin\mfc90.dll -> build\exe.win32-2.7\mfc90.dll
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_controls_.pyd -> build\exe.win32-2.7\wx._controls_.pyd
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Scripts\wxmsw28uh_adv_vc.dll -> build\exe.win32-2.7\wxmsw28uh_adv_vc.dll
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Scripts\wxbase28uh_vc.dll -> build\exe.win32-2.7\wxbase28uh_vc.dll
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Scripts\wxmsw28uh_core_vc.dll -> build\exe.win32-2.7\wxmsw28uh_core_vc.dll
-copying C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.7600.17007_none_72f44f3186198a88\gdiplus.dll -> build\exe.win32-2.7\gdiplus.dll
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_core_.pyd -> build\exe.win32-2.7\wx._core_.pyd
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Scripts\wxbase28uh_net_vc.dll -> build\exe.win32-2.7\wxbase28uh_net_vc.dll
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_gdi_.pyd -> build\exe.win32-2.7\wx._gdi_.pyd
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_misc_.pyd -> build\exe.win32-2.7\wx._misc_.pyd
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Python27\site-packages\wx-2.8-msw-unicode\wx\_windows_.pyd -> build\exe.win32-2.7\wx._windows_.pyd
-copying C:\Users\apa.EDUCATION\AppData\Roaming\Python\Scripts\wxmsw28uh_html_vc.dll -> build\exe.win32-2.7\wxmsw28uh_html_vc.dll
 creating directory build\exe.win32-2.7\tcl\
 copying C:\Python27\tcl\tcl8.5\auto.tcl -> build\exe.win32-2.7\tcl\auto.tcl
 copying C:\Python27\tcl\tcl8.5\clock.tcl -> build\exe.win32-2.7\tcl\clock.tcl

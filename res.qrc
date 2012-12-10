@@ -16,6 +16,7 @@
     <file>res\media_playback_start.png</file>
     <file>res\player_stop.png</file>
     <file>res\project_open.png</file>
+    <file>res\readme.txt</file>
     <file>res\run.png</file>
     <file>res\spreadsheet.png</file>
   </qresource>

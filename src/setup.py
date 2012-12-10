@@ -1,32 +1,27 @@
 import sys
-from cx_Freeze import setup, Executable
+import os
 
-from disthelpers_old import (remove_build_dist, get_default_excludes,
-                         get_default_dll_excludes, create_vs2008_data_files,
-                         add_modules)
+sys.path.append(".."+os.sep+os.sep+"service")
 
-# Removing old build/dist folders
-remove_build_dist()
+"""Create a stand-alone executable"""
 
-# Including/excluding DLLs and Python modules
-EXCLUDES = get_default_excludes()
-INCLUDES = []
-DLL_EXCLUDES = get_default_dll_excludes()
-DATA_FILES = create_vs2008_data_files()
+try:
+    from guidata.disthelpers import Distribution
+except ImportError:
+    raise ImportError, "This script requires guidata 1.4+"
 
-# Configuring/including Python modules
-add_modules(('PyQt4', 'guidata', 'guiqwt'), DATA_FILES, INCLUDES, EXCLUDES)
+import swmm_ea_controller as sc
 
-from cx_Freeze import setup, Executable
- 
-exe = Executable(
-    script="swmm5ec.pyw",
-    base="Win32GUI",
-    )
- 
-setup(
-    name = "wxSampleApp",
-    version = "0.1",
-    description = "An example wxPython script",
-    executables = [exe]
-    )
+def create_executable():
+    """Build executable using ``guidata.disthelpers``"""
+    dist = Distribution()
+    dist.setup(name=sc.NAME, version=sc.VERSION,
+               description=sc.DESCRIPTION,
+               script="swmm5ec_.pyw", target_name="swmm5ec.exe") #, icon="swmm5ec.ico")
+    dist.add_modules('guidata', 'guiqwt')
+    # Building executable
+    dist.build('cx_Freeze')
+
+
+if __name__ == '__main__':
+    create_executable()

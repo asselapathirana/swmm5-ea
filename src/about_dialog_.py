@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'about_dialog_.ui'
+# Form implementation generated from reading ui file 'qt\\about_dialog_.ui'
 #
-# Created: Fri Nov 30 13:27:38 2012
+# Created: Mon Dec 10 19:54:00 2012
 #      by: PyQt4 UI code generator 4.8.1
 #
 # WARNING! All changes made in this file will be lost!

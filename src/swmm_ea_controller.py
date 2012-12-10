@@ -9,6 +9,14 @@ import swmmeaproject
 from guiqwt.builder import make
 #from guiqwt import QwtPlot
 
+# program metadata
+
+NAME=u"SWMM5 EC"
+VERSION="0.8.0.0"
+DESCRIPTION=u"SWMM5-EA"
+
+
+
 RUN_STATUS_TOBEINITED=0
 RUN_STATUS_INITED=1
 RUN_STATUS_RUNNING=2
@@ -288,7 +296,6 @@ class swmmeacontroller():
     
 if __name__ == "__main__":
     import sys
-    
     sc=swmmeacontroller()
     sys.exit(sc.show())
         
