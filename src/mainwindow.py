@@ -191,7 +191,7 @@ mainwindow_.Ui_SWMM5EA):
         if(fileName):
             self.controller.LoadProject(str(self.qt_fix_path(fileName))) 
             self.controller.settings.setValue("lastprojectloc",fileName)
-
+        
 
     #actionHelp_About
     @QtCore.pyqtSignature("")

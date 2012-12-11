@@ -285,6 +285,8 @@ class swmmeacontroller():
                 reply = QtGui.QMessageBox.warning(self.ui, "Save failed","Saving the project to :"+path+" failed.",
                                                   QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)  
                 return False
+        else:
+            self.project.save()
 
 
     def ups(self):

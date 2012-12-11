@@ -61,7 +61,7 @@ class Project():
         parameters.templatefile=self.slotted_swmmfilename
         #parameters.gnuplot = "E:\\Urban_drainageI_II\\2012\GA\\inspyred\gnuplot\\pgnuplot.exe" 
         #parameters.gnuplotscript = "plotfile.plt" # search in datadirectory
-        parameters.gnuplotdata = "data.dat" # search in datadirectory
+        #parameters.gnuplotdata = "data.dat" # search in datadirectory
         self.swmm5ec=swmm5ec.SwmmEA()
         self.swmm5ec.setParams(parameters)
 
@@ -156,10 +156,16 @@ class Project():
         self.parameters=parameters_class_()
         try:
             import yaml
-            dataMap = yaml.load(f)            
+            dataMap = yaml.load(f)  
             f.close()
-            for key in dataMap :
-                setattr(self.parameters, key, dataMap[key])
+            #if the yaml file has the header !!python/object:swmmeaproject.parameters_class_
+            # yaml.load will load the object directly. 
+            # if not loads a dictionary
+            if(dataMap.__class__.__name__==self.parameters.__class__.__name__):
+                self.parameters=dataMap
+            else:
+                for key in dataMap :
+                    setattr(self.parameters, key, dataMap[key])
         except: 
             print "Problem reading parameters ",  sys.exc_info()
             return None
@@ -167,6 +173,16 @@ class Project():
 
 
 
+    def remove_temp_vars(self,params):
+        """ removes the temporary parameters in params object """
+        from  copy  import deepcopy
+        p=deepcopy(params)
+        for item in [ "bestlist", "linestring",  "projectdirectory",  "resultsdirectory", "templatefile", "datadirectory" ]: 
+            try: 
+                delattr(p,item)
+            except: 
+                pass
+        return p
 
     def save(self):
 
@@ -178,8 +194,8 @@ class Project():
             print self.swmmfilename + " saved."
         f=open(self.dirname+os.sep+self.paramfilename,'w')
         import yaml
-        f.write("#Written programmetically!")
-        d=yaml.dump(self.parameters,f)
+        f.write("#Written programmetically!\n")
+        d=yaml.dump(self.remove_temp_vars(self.parameters),f)
         f.close()
 
         print self.paramfilename + " saved."
