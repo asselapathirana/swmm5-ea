@@ -27,9 +27,6 @@ proj.file-list = [loc('../prep.py'),
                   loc('../readme.txt'),
                   loc('../service/action_slots.bash'),
                   loc('../src/about_dialog_.py'),
-                  loc('../src/buil2.bat'),
-                  loc('../src/build.bat'),
-                  loc('../src/build_with_cx_freeze.py'),
                   loc('../src/curve.py'),
                   loc('../src/mainwindow.py'),
                   loc('../src/mainwindow_.py'),
@@ -46,4 +43,4 @@ proj.file-list = [loc('../prep.py'),
                   loc('../src/swmm_ea_controller.py'),
                   loc('../src/swmm_ea_temp_data.py')]
 proj.file-type = 'shared'
-proj.main-file = loc('../src/setup.py')
+proj.main-file = loc('../src/swmm_ea_controller.py')
