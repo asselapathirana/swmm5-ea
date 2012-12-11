@@ -19,10 +19,8 @@ _ui2py("parameters_dialog_")
 _ui2py("swmmedit_dialog_")
 _ui2py("about_dialog_")
 
-#_call(PYUIC+" -o src/res_rc.py res.qrc")
-#_call (PYUIC+" "+nativepath(qt/mainwindow_.ui) -o src/mainwindow_.py")
-#_call (PYUIC+"  qt/parameters_dialog_.ui -o src/parameters_dialog_.py")
-#_call (PYUIC+"  qt/swmmedit_dialog_.ui -o src/swmmedit_dialog_.py")
-#_call (PYUIC+"  qt/about_dialog_.ui -o src/about_dialog_.py")
+# forget files listed in .hgignore
+_call('hg forget "set:hgignore() and not ignored()" ')
+
 
 
