@@ -1,0 +1,13 @@
+This software uses a number of modules that can not be installed by pip. If using virtual env (which is recommended when developing, and can be used even for running) 
+
+make sure that following list of modules are installed. 
+guidata=1.5.1
+guiqwt=2.2.1
+inspyred=1.0
+numpy=1.6.2
+PyQT=4.8.1 (installs sip too, but see below)
+yaml=3.10
+sip=4.11.2 (if manually copying sip.pyd/so has to be copied to sie-packages root in addition to PyQT installation)
+swmm5 (this is included in the source tree, so no need to install seperately)
+
+(Do not rely on pip freeze. It does not list manually copied modules)
