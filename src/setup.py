@@ -17,7 +17,8 @@ def create_executable():
     dist = Distribution()
     dist.setup(name=sc.NAME, version=sc.VERSION,
                description=sc.DESCRIPTION,
-               script="swmm5ec_.pyw", target_name="swmm5ec.exe") #, icon="swmm5ec.ico")
+               script="swmm5ec_.pyw", target_name="swmm5ec.exe", 
+    icon="../res/DNA.ico")
     dist.add_modules('guidata', 'guiqwt')
     # Building executable
     dist.build('cx_Freeze')

@@ -40,7 +40,7 @@ class swmmeacontroller():
 
         self.app = QtGui.QApplication(sys.argv)
         self.ui = mainwindow.MainWindow(self)
-        self.ui.setWindowIcon(QtGui.QIcon(':/res/res/logo.svg'))
+        self.ui.setWindowIcon(QtGui.QIcon(':/res/res/DNA.ico'))
         self.project=None
         self.run_status=RUN_STATUS_TOBEINITED
         
