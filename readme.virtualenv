@@ -1,4 +1,4 @@
-This software uses a number of modules that can not be installed by pip. If using virtual env (which is recommended when developing, and can be used even for running) 
+1. This software uses a number of modules that can not be installed by pip. If using virtual env (which is recommended when developing, and can be used even for running) 
 
 make sure that following list of modules are installed. 
 guidata=1.5.1
@@ -11,3 +11,11 @@ sip=4.11.2 (if manually copying sip.pyd/so has to be copied to sie-packages root
 swmm5 (this is included in the source tree, so no need to install seperately)
 
 (Do not rely on pip freeze. It does not list manually copied modules)
+
+2. When building exe using cx_freeze (setup.py), it is not possible to use virtualenv. As far as I could find, the reason (at least one of the) is
+
+I use distutils.dir_utils.copytree in the program. Virtualenv does not support freezing this? 
+One way to try to avoid this is not to use copytree for distutils. 
+
+Until then 
+1. In the dos prompt build using python setup.py (making sure no virtualenv is used)

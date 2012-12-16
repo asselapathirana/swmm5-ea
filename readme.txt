@@ -11,3 +11,7 @@ Building Stand-alone executable
 ** when using cx_freeze (or any other freezing utility,) freeze_support calling at the top level is essential for sane operation of frozen code. 
 (This is done in swmm5ec_.pyw
 
+** VERSIONS etc: All information is kept central in swmm_ea_controller.py
+** innosetup: setup.py will write the install.iss file, which can directly be compiled with innosetup. 
+
+

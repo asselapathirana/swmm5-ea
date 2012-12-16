@@ -14,6 +14,10 @@ from guiqwt.builder import make
 NAME=u"SWMM5 EC"
 VERSION="0.8.0.0"
 DESCRIPTION=u"SWMM5-EA"
+LICENSE=u"GNU General Public License version 3"
+PUBLISHER=u"Assela Pathirana"
+URL="http://assela.pathirana.net/SWMM5_EA"
+TARGET="swmm5ec.exe"
 
 
 
