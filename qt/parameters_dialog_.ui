@@ -389,36 +389,18 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_8">
          <item row="0" column="1">
-          <widget class="QSpinBox" name="swmmp_1">
-           <property name="value">
-            <number>3</number>
-           </property>
-          </widget>
+          <widget class="QComboBox" name="swmmp_1"/>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>SWM&amp;M Param</string>
+            <string>SWM&amp;M Parameter</string>
            </property>
            <property name="buddy">
             <cstring>swmmp_1</cstring>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="1">
-        <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="0">
-          <widget class="QSpinBox" name="swmmp_2"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="swmmp_3">
-           <property name="value">
-            <number>10</number>
            </property>
           </widget>
          </item>
@@ -429,22 +411,11 @@
     </item>
    </layout>
   </widget>
-  <zorder>buttonBox</zorder>
-  <zorder>frame_2</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>swmmp_1</zorder>
-  <zorder>swmmp_2</zorder>
-  <zorder>swmmp_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label_4</zorder>
  </widget>
  <tabstops>
   <tabstop>num_inputs</tabstop>
   <tabstop>maximize</tabstop>
   <tabstop>minimize_button</tabstop>
-  <tabstop>swmmp_1</tabstop>
-  <tabstop>swmmp_2</tabstop>
-  <tabstop>swmmp_3</tabstop>
   <tabstop>pop_size</tabstop>
   <tabstop>num_elites</tabstop>
   <tabstop>Crossover_rate</tabstop>

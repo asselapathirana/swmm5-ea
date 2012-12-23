@@ -6,6 +6,9 @@ import sys
 import StringIO
 import swmm5ec
 import guiqwt
+import swmmout
+import swmm5 as sw
+import swmm_ea_controller
 from PyQt4 import QtCore
 
 
@@ -24,14 +27,35 @@ class parameters_class_(object):
 
 
 class Project():
-
-
-
+    
     paramfilename="param.yaml"
     LOAD_NOSWMMFILE=2
     LOAD_COMPLETE=1
     outdir="output"
-    tmpdir="tmp"
+    tmpdir="tmp"    
+
+    def __init__(self, dirname=None, swmmfilename=None):
+        self.setSwmmfile(None)
+        self.ids=None
+        self.times=None
+        if dirname:
+            self.dirname=dirname
+            self.load(dirname,swmmfilename)
+        else:
+            self.dirname=tempfile.mkdtemp(prefix="swmm-ea-project", suffix="dir")
+            if swmmfilename:
+                self.setSwmmfile(swmmfilename)
+            else:
+                self.setSwmmfile("swmm.inp")
+            data=swmm_ea_temp_data.data()
+            paramfile=data.paramfile
+            self.string_to_param(paramfile)
+            self.swmm_data=data.swmmfile
+            self.setSwmmfile(data.swmmfilename)
+            self.save()   
+        self.slotted_swmmfilename=None
+
+
 
 
     def pause_optimization(self,state):
@@ -43,7 +67,91 @@ class Project():
 
     def run_optimization(self):
         self.swmm5ec.start()
+    
+    def get_ids(self):
+        if not self.ids:
+            self.get_swmm_ids_times()
+        return self.ids
+        
+    def setSwmmfile(slf, swmmfile=None):
+        self.swmmfile=None
+        self.ids=[] # reset the ids now next time the swmm file has to be run and ides extracted. 
+    
+         
+    def get_swmm_ids_times(self):
+        # first run swmm
+        sp=self.dirname+os.sep+self.swmmfilename
+        binfile=sp[:-3]+"bin"
+        rptfile=sp[:-3]+"rpt"  
+        print "Attempting to run swmm ..."    
+        t=ThreadRun(sw.RunSwmmDll,sp,rptfile,binfile)  
+        t.start()
+        t.join()
+        ret=t.ret
+        if(ret>0):
+            print ret, "Error!" #sw.ENgeterror(e,25) 
+            return None
+    
+        print "Success"
+        f = swmmout.open(binfile)
+        
+        types=['subcatchments', 'nodes', 'links', 'system']
+        ids={}
+        times=[]
+        for item in types:
+            v=f.get_values(item)
+            ids[item]=map( lambda x: x[0], v[0][1:])
+            times=map( lambda x: x[0],v)
+        self.ids=ids
+        self.times=times
+        
+    def readCalibFile(self):
+        try: 
+            with open(self.parameters.calfile,'r') as f:
+                lines = f.read().splitlines()   
+            lines=[s.strip() for s in lines if not s.strip()[0]==';']
+            if not lines[0]==self.parameters.calid[1]:
+                print "Problem: The id specified on calibration file, ", lines[0], " is different from ", self.parameters.calid[1]
+                raise
+            if not lines[1]==lines[1]:
+                print "Problem: The variable type specified in file , ", lines[1], " is different from ", self.parameters.caltype[2]
+                raise 
+            id_=lines[0]
+            type_=lines[1]
+            lines=map(lambda x: float(x), lines[2:])
+            if not len(lines)== len(self.times):
+                print "problem: the length of data in the file, ", len(lines), " is different from expected: ", len(self.times)
+                raise
+            
+            
+        except: 
+            print "Problem reading calibration file: ", self.parameters.calfile
+            return None
+        # now write a calibration file for swmm
+        datf=self.parameters.calfile+".DAT"
+        try:
+            l=[self.times,lines]
+            data=map(list,zip(*l))
 
+            with open(datf,'w') as f:
+                f.write("; Written by "+os.path.basename(__file__)+"\n")
+                f.write(";"+self.parameters.caltype[2]+"\n")
+                f.write(self.parameters.calid[1]+"\n")
+
+                for time,value in data:
+                    f.write(time.strftime('\t%m/%d/%Y\t%H:%M') + "\t" + str(value) + "\n")
+            # now write a small ini file to be used as a template for all resulting inp files (Best_of_gen_xyz.inp)
+            inif=self.parameters.projectdirectory+os.sep+"TEMPLATE.INI"
+            with open(inif,'w') as f:
+                f.write("[Calibration]\nFile%i=%s\n" %(self.parameters.caltype[0]+1, datf))
+            self.parameters.calINITEMPLATE=inif
+        except:
+            print "Problem writing calibration file for swmm: ", datf
+            return None            
+                
+        return lines    
+            
+            
 
     def initialize_optimization(self):
         print "Initializing the optimization ..."
@@ -59,33 +167,19 @@ class Project():
         parameters.resultsdirectory= "output"        
         parameters.projectdirectory=self.dirname
         parameters.templatefile=self.slotted_swmmfilename
-        #parameters.gnuplot = "E:\\Urban_drainageI_II\\2012\GA\\inspyred\gnuplot\\pgnuplot.exe" 
-        #parameters.gnuplotscript = "plotfile.plt" # search in datadirectory
-        #parameters.gnuplotdata = "data.dat" # search in datadirectory
+        if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
+            parameters.calibdata=self.readCalibFile()
+            parameters.swmmResultCodes=[parameters.caltype[1][0], parameters.calid[0],parameters.caltype[1][1]]
+            if not parameters.calibdata: 
+                return False
         self.swmm5ec=swmm5ec.SwmmEA()
         self.swmm5ec.setParams(parameters)
+        self.swmm5ec.initialize()
+        return True
 
 
 
-    def __init__(self, dirname=None, swmmfilename=None):
-        self.swmmfilename=None
 
-        if dirname:
-            self.dirname=dirname
-            self.load(dirname,swmmfilename)
-        else:
-            self.dirname=tempfile.mkdtemp(prefix="swmm-ea-project", suffix="dir")
-            if swmmfilename:
-                self.swmmfilename=swmmfilename
-            else:
-                self.swmmfilename="swmm.inp"
-            data=swmm_ea_temp_data.data()
-            paramfile=data.paramfile
-            self.string_to_param(paramfile)
-            self.swmm_data=data.swmmfile
-            self.swmmfilename=data.swmmfilename
-            self.save()   
-        self.slotted_swmmfilename=None
 
     def write_slotted_swmm_file(self, full_fname, text):
         f=open(full_fname,'w')
@@ -95,12 +189,12 @@ class Project():
 
     def setswmmfile(self,swmmfilename):
     # Sets the swmm file swmmfilename that is in the project directory as the current one and Loads it. 
-        self.swmmfilename=swmmfilename
+        self.setSwmmfile(swmmfilename)
         try:
             self.read_in_swmm_file()
             return True
         except: 
-            self.swmmfilename=None
+            self.setSwmmfile(None)
             return False
 
     def getSlottedData(self):
@@ -126,16 +220,17 @@ class Project():
         flag=self.string_to_param(f.read())
         if not flag: 
             print "Problem opening and loading : "
+        
         f.close() 
         if not swmmfilename:
             import glob
             try:
-                self.swmmfilename=os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0])
+                self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
             except:
                 print "problem: no swmm files in the directory."
                 return self.LOAD_NOSWMMFILE
         else:
-            self.swmmfilename=swmmfilename
+            self.setSwmmfile(swmmfilename)
         self.read_in_swmm_file()
         return self.LOAD_COMPLETE
 
@@ -154,6 +249,8 @@ class Project():
 
         f=StringIO.StringIO(string)
         self.parameters=parameters_class_()
+        # now add the parameter to ensure compatibility with old version
+        self.parameters.swmmouttype=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]# default
         try:
             import yaml
             dataMap = yaml.load(f)  
@@ -223,6 +320,17 @@ class Project():
             if os.path.exists(out):
                 os.remove(out)
             os.mkdir(out)
+            import threading
+
+import threading           
+class ThreadRun(threading.Thread):
+    def __init__(self, target, *args):
+        self._target = target
+        self._args = args
+        threading.Thread.__init__(self)
+ 
+    def run(self):
+        self.ret=self._target(*self._args)
 
 if __name__ == "__main__":
     pr=Project()

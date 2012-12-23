@@ -11,13 +11,14 @@ from guiqwt.builder import make
 
 # program metadata
 
-NAME=u"SWMM5 EC"
+NAME=u"SWMM5_EA" # do not have spaces !!
 VERSION="0.8.0.0"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"GNU General Public License version 3"
 PUBLISHER=u"Assela Pathirana"
 URL="http://assela.pathirana.net/SWMM5_EA"
 TARGET="swmm5ec.exe"
+SETUPNAME=NAME+"-"+VERSION
 
 
 
@@ -25,6 +26,50 @@ RUN_STATUS_TOBEINITED=0
 RUN_STATUS_INITED=1
 RUN_STATUS_RUNNING=2
 RUN_STATUS_PAUSED=3
+
+#
+SWMMREULTSTYPE_FLOOD=0
+SWMMREULTSTYPE_CALIB=1
+SWMMCHOICES= [
+     'Flood Volume',
+     'Calibration var.'
+    ] 
+SWMMCALIBRATIONTYPES=[# this should match with SWMMVARTYPES
+    "Subcatchment Runoff",
+    "Subcatchment Groundwater Flow", 
+    "Subcatchment Groundwater Elevation", 
+    "Subcatchment Snow Pack Depth", 
+    "Subcatchment Pollutant Washoff (pollutant 1)", 
+    "Node Depth", 
+    "Node Lateral Inflow", 
+    "Node Flooding", 
+    "Node Water Quality (pollutant 1)", 
+    "Link Flow", 
+    "Link Velocity", 
+    "Link Depth"]
+SWMMCALIBRATIONTYPES2=[# this should match with above and below
+     'subcatchments',
+     'subcatchments',
+     'subcatchments',
+     'subcatchments',
+     'subcatchments',
+     'nodes',
+     'nodes',
+     'nodes',
+     'nodes',
+     'links',
+     'links'
+     'links'] 
+SWMMVARTYPES=[ # refer to swmm5 interfacing guide. This should match with SWMMCALIBRATIONTYPES
+    [0,3],[0,4],[0,5],[0,6],
+    [1,0],[1,3],[1,5],[1,6],
+    [2,0],[2,2],[2,1] 
+    ]    
+
+
+# make sure the indexes match the values above
+
+
 
 class EmittingStream(QtCore.QObject):
 
@@ -93,7 +138,8 @@ class swmmeacontroller():
         self.ui.normalOutputWritten(msg)
 
     def initialize_optimization(self):
-        self.project.initialize_optimization()
+        if(not self.project.initialize_optimization()):
+            return False
         QtCore.QObject.connect(self.project.swmm5ec,QtCore.SIGNAL("nextGeneration(PyQt_PyObject)"),self.plot_next)
         QtCore.QObject.connect(self.project.swmm5ec,QtCore.SIGNAL('message(QString)'),self.show_message)        
         self.resultslist=[[],[]]
@@ -102,6 +148,7 @@ class swmmeacontroller():
         #QObject.connect(self.testThread, SIGNAL("testFinished(PyQt_PyObject)"), self.testFinishedFromThread)
         self.run_status=RUN_STATUS_INITED
         self.ups()
+        return True
         
     def plot_next(self, data):
         #from numpy import linspace, sin
@@ -250,7 +297,7 @@ class swmmeacontroller():
                        QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 if not  reply == QtGui.QMessageBox.Yes:
                     return
-            print "coping file: " + swmmfile + " to "+newname + "."
+            print "copying file: " + swmmfile + " to "+newname + "."
             shutil.copyfile(swmmfile,newname)
         if(self.project.setswmmfile(base)):
             reply = QtGui.QMessageBox.information(self.ui, 'swmmfile :'+base,

@@ -15,7 +15,10 @@ import inspyred
 #from subprocess import Popen,PIPE  
 import math
 import sys
+import shutil
 import traceback
+import swmmout
+import swmm_ea_controller
 from PyQt4 import QtCore, QtGui
 
 import swmm5 as sw
@@ -55,17 +58,23 @@ def getFitness(fillers, linestring,parameters):
         except:
             os.mkdir(dir)    
 
-        flood = swmmFlood(scaled, linestring, filename,parameters)
+        cost = swmmCost(scaled, linestring, filename,parameters)
         #print "\tFlood : ", flood, sum(map(lambda fil: fil,scaled))
+        if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
+	    import pyratemp
+	    costf=pyratemp.Template("@!"+parameters.cost_function+"!@")
+	    pp=parse_parameters(scale(fillers,parameters))
+	    cost1=float(costf(**(pp)))
+	    costf=pyratemp.Template("@!"+parameters.swmmout_cost_function+"!@")
+	    pp={"f": cost}
+	    cost2=float(costf(**(pp)))
+	    fitness=cost1+cost2
+	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
+	    fitness=cost
+	else:
+	    print "I don't know the calculation type!"
+	    raise	
 
-        import pyratemp
-        costf=pyratemp.Template("@!"+parameters.cost_function+"!@")
-        pp=parse_parameters(scale(fillers,parameters))
-        cost1=float(costf(**(pp)))
-        costf=pyratemp.Template("@!"+parameters.swmmout_cost_function+"!@")
-        pp={"f": flood}
-        cost2=float(costf(**(pp)))
-        fitness=cost1+cost2
         
     except:
         
@@ -86,7 +95,7 @@ def scale(fillers,parameters):
     f=numpy.array(fillers)
     p=numpy.array(parameters.valuerange).T
     try:
-        s=p[0]+(p[1]-p[0])*(f+1)
+        s=p[0]+(p[1]-p[0])*(f+1)/2.0
         #print p[0], p[1], f
     except:
         print "\nProblem scaling with valuerange array. Check it !"
@@ -97,7 +106,7 @@ def scale(fillers,parameters):
         sys.exit()
     return s
 
-def swmmFlood(fillers, linestring, outfile,parameters):
+def swmmCost(fillers, linestring, outfile,parameters):
     swmmWrite(fillers, linestring, outfile)
     binfile=outfile[:-3]+"bin"
     rptfile=outfile[:-3]+"rpt"
@@ -108,22 +117,41 @@ def swmmFlood(fillers, linestring, outfile,parameters):
 def swmmRun(swmminputfile, rptfile, binfile,parameters):
     ret=sw.RunSwmmDll(swmminputfile,rptfile,binfile)
     err(ret)
+    # rewrite the following with swmmout package. 
     err(sw.OpenSwmmOutFile(binfile))
     results=[]
     t=0.0
-    flood=0.0
+    cost=0.0
     for i in range(sw.cvar.SWMM_Nperiods):
         ret,z=sw.GetSwmmResult(parameters.swmmResultCodes[0], parameters.swmmResultCodes[1],parameters.swmmResultCodes[2], i)
+	#err(ret)
         t+=sw.cvar.SWMM_ReportStep
-        flood+=z*sw.cvar.SWMM_ReportStep
+        if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
+	    cost+=z*sw.cvar.SWMM_ReportStep
+	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
+	    cost+=math.sqrt(math.pow(z-parameters.calibdata[i],2))
+	else:
+	    print "I don't know the calculation type! (", parameters.swmmouttype, ")."
+	    raise
+	#if(i==90):
+	    #print z, parameters.calibdata[90]
     sw.CloseSwmmOutFile()
-    return flood
+    return cost
 
 def deleteSWMMfiles(swmminputfile, rptfile, binfile):
     import os
-    os.unlink(swmminputfile)
-    os.unlink(rptfile)
-    os.unlink(binfile)
+    try:
+	os.unlink(swmminputfile)
+    except:
+	pass
+    try:
+	os.unlink(rptfile)
+    except:
+	pass
+    try:
+	os.unlink(binfile)
+    except: 
+	pass
 
 def swmmWrite(fillers, linestring, outfile):
 
@@ -204,7 +232,9 @@ class SwmmEA(QtCore.QThread):
         rptfile =(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".rpt"
         p=best.candidate[0:parameters.num_inputs] # this is essential when handling evolution strategy in inspyred (due to double internal length of the array)
         swmmWrite(scale(p,parameters),linestring,swmmfile)
-        #flood=swmmRun(swmmfile,rptfile,binfile)
+        if self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_CALIB:	
+	    # if calibration write a small ini file with calibration data file name in it. 
+	    shutil.copy2(self.parameters.calINITEMPLATE, swmmfile[:-3]+"ini")
         strb=map(lambda s: "{0:.3e}".format(s),scale(p,parameters))
         print '\nBest fitness %(fit).3e for values %(ind)s ' % {"fit": best.fitness,"ind": strb}
 	while(self.paused):
@@ -228,75 +258,7 @@ class SwmmEA(QtCore.QThread):
             # otherwise this thread will starve the gui thread. However, when multiprocessing, python multiprocessing module will take care of this?
             self.msleep(500)
         
-        """       
-       
-        #parameters.bestlist[1].append(popn[-1].fitness)
-        #parameters.bestlist[2].append(popn[-2].fitness)
-        #parameters.bestlist[3].append(popn[-3].fitness)
-        #parameters.bestlist[4].append(popn[0].fitness)
-        #plt.ion()
-
-        #plt.plot(num_generations,soln.fitness,'ro')
-        #plt.plot(num_generations,psln.fitness,'bo')
-        l=int(len(parameters.bestlist[0])/2)
-        lim=[ min(parameters.bestlist[0][l:])-1,
-              max(parameters.bestlist[0][l:])+1,
-              min(parameters.bestlist[1][l:])*.5,
-              max(parameters.bestlist[3][l:])*1.5
-              ]    
-        ##plt.axis(lim)
-        #gps=parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+parameters.gnuplotscript
-        #gf=open(gps,"w")
-        #gpd=parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+parameters.gnuplotdata
-        #gd=open(gpd,"w")
-
-        ##gf.write(b"# set terminal pngcairo  transparent enhanced font \"arial,10\" fontscale 1.0 size 660, 320 ")
-        ##gf.write(b"# set output 'finance.1.png'")
-        #gf.write(b"set key top left\n")
-        #gf.write(b"set key box\n")
-
-        #gf.write(b"set terminal windows\n")
-        #gf.write(b"set ytics  norangelimit\n")
-        #gf.write(b"#set ytics   (80.0000, 85.0000, 90.0000, 95.0000, 100.000, 105.000)")
-        #gf.write(b"set title \"Demo of plotting financial data\n")
-        #gf.write(b"set xrange [ %(x1)d : %(x2)d ] noreverse nowriteback\n\
-                 #set yrange [ %(y1)d : %(y2)d ] noreverse nowriteback\n"
-                 #% { "x1": lim[0], "x2" : lim[1], "y1" : lim[2], "y2" : lim[3] })
-        #gf.write(b"set lmargin  9\n")
-        #gf.write(b"set rmargin  2\n")
-        #gf.write(b"set style line 1 lt 1 lw 2 pt 1 linecolor rgb \"red\"\n")
-        #gf.write(b"set style line 2 lt 1 lw 1 pt 2 linecolor rgb \"blue\"\n")
-        #gf.write(b"set style line 3 lt 1 lw 1 pt 3 linecolor rgb \"green\"\n")
-        #gf.write(b"set style line 4 lt 1 lw 2 pt 4 linecolor rgb \"black\"\n")
-        #gf.write(b"set style line 5 lt .5 lw .5 pt 5 linecolor rgb \"gray\"\n")
-        #gf.write(b"plot ")
-        #for i in range(5,parameters.pop_size):
-            #gf.write(b" '%(dat)s' using  1:%(col)i title \"\" with points ls 5," %{ "dat": gpd, "col": i })
-        #gf.write(b" '%(dat)s' using  1:2 title \"Best\" with linespoints ls 1," %{ "dat": gpd })
-        #gf.write(b" '%(dat)s' using  1:3 title \"2nd Best\" with linespoints ls 2," %{ "dat": gpd })
-        #gf.write(b" '%(dat)s' using  1:4 title \"3rd Best\" with linespoints ls 3," %{ "dat": gpd })    
-        #gf.write(b" '%(dat)s' using  1:5 title \"Worst\" with linespoints ls 4" %{ "dat": gpd })
-        #gf.write(b"\n")  
-
-
-        for i in range(len(parameters.bestlist[0])):
-            gd.write(str(parameters.bestlist[0][i])+"\t" +
-                     str(parameters.bestlist[1][i])+"\t" +
-                     str(parameters.bestlist[2][i])+"\t" +
-                     str(parameters.bestlist[3][i])+"\t" +
-                     str(parameters.bestlist[-1][i])+"\t"
-                     )
-            for j in range(5,parameters.pop_size+1):
-                gd.write(str(parameters.bestlist[j][i])+"\t")
-            gd.write("\n");
-
-        #gf.close()
-        #gd.close()    
-
-        #self.plot.stdin.write(b"load \'%(gnu)s\'\n" % {"gnu" : gps})
-        #self.plot.stdin.flush()
-        #
-        """
+      
     def stop(self):
 	with QtCore.QMutexLocker(self.mutex):
 	    self.stopped    = True
@@ -333,6 +295,10 @@ class SwmmEA(QtCore.QThread):
         self.parameters=parameters
         self.display=display
         self.prng=prng
+	
+    def initialize(self):
+	# check the simulation type. If it is a one of calibration, 
+	pass
 
     def run(self):
         #self.plot=Popen([self.parameters.gnuplot,'-persist'],stdin=PIPE,stdout=PIPE,stderr=PIPE, shell=False)          
@@ -409,25 +375,7 @@ class SwmmEA(QtCore.QThread):
                                  num_elites =parameters.num_elites
                                  )
 
-
-        if display:
-            #   plt.figure()
-            #   best = max(final_pop)
-            #   
-            #   
-            #   inspyred.ec.analysis.allele_plot(u"indis.csv")
-            #   
-            #   plt.show()
-            #   
-            #   plt.figure()
-            #   plt.yscale("log")
-            #   inspyred.ec.analysis.generation_plot(u"stats.csv");          
-            #  #plt.xlim(xmin=)
-            #   plt.ioff()
-            #   plt.show()        
-            #   #plt.savefig(u"generations.png")
-            #   #sleep(10)
-            pass
+	self.stopped    = True
         return my_ec
 
 

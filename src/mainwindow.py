@@ -28,6 +28,7 @@ mainwindow_.Ui_SWMM5EA):
         self.status3=QtGui.QLabel()
         self.statusBar().addWidget(self.status3,5)  
 
+        
     def addguiqwtToolbar_and_context_menu(self):
         toolbar=self.addToolBar("Graph Tools")
         self.curve.add_toolbar(toolbar, "default")
@@ -129,10 +130,20 @@ mainwindow_.Ui_SWMM5EA):
     @QtCore.pyqtSignature("")
     def on_action_Insert_Slots_triggered(self,checed=None):
         if(self.controller.project.swmmfilename):
-            self.slot_dialog_ui = swmmedit_dialog.Ui_swmmedit_dialog(text=self.controller.get_slotted_data())
+            tx=self.controller.get_slotted_data()
+            ids=self.controller.project.get_ids()
+            if not ids:
+                print "Problem retriving ids of objects. Check SWMM file."
+                return
+            self.slot_dialog_ui = swmmedit_dialog.Ui_swmmedit_dialog(self.controller, ids, text=tx)
             self.slot_dialog_ui.show()
             if QtGui.QDialog.Accepted==self.slot_dialog_ui.exec_():
                 self.controller.saveSlottedSwmmfile(self.slot_dialog_ui.text)
+                self.controller.project.parameters.calfile=self.slot_dialog_ui.calfile_
+                self.controller.project.parameters.caltype=self.slot_dialog_ui.caltype_
+                self.controller.project.parameters.calid=self.slot_dialog_ui.calid_
+                self.controller.saveproject()
+                
 
     #action_Load_SWMM_File
     @QtCore.pyqtSignature("")

@@ -25,6 +25,7 @@ proj.directory-list = [{'dirloc': loc('../examples'),
                         'watch_for_changes': True}]
 proj.file-list = [loc('../prep.py'),
                   loc('../readme.txt'),
+                  loc('../readme.virtualenv'),
                   loc('../service/action_slots.bash'),
                   loc('../src/about_dialog_.py'),
                   loc('../src/curve.py'),
@@ -42,6 +43,7 @@ proj.file-list = [loc('../prep.py'),
                   loc('../src/swmmeaproject.py'),
                   loc('../src/swmmedit_dialog.py'),
                   loc('../src/swmmedit_dialog_.py'),
+                  loc('../src/swmmout.py'),
                   loc('../src/swmm_ea_controller.py'),
                   loc('../src/swmm_ea_temp_data.py')]
 proj.file-type = 'shared'

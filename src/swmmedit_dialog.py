@@ -2,23 +2,76 @@ from PyQt4 import QtCore, QtGui
 import guiqwt.plot
 
 import swmmedit_dialog_
+import swmm_ea_controller
 
 class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
 
 
-     def __init__(self, text=None):
-            super(QtGui.QDialog, self).__init__() # because of multiple inheritance, here we call the __init__ of  QtGui.QDialog
+     def __init__(self, controller, ids=None, text=None):
+          super(QtGui.QDialog, self).__init__() # because of multiple inheritance, here we call the __init__ of  QtGui.QDialog
                     #first        
-            self.setupUi(self)
-            if(text):
-                 self.editor.insertPlainText(text)
-            self.highlighter=highlighter(self.editor)
-            self.highlighter2=highlighter(self.slotdisplay)
-            self.text=text
-            self.gototop(True)
-            self.on_update_clicked()
-            
-            
+          self.ids=ids
+          self.setupUi(self)
+          self.caltype.addItems(swmm_ea_controller.SWMMCALIBRATIONTYPES)
+          font = QtGui.QFont()
+          font.setFamily('Courier')
+          font.setPointSize(12)
+          self.editor.setFont(font)   
+          self.editor.setLineWrapMode(QtGui.QTextEdit.NoWrap)
+          if(text):
+               self.editor.insertPlainText(text)
+          self.highlighter=highlighter(self.editor)
+          self.highlighter2=highlighter(self.slotdisplay)
+          self.text=text
+          self.gototop(True)
+          self.on_update_clicked()
+          self.controller=controller
+          try:
+               c=self.controller.project.parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB
+          except:
+               c=False
+          self.calbutton.setEnabled(c)
+          self.caltype.setEnabled(c)
+          self.calfile.setEnabled(c)
+          self.calids.setEnabled(c)
+
+
+          try: 
+               self.calfile.setText(self.controller.project.parameters.calfile)
+          except:
+               pass
+          try:
+               self.caltype.setCurrentIndex(self.controller.project.parameters.caltype[0])
+          except:
+               pass
+          try: 
+               self.calids.setCurrentIndex(self.controller.project.parameters.calid[0])
+          except: 
+               pass
+     def qt_fix_path(self,path):
+          return QtCore.QDir.toNativeSeparators(path)     
+
+     #action_caltype
+     @QtCore.pyqtSignature("int")
+     def on_caltype_currentIndexChanged(self,index):
+          self.calids.clear()
+          if(self.ids):
+               self.calids.addItems(self.ids[swmm_ea_controller.SWMMCALIBRATIONTYPES2[index]])
+
+
+     #action_calbutton
+     @QtCore.pyqtSignature("")
+     def on_calbutton_clicked(self):
+          dr=self.controller.settings.value("lastcalfile").toString()
+          fileName = QtGui.QFileDialog.getOpenFileName(self,
+                                                       "Open a calibration data file", dr ,
+                                                       "*.cal")
+          if(fileName):
+
+               self.controller.settings.setValue("lastcalfile",fileName) 
+               self.calfile.setText(fileName)
+
+
      def on_editor_selectionChanged(self):
           txt=self.editor.textCursor().selectedText()
           try:
@@ -34,7 +87,7 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
           cursor.insertText(" @!v%(val)s!@ "% {"val": str(self.nextvar.text()) }) 
           self.nextvar.setText(str(int(str(self.nextvar.text()))+1))
           self.on_update_clicked()
-          
+
      @QtCore.pyqtSignature("")          
      def on_update_clicked(self):
           if not self.text : return 
@@ -54,53 +107,59 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
           c.setPosition(QtGui.QTextCursor.Start) # start on top\
           if(updatewindow): self.editor.setTextCursor(c)
           return c
-          
+
      def accept(self):
-          self.text=self.editor.toPlainText()
+          self.text=self.editor.toPlainText()#temperarily  store here. 
+          f=str(self.qt_fix_path(self.calfile.text()))
+          self.calfile_=f # temporarily store here. 
+          i=self.caltype.currentIndex()
+          self.caltype_=[i,swmm_ea_controller.SWMMVARTYPES[i],str(self.caltype.itemText(i))] #temperarily 
+          j=self.calids.currentIndex()
+          self.calid_=[j,str(self.calids.itemText(j))]
           QtGui.QDialog.accept(self)
-          
-     
+
+
      def updateslots(self):
           self.slotdisplay.setPlainText("")
           for line in self.slots:           
                self.slotdisplay.insertPlainText(line[0]+"\n")
 
 class HighlightingRule():
-        def __init__(self, pattern, format):
-                self.pattern = pattern
-                self.format = format
-                
+     def __init__(self, pattern, format):
+          self.pattern = pattern
+          self.format = format
+
 class highlighter(QtGui.QSyntaxHighlighter ):     
      def __init__( self, parent):
-           QtGui.QSyntaxHighlighter.__init__( self, parent )
-           self.parent = parent
-           self.highlightingRules = []   
-           reservedClasses = QtGui.QTextCharFormat()
-           reservedClasses.setForeground( QtCore.Qt.darkRed )
-           reservedClasses.setBackground( QtCore.Qt.green)
-           reservedClasses.setFontWeight( QtGui.QFont.Bold)
-           regex=QtCore.QRegExp(u"@!.*!@")
-           regex.setMinimal(True)
-           self.rule = HighlightingRule( regex, reservedClasses )
-           self.highlightingRules.append( self.rule )
-           
+          QtGui.QSyntaxHighlighter.__init__( self, parent )
+          self.parent = parent
+          self.highlightingRules = []   
+          reservedClasses = QtGui.QTextCharFormat()
+          reservedClasses.setForeground( QtCore.Qt.darkRed )
+          reservedClasses.setBackground( QtCore.Qt.green)
+          reservedClasses.setFontWeight( QtGui.QFont.Bold)
+          regex=QtCore.QRegExp(u"@!.*!@")
+          regex.setMinimal(True)
+          self.rule = HighlightingRule( regex, reservedClasses )
+          self.highlightingRules.append( self.rule )
+
      def highlightBlock( self, text ):
           for rule in self.highlightingRules:
-            expression = QtCore.QRegExp( self.rule.pattern )
-            index = expression.indexIn( text )
-            while index >= 0:
-              length = expression.matchedLength()
-              self.setFormat( index, length, self.rule.format )
-              index = text.indexOf( expression, index + length )
+               expression = QtCore.QRegExp( self.rule.pattern )
+               index = expression.indexIn( text )
+               while index >= 0:
+                    length = expression.matchedLength()
+                    self.setFormat( index, length, self.rule.format )
+                    index = text.indexOf( expression, index + length )
           self.setCurrentBlockState( 0 ) 
-     
-          
+
+
 if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    swmmfile="""
+     import sys
+     app = QtGui.QApplication(sys.argv)
+     swmmfile="""
     [TITLE]
-    
+
     [OPTIONS]
     FLOW_UNITS           LPS
     INFILTRATION         CURVE_NUMBER
@@ -128,19 +187,19 @@ if __name__ == "__main__":
     FORCE_MAIN_EQUATION  H-W
     LINK_OFFSETS         DEPTH
     MIN_SLOPE            0
-    
+
     [EVAPORATION]
     ;;Type       Parameters
     ;;---------- ----------
     CONSTANT     0.0
     DRY_ONLY     NO
-    
+
     [RAINGAGES]
     ;;               Rain      Time   Snow   Data      
     ;;Name           Type      Intrvl Catch  Source    
     ;;-------------- --------- ------ ------ ----------
     Gage1            VOLUME    0:03   1.0    TIMESERIES ABM10yrs2hrs    
-    
+
     [SUBCATCHMENTS]
     ;;                                                 Total    Pcnt.             Pcnt.    Curb     Snow    
     ;;Name           Raingage         Outlet           Area     Imperv   Width    Slope    Length   Pack    
@@ -151,7 +210,7 @@ if __name__ == "__main__":
     A4               Gage1            J10              30.0     25.17    1000     4.13     0                        
     A5               Gage1            J9               25.5     10.00    1000     4.13     0                        
     E1               Gage1            J8               34.9     0        1000     1.86     0                        
-    
+
     [SUBAREAS]
     ;;Subcatchment   N-Imperv   N-Perv     S-Imperv   S-Perv     PctZero    RouteTo    PctRouted 
     ;;-------------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
@@ -161,7 +220,7 @@ if __name__ == "__main__":
     A4               0.01       0.1        0.05       0.05       25         OUTLET    
     A5               0.01       0.1        0.05       0.05       25         OUTLET    
     E1               0.01       0.1        0.05       0.05       25         OUTLET    
-    
+
     [INFILTRATION]
     ;;Subcatchment   CurveNum   HydCon     DryTime   
     ;;-------------- ---------- ---------- ----------
@@ -171,7 +230,7 @@ if __name__ == "__main__":
     A4               90         0.5        7         
     A5               90         0.5        7         
     E1               70         0.5        7         
-    
+
     [JUNCTIONS]
     ;;               Invert     Max.       Init.      Surcharge  Ponded    
     ;;Name           Elev.      Depth      Depth      Depth      Area      
@@ -182,13 +241,13 @@ if __name__ == "__main__":
     J8               23.459     3          0          0          0         
     J9               37.689     2          0          0          0         
     J10              32.424     2          0          0          0         
-    
+
     [OUTFALLS]
     ;;               Invert     Outfall    Stage/Table      Tide
     ;;Name           Elev.      Type       Time Series      Gate
     ;;-------------- ---------- ---------- ---------------- ----
     J12              15.649     FREE                        NO
-    
+
     [STORAGE]
     ;;               Invert   Max.     Init.    Storage    Curve                      Ponded   Evap.   
     ;;Name           Elev.    Depth    Depth    Curve      Params                     Area     Frac.    Infiltration Parameters
@@ -198,7 +257,7 @@ if __name__ == "__main__":
     J4               52.853   1.8      0        FUNCTIONAL 8708.42058662 0        0        0        0       
     J1               55       1.8      0        FUNCTIONAL 30661.9663269 0        0        0        0       
     J7               29.589   1.8      0        FUNCTIONAL 1586.55686276 0        0        0        0       
-    
+
     [CONDUITS]
     ;;               Inlet            Outlet                      Manning    Inlet      Outlet     Init.      Max.      
     ;;Name           Node             Node             Length     N          Offset     Offset     Flow       Flow      
@@ -214,7 +273,7 @@ if __name__ == "__main__":
     T3-1             J3               J7               428        0.02       1          0          0          0         
     T3-2             J7               J8               342        0.02       1.0        0          0          0         
     T5               J8               J12              235        0.01       0          0          0          0         
-    
+
     [XSECTIONS]
     ;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels   
     ;;-------------- ------------ ---------------- ---------- ---------- ---------- ----------
@@ -229,11 +288,11 @@ if __name__ == "__main__":
     T3-1             CIRCULAR     1.5              0          0          0          3                    
     T3-2             CIRCULAR     1.5              0          0          0          2                    
     T5               RECT_OPEN    .4               3          0          0          1                    
-    
+
     [LOSSES]
     ;;Link           Inlet      Outlet     Average    Flap Gate 
     ;;-------------- ---------- ---------- ---------- ----------
-    
+
     [TIMESERIES]
     ;;Name           Date       Time       Value     
     ;;-------------- ---------- ---------- ----------
@@ -359,7 +418,7 @@ if __name__ == "__main__":
     2hrRainfall                 1:58       0.12      
     2hrRainfall                 1:59       0.12      
     2hrRainfall                 2:00       0.11      
-    
+
     ;Rainfall Data
     ABM10yrs2hrs                0:00       0         
     ABM10yrs2hrs                0:03       0.36      
@@ -402,20 +461,20 @@ if __name__ == "__main__":
     ABM10yrs2hrs                1:54       0.39      
     ABM10yrs2hrs                1:57       0.37      
     ABM10yrs2hrs                2:00       0.35      
-    
+
     [REPORT]
     INPUT      NO
     CONTROLS   NO
     SUBCATCHMENTS ALL
     NODES ALL
     LINKS ALL
-    
+
     [TAGS]
-    
+
     [MAP]
     DIMENSIONS 0.000 0.000 10000.000 10000.000
     Units      None
-    
+
     [COORDINATES]
     ;;Node           X-Coord            Y-Coord           
     ;;-------------- ------------------ ------------------
@@ -431,7 +490,7 @@ if __name__ == "__main__":
     J4               6823.294           1140.791          
     J1               4778.472           1417.292          
     J7               5325.044           3102.020          
-    
+
     [VERTICES]
     ;;Link           X-Coord            Y-Coord           
     ;;-------------- ------------------ ------------------
@@ -439,7 +498,7 @@ if __name__ == "__main__":
     T4-3             5035.683           3571.429          
     T4-3             5042.113           3706.464          
     T3-2             5337.905           3732.185          
-    
+
     [Polygons]
     ;;Subcatchment   X-Coord            Y-Coord           
     ;;-------------- ------------------ ------------------
@@ -483,16 +542,15 @@ if __name__ == "__main__":
     E1               4481.613           5204.819          
     E1               3818.829           4472.268          
     E1               3722.900           4062.388          
-    
+
     [SYMBOLS]
     ;;Gage           X-Coord            Y-Coord           
     ;;-------------- ------------------ ------------------
     Gage1            9936.709           6075.949          
 
-    
+
     """
-    ui = Ui_swmmedit_dialog(text=swmmfile)
-    ui.show()
-    app.exec_()
-    print ui.text
-    
+     ui = Ui_swmmedit_dialog(text=swmmfile)
+     ui.show()
+     app.exec_()
+     print ui.text

@@ -32,6 +32,8 @@ def create_setupscript():
     #define MyAppPublisher "%(publisher)s"
     #define MyAppURL "%(url)s"
     #define MyAppExeName "%(exename)s"
+    #define MyOutputBaseName "%(outputbasename)s"
+    
     
     [Setup]
     ; NOTE: The value of AppId uniquely identifies this application.
@@ -51,7 +53,7 @@ def create_setupscript():
     LicenseFile=license.txt
     InfoBeforeFile=README.txt
     InfoAfterFile=POST_INSTALL.txt
-    OutputBaseFilename=setup
+    OutputBaseFilename={#MyOutputBaseName}
     SetupIconFile=..\res\DNA.ico
     Compression=lzma
     SolidCompression=yes
@@ -85,7 +87,8 @@ def create_setupscript():
                         ,"version": sc.VERSION
                         ,"publisher": sc.PUBLISHER
                         ,"url": sc.URL
-                        ,"exename": sc.TARGET})
+                        ,"exename": sc.TARGET, 
+                        "outputbasename": sc.SETUPNAME})
     f.close()
     
 
