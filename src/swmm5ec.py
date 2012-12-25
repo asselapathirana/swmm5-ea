@@ -4,7 +4,7 @@
 ## python E:\Urban_drainageI_II\2012\GA\inspyred\src\setup.py py2exe
 ## in ./src directory
 ## Copy the entire dist directory to the target computer. 
-from random import Random
+from random import Random, randint
 import numpy
 from time import time, sleep
 import os, errno
@@ -123,13 +123,15 @@ def swmmRun(swmminputfile, rptfile, binfile,parameters):
     t=0.0
     cost=0.0
     for i in range(sw.cvar.SWMM_Nperiods):
-        ret,z=sw.GetSwmmResult(parameters.swmmResultCodes[0], parameters.swmmResultCodes[1],parameters.swmmResultCodes[2], i)
+        ret,z=sw.GetSwmmResult(parameters.swmmResultCodes[0], parameters.swmmResultCodes[1],parameters.swmmResultCodes[2], 
+	                       i+1) #swmmm counts from 1!
+	results.append(z)
 	#err(ret)
         t+=sw.cvar.SWMM_ReportStep
         if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-	    cost+=z*sw.cvar.SWMM_ReportStep
+	    cost+=results[i]*sw.cvar.SWMM_ReportStep
 	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
-	    cost+=math.sqrt(math.pow(z-parameters.calibdata[i],2))
+	    cost+=math.sqrt(math.pow(results[i]-parameters.calibdata[i],2))
 	else:
 	    print "I don't know the calculation type! (", parameters.swmmouttype, ")."
 	    raise
@@ -254,7 +256,7 @@ class SwmmEA(QtCore.QThread):
         for i in reversed(popn):
             result[1].append(i.fitness)
         self.emit( QtCore.SIGNAL('nextGeneration(PyQt_PyObject)'), result )
-        if not parameters.multiprocessor:
+        if  parameters.num_cpus < 2:
             # otherwise this thread will starve the gui thread. However, when multiprocessing, python multiprocessing module will take care of this?
             self.msleep(500)
         
@@ -301,7 +303,6 @@ class SwmmEA(QtCore.QThread):
 	pass
 
     def run(self):
-        #self.plot=Popen([self.parameters.gnuplot,'-persist'],stdin=PIPE,stdout=PIPE,stderr=PIPE, shell=False)          
         self.runOptimization()
 
     def runOptimization(self):
@@ -315,9 +316,9 @@ class SwmmEA(QtCore.QThread):
         parameters.linestring=SwmmTemplate(parameters.projectdirectory+os.sep+parameters.datadirectory+os.sep+parameters.templatefile)
 
         if prng is None:
-            prng = Random()
-            prng.seed(time()) 
-
+	    seed = randint(0, sys.maxint)
+	    print "Using seed: ", seed, " to initialize random number generator."
+            prng = Random(seed)
 	
 
         @inspyred.ec.generators.strategize    
@@ -411,8 +412,6 @@ def ReadParameters():
     except: 
         print "Problem reading file '%s' " % parameterfile ,sys.exc_info()[0]
         sys.exit()
-    #global plot
-    #plot=Popen([parameters.gnuplot,'-persist'],stdin=PIPE,stdout=PIPE,stderr=PIPE, shell=False)     
 
     parameters.bestlist=[]
     for i in range(parameters.pop_size+1):

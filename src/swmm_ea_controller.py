@@ -12,7 +12,7 @@ from guiqwt.builder import make
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.8.0.0"
+VERSION="0.8.1.0"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"GNU General Public License version 3"
 PUBLISHER=u"Assela Pathirana"
@@ -34,35 +34,43 @@ SWMMCHOICES= [
      'Flood Volume',
      'Calibration var.'
     ] 
+SWMMCALIBRATIONFILE=[# ORDER the following appear in swmm5 gui (belive me the order there is different!)
+                     1, 8, 9, 10, 
+                     #2,
+                     3, 6, 7, #5, 
+                     4,  12, 11 
+                     ]
 SWMMCALIBRATIONTYPES=[# this should match with SWMMVARTYPES
-    "Subcatchment Runoff",
-    "Subcatchment Groundwater Flow", 
-    "Subcatchment Groundwater Elevation", 
-    "Subcatchment Snow Pack Depth", 
-    "Subcatchment Pollutant Washoff (pollutant 1)", 
-    "Node Depth", 
-    "Node Lateral Inflow", 
-    "Node Flooding", 
-    "Node Water Quality (pollutant 1)", 
-    "Link Flow", 
-    "Link Velocity", 
-    "Link Depth"]
+    "Subcatchment Runoff",                            #0
+    "Subcatchment Groundwater Flow",                  #1
+    "Subcatchment Groundwater Elevation", #2
+    "Subcatchment Snow Pack Depth", #3
+   # "Subcatchment Pollutant Washoff (pollutant 1)", #4
+    "Node Depth", #5
+    "Node Lateral Inflow", #6 
+    "Node Flooding", #7
+    #"Node Water Quality (pollutant 1)", #8 
+    "Link Flow", #9
+    "Link Velocity", #10 
+    "Link Depth"] #11
 SWMMCALIBRATIONTYPES2=[# this should match with above and below
      'subcatchments',
      'subcatchments',
      'subcatchments',
      'subcatchments',
-     'subcatchments',
+     #'subcatchments',
      'nodes',
      'nodes',
      'nodes',
-     'nodes',
+     #'nodes',
      'links',
-     'links'
+     'links',
      'links'] 
 SWMMVARTYPES=[ # refer to swmm5 interfacing guide. This should match with SWMMCALIBRATIONTYPES
-    [0,3],[0,4],[0,5],[0,6],
-    [1,0],[1,3],[1,5],[1,6],
+    [0,3],[0,4],[0,5],[0,1],
+    #[0,6],
+    [1,0],[1,3],[1,5],
+    #[1,6],
     [2,0],[2,2],[2,1] 
     ]    
 

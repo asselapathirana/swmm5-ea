@@ -31,7 +31,7 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
     @QtCore.pyqtSignature("")
     def on_copyButton_clicked(self):
         for i in range(1,len(self.value_widgets)):
-                    for j in range(3):        
+                    for j in range(1,3):        
                         self.value_widgets[i][j].setText(self.value_widgets[0][j].text())
     @QtCore.pyqtSignature("int")
     def on_num_inputs_valueChanged(self,value=1):

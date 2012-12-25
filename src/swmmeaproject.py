@@ -73,8 +73,8 @@ class Project():
             self.get_swmm_ids_times()
         return self.ids
         
-    def setSwmmfile(slf, swmmfile=None):
-        self.swmmfile=None
+    def setSwmmfile(self, swmmfile=None):
+        self.swmmfilename=swmmfile
         self.ids=[] # reset the ids now next time the swmm file has to be run and ides extracted. 
     
          
@@ -113,7 +113,7 @@ class Project():
             if not lines[0]==self.parameters.calid[1]:
                 print "Problem: The id specified on calibration file, ", lines[0], " is different from ", self.parameters.calid[1]
                 raise
-            if not lines[1]==lines[1]:
+            if not lines[1]==self.parameters.caltype[2]:
                 print "Problem: The variable type specified in file , ", lines[1], " is different from ", self.parameters.caltype[2]
                 raise 
             id_=lines[0]
@@ -143,7 +143,7 @@ class Project():
             # now write a small ini file to be used as a template for all resulting inp files (Best_of_gen_xyz.inp)
             inif=self.parameters.projectdirectory+os.sep+"TEMPLATE.INI"
             with open(inif,'w') as f:
-                f.write("[Calibration]\nFile%i=%s\n" %(self.parameters.caltype[0]+1, datf))
+                f.write("[Calibration]\nFile%i=%s\n" %(swmm_ea_controller.SWMMCALIBRATIONFILE[self.parameters.caltype[0]], datf))
             self.parameters.calINITEMPLATE=inif
         except:
             print "Problem writing calibration file for swmm: ", datf
@@ -274,7 +274,7 @@ class Project():
         """ removes the temporary parameters in params object """
         from  copy  import deepcopy
         p=deepcopy(params)
-        for item in [ "bestlist", "linestring",  "projectdirectory",  "resultsdirectory", "templatefile", "datadirectory" ]: 
+        for item in [ "calINITEMPLATE", "calibdata", "bestlist", "linestring",  "projectdirectory",  "resultsdirectory", "templatefile", "datadirectory" ]: 
             try: 
                 delattr(p,item)
             except: 
