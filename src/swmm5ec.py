@@ -275,6 +275,7 @@ class SwmmEA(QtCore.QThread):
 	    self.paused=True
 	    self.paused_finally=False
 	else:
+	    sys.stdout.write( " Resuming...")
 	    self.paused=False
 	    self.paused_finally=True
 

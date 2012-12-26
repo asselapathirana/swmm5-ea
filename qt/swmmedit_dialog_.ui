@@ -171,6 +171,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>editor</tabstop>
+  <tabstop>addvar</tabstop>
+  <tabstop>nextvar</tabstop>
+  <tabstop>update</tabstop>
+  <tabstop>slotdisplay</tabstop>
+  <tabstop>caltype</tabstop>
+  <tabstop>calids</tabstop>
+  <tabstop>calbutton</tabstop>
+  <tabstop>calfile</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

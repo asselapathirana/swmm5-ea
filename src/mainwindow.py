@@ -15,7 +15,7 @@ mainwindow_.Ui_SWMM5EA):
         #first
 
         self.setupUi(self) # extremely important for on_<object>_<trigger> type (auto-connnect) to work. 
-        self.curve = guiqwt.plot.CurveWidget(self.curve_window,"Convergence Plot","Generation Number", "Fitness","","")#QtGui.QWidget(self.dockWidgetContents)
+        self.curve = guiqwt.plot.CurveWidget(self.curve_window,"Convergence Plot","Generation Number", "Cost","","")#QtGui.QWidget(self.dockWidgetContents)
         self.curve.plot.set_antialiasing(True)
         self.addguiqwtToolbar_and_context_menu()
         self.gridLayout_2.addWidget(self.curve, 0, 0, 1, 1)   
@@ -36,7 +36,8 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
-    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0):
+    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", zoomextent=False):
+        self.curve.plot.set_titles(None,None,ytitle)
         #print run_status
         self.status1.setText("Project:"+(project or ""))
         #print "here", self
@@ -56,6 +57,9 @@ mainwindow_.Ui_SWMM5EA):
         self.actionPause_Optimization.setEnabled(False)
         self.actionStop_Optimization.setEnabled(False)     
         self.actionInitialize_model.setEnabled(False)
+        
+        # just set the state
+        self.action_Zoom_Extent.setChecked(zoomextent)
         if project:
             # 0
             self.actionSave_As.setEnabled(True)
@@ -103,7 +107,12 @@ mainwindow_.Ui_SWMM5EA):
     @QtCore.pyqtSignature("")
     def on_actionExit_triggered(self,checed=None):
         self.close()
-
+        
+    #action_Zoom_Extent
+    @QtCore.pyqtSignature("bool")    
+    def on_action_Zoom_Extent_toggled(self, checked=False):
+        self.controller.zoomState(checked)
+        
     #actionInitialize_model
     @QtCore.pyqtSignature("")
     def on_actionInitialize_model_triggered(self,checed=None):

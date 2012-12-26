@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>650</height>
+    <width>941</width>
+    <height>713</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>SWMM5 EA</string>
@@ -19,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>825</width>
+     <width>941</width>
      <height>18</height>
     </rect>
    </property>
@@ -61,9 +67,16 @@
     <addaction name="actionHelp_Users_Guide"/>
     <addaction name="actionHelp_About"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="action_Zoom_Extent"/>
+   </widget>
    <addaction name="menu_File_2"/>
    <addaction name="menu_File"/>
    <addaction name="menuOptimization"/>
+   <addaction name="menuView"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="Main_toolbar">
@@ -95,6 +108,7 @@
    <addaction name="actionRun_Optimization"/>
    <addaction name="actionPause_Optimization"/>
    <addaction name="actionStop_Optimization"/>
+   <addaction name="action_Zoom_Extent"/>
    <addaction name="separator"/>
    <addaction name="actionHelp_Users_Guide"/>
    <addaction name="actionHelp_About"/>
@@ -103,10 +117,16 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="curve_window">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+     <horstretch>2</horstretch>
+     <verstretch>2</verstretch>
+    </sizepolicy>
+   </property>
    <property name="minimumSize">
     <size>
      <width>300</width>
-     <height>300</height>
+     <height>400</height>
     </size>
    </property>
    <property name="features">
@@ -118,7 +138,11 @@
    <widget class="QWidget" name="dockWidgetContents_7">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <layout class="QGridLayout" name="gridLayout_2"/>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+      </layout>
      </item>
     </layout>
    </widget>
@@ -316,6 +340,21 @@
    </property>
    <property name="toolTip">
     <string>Exit SWMM5 EA</string>
+   </property>
+  </action>
+  <action name="action_Zoom_Extent">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/zoom_fit_best.png</normaloff>:/res/res/zoom_fit_best.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Zoom Extent</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom the graph to the data extent</string>
    </property>
   </action>
  </widget>
