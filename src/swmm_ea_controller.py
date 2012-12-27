@@ -1,12 +1,13 @@
 from PyQt4 import QtCore, QtGui
 import guiqwt
-guiqwt
+#guiqwt
 import guiqwt.plot
 import os, shutil, sys, tempfile
 
 import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
+import slotdiff
 #from guiqwt import QwtPlot
 
 # program metadata
@@ -313,13 +314,18 @@ class swmmeacontroller():
         
     def get_slotted_data(self):
         sf=self.project.swmmfilename+"_"
+        
         if os.path.exists(self.project.dirname+os.sep+sf):
-            reply = QtGui.QMessageBox.information(self.ui, 'Caution ',
-                                               "There is a file named: "+ sf + " in " + self.project.dirname + 
-                                               " project directory?. This file will be opend."+
-                                               " In the next window carefully look whether this is the file you expect."+
-                                               "If it is not, manually delete the file "+sf+" and try this action again.",  
-                                               QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,self.project.dirname+os.sep+sf)
+            if(sd.testDiff()):
+                print sf, " looks like derived from ", self.project.swmmfilename, ". Reusing it!"
+            else:
+                reply = QtGui.QMessageBox.information(self.ui, 'Caution ',
+                                                   "There is a file named: "+ sf + " in " + self.project.dirname + 
+                                                   " project directory?. This file will be opend."+
+                                                   " In the next window carefully look whether this is the file you expect."+
+                                                   "If it is not, manually delete the file "+sf+" and try this action again.",  
+                                                   QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             self.project.slotted_swmmfilename=sf
         self.ups()
         return self.project.getSlottedData()

@@ -8,7 +8,9 @@ from random import Random, randint
 import numpy
 from time import time, sleep
 import os, errno
+from multiprocessing import current_process
 import inspyred
+import pyratemp
 #import matplotlib
 #matplotlib.use('GTKAgg')
 #import matplotlib.pyplot as plt
@@ -48,8 +50,6 @@ def getFitness(fillers, linestring,parameters):
     fitness=0.0
     try:
         scaled=scale(fillers,parameters)
-        import  os
-        from multiprocessing import current_process
         filename = parameters.projectdirectory+os.sep+"tmp"+os.sep+("%07d" % (current_process().pid))+".inp"
 	make_sure_path_exists(os.path.dirname(filename))                
         dir = os.path.dirname(filename)
@@ -61,7 +61,6 @@ def getFitness(fillers, linestring,parameters):
         cost = swmmCost(scaled, linestring, filename,parameters)
         #print "\tFlood : ", flood, sum(map(lambda fil: fil,scaled))
         if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-	    import pyratemp
 	    costf=pyratemp.Template("@!"+parameters.cost_function+"!@")
 	    pp=parse_parameters(scale(fillers,parameters))
 	    cost1=float(costf(**(pp)))
@@ -224,7 +223,7 @@ class SwmmEA(QtCore.QThread):
 	    return False
     
     def swmm_best_observer(self,population, num_generations, num_evaluations, args):
-        import os
+        
         linestring=args.get('parameters','foo').linestring
         best=max(population)
         worst=min(population)

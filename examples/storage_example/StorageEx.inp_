@@ -31,7 +31,7 @@ MIN_SLOPE            0
 [EVAPORATION]
 ;;Type       Parameters
 ;;---------- ----------
-CONSTANT     0.0
+CONSTANT         			 0.0
 DRY_ONLY     NO
 
 [RAINGAGES]
@@ -92,11 +92,11 @@ J12              15.649     FREE                        NO
 ;;               Invert   Max.     Init.    Storage    Curve                      Ponded   Evap.   
 ;;Name           Elev.    Depth    Depth    Curve      Params                     Area     Frac.    Infiltration Parameters
 ;;-------------- -------- -------- -------- ---------- -------- -------- -------- -------- -------- -----------------------
-J11              27.159   1.8      0        FUNCTIONAL @!v1!@     0        0        0        0       
-J3               36.437   1.8      0        FUNCTIONAL @!v2!@     0        0        0        0       
-J4               52.853   1.8      0        FUNCTIONAL @!v3!@    0        0        0        0       
-J1               55       1.8      0        FUNCTIONAL @!v4!@     0        0        0        0       
-J7               29.589   1.8      0        FUNCTIONAL @!v5!@     0        0        0        0       
+J11              27.159   1.8      0        FUNCTIONAL  @!v1!@ 0        0        0        0       
+J3               36.437   1.8      0        FUNCTIONAL  @!v2!@ 0        0        0        0       
+J4               52.853   1.8      0        FUNCTIONAL   @!v3!@ 0        0        0        0       
+J1               55       1.8      0         FUNCTIONAL  @!v4!@ 0        0        0        0       
+J7               29.589   1.8      0        FUNCTIONAL  @!v5!@   0        0        0        0       
 
 [CONDUITS]
 ;;               Inlet            Outlet                      Manning    Inlet      Outlet     Init.      Max.      
