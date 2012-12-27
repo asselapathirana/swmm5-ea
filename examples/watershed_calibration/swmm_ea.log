@@ -1,0 +1,246 @@
+2012-12-26 22:15:12,272 - inspyred.ec - DEBUG - generating initial population
+2012-12-26 22:15:12,273 - inspyred.ec - DEBUG - evaluating initial population
+2012-12-26 22:15:14,861 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:14,862 - inspyred.ec - DEBUG - archiving initial population
+2012-12-26 22:15:14,862 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:14,864 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:14,864 - inspyred.ec - DEBUG - observation using observer_function at generation 0 and evaluation 12
+2012-12-26 22:15:15,365 - inspyred.ec - DEBUG - observation using file_observer at generation 0 and evaluation 12
+2012-12-26 22:15:15,368 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 0 and evaluation 12
+2012-12-26 22:15:15,388 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 0 and evaluation 12
+2012-12-26 22:15:15,390 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 0 and evaluation 12
+2012-12-26 22:15:15,401 - inspyred.ec - DEBUG - termination test using stopterminator at generation 0 and evaluation 12
+2012-12-26 22:15:15,401 - inspyred.ec - DEBUG - selection using tournament_selection at generation 0 and evaluation 12
+2012-12-26 22:15:15,403 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:15,404 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 0 and evaluation 12
+2012-12-26 22:15:15,407 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 0 and evaluation 12
+2012-12-26 22:15:15,407 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:15,408 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 0 and evaluation 12
+2012-12-26 22:15:18,056 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 0 and evaluation 24
+2012-12-26 22:15:18,058 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:18,058 - inspyred.ec - DEBUG - migration using default_migration at generation 0 and evaluation 24
+2012-12-26 22:15:18,059 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:18,059 - inspyred.ec - DEBUG - archival using default_archiver at generation 0 and evaluation 24
+2012-12-26 22:15:18,059 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:18,059 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:18,059 - inspyred.ec - DEBUG - observation using observer_function at generation 1 and evaluation 24
+2012-12-26 22:15:18,561 - inspyred.ec - DEBUG - observation using file_observer at generation 1 and evaluation 24
+2012-12-26 22:15:18,562 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 1 and evaluation 24
+2012-12-26 22:15:22,582 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 1 and evaluation 24
+2012-12-26 22:15:22,584 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 1 and evaluation 24
+2012-12-26 22:15:22,594 - inspyred.ec - DEBUG - termination test using stopterminator at generation 1 and evaluation 24
+2012-12-26 22:15:22,595 - inspyred.ec - DEBUG - selection using tournament_selection at generation 1 and evaluation 24
+2012-12-26 22:15:22,595 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:22,602 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 1 and evaluation 24
+2012-12-26 22:15:22,604 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 1 and evaluation 24
+2012-12-26 22:15:22,605 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:22,605 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 1 and evaluation 24
+2012-12-26 22:15:25,217 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 1 and evaluation 36
+2012-12-26 22:15:25,217 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:25,217 - inspyred.ec - DEBUG - migration using default_migration at generation 1 and evaluation 36
+2012-12-26 22:15:25,219 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:25,219 - inspyred.ec - DEBUG - archival using default_archiver at generation 1 and evaluation 36
+2012-12-26 22:15:25,219 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:25,220 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:25,220 - inspyred.ec - DEBUG - observation using observer_function at generation 2 and evaluation 36
+2012-12-26 22:15:25,720 - inspyred.ec - DEBUG - observation using file_observer at generation 2 and evaluation 36
+2012-12-26 22:15:25,723 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 2 and evaluation 36
+2012-12-26 22:15:25,746 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 2 and evaluation 36
+2012-12-26 22:15:25,747 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 2 and evaluation 36
+2012-12-26 22:15:25,756 - inspyred.ec - DEBUG - termination test using stopterminator at generation 2 and evaluation 36
+2012-12-26 22:15:25,756 - inspyred.ec - DEBUG - selection using tournament_selection at generation 2 and evaluation 36
+2012-12-26 22:15:25,756 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:25,759 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 2 and evaluation 36
+2012-12-26 22:15:25,759 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 2 and evaluation 36
+2012-12-26 22:15:25,762 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:25,762 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 2 and evaluation 36
+2012-12-26 22:15:28,433 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 2 and evaluation 48
+2012-12-26 22:15:28,433 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:28,434 - inspyred.ec - DEBUG - migration using default_migration at generation 2 and evaluation 48
+2012-12-26 22:15:28,434 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:28,434 - inspyred.ec - DEBUG - archival using default_archiver at generation 2 and evaluation 48
+2012-12-26 22:15:28,436 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:28,436 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:28,436 - inspyred.ec - DEBUG - observation using observer_function at generation 3 and evaluation 48
+2012-12-26 22:15:28,937 - inspyred.ec - DEBUG - observation using file_observer at generation 3 and evaluation 48
+2012-12-26 22:15:28,938 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 3 and evaluation 48
+2012-12-26 22:15:28,961 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 3 and evaluation 48
+2012-12-26 22:15:28,963 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 3 and evaluation 48
+2012-12-26 22:15:28,970 - inspyred.ec - DEBUG - termination test using stopterminator at generation 3 and evaluation 48
+2012-12-26 22:15:28,970 - inspyred.ec - DEBUG - selection using tournament_selection at generation 3 and evaluation 48
+2012-12-26 22:15:28,970 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:28,973 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 3 and evaluation 48
+2012-12-26 22:15:28,974 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 3 and evaluation 48
+2012-12-26 22:15:28,976 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:28,976 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 3 and evaluation 48
+2012-12-26 22:15:31,611 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 3 and evaluation 60
+2012-12-26 22:15:31,611 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:31,612 - inspyred.ec - DEBUG - migration using default_migration at generation 3 and evaluation 60
+2012-12-26 22:15:31,612 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:31,614 - inspyred.ec - DEBUG - archival using default_archiver at generation 3 and evaluation 60
+2012-12-26 22:15:31,614 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:31,614 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:31,615 - inspyred.ec - DEBUG - observation using observer_function at generation 4 and evaluation 60
+2012-12-26 22:15:32,121 - inspyred.ec - DEBUG - observation using file_observer at generation 4 and evaluation 60
+2012-12-26 22:15:32,124 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 4 and evaluation 60
+2012-12-26 22:15:32,144 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 4 and evaluation 60
+2012-12-26 22:15:32,144 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 4 and evaluation 60
+2012-12-26 22:15:32,151 - inspyred.ec - DEBUG - termination test using stopterminator at generation 4 and evaluation 60
+2012-12-26 22:15:32,151 - inspyred.ec - DEBUG - selection using tournament_selection at generation 4 and evaluation 60
+2012-12-26 22:15:32,151 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:32,154 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 4 and evaluation 60
+2012-12-26 22:15:32,157 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 4 and evaluation 60
+2012-12-26 22:15:32,158 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:32,158 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 4 and evaluation 60
+2012-12-26 22:15:34,861 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 4 and evaluation 72
+2012-12-26 22:15:34,861 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:34,861 - inspyred.ec - DEBUG - migration using default_migration at generation 4 and evaluation 72
+2012-12-26 22:15:34,862 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:34,862 - inspyred.ec - DEBUG - archival using default_archiver at generation 4 and evaluation 72
+2012-12-26 22:15:34,862 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:34,862 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:34,864 - inspyred.ec - DEBUG - observation using observer_function at generation 5 and evaluation 72
+2012-12-26 22:15:35,365 - inspyred.ec - DEBUG - observation using file_observer at generation 5 and evaluation 72
+2012-12-26 22:15:35,365 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 5 and evaluation 72
+2012-12-26 22:15:35,381 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 5 and evaluation 72
+2012-12-26 22:15:35,381 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 5 and evaluation 72
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - termination test using stopterminator at generation 5 and evaluation 72
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - selection using tournament_selection at generation 5 and evaluation 72
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 5 and evaluation 72
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 5 and evaluation 72
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:35,397 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 5 and evaluation 72
+2012-12-26 22:15:38,017 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 5 and evaluation 84
+2012-12-26 22:15:38,017 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - migration using default_migration at generation 5 and evaluation 84
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - archival using default_archiver at generation 5 and evaluation 84
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:38,032 - inspyred.ec - DEBUG - observation using observer_function at generation 6 and evaluation 84
+2012-12-26 22:15:38,548 - inspyred.ec - DEBUG - observation using file_observer at generation 6 and evaluation 84
+2012-12-26 22:15:38,548 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - termination test using stopterminator at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - selection using tournament_selection at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 6 and evaluation 84
+2012-12-26 22:15:38,563 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 6 and evaluation 84
+2012-12-26 22:15:38,578 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:38,578 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 6 and evaluation 84
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 6 and evaluation 96
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - migration using default_migration at generation 6 and evaluation 96
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - archival using default_archiver at generation 6 and evaluation 96
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:41,141 - inspyred.ec - DEBUG - observation using observer_function at generation 7 and evaluation 96
+2012-12-26 22:15:41,671 - inspyred.ec - DEBUG - observation using file_observer at generation 7 and evaluation 96
+2012-12-26 22:15:41,671 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 7 and evaluation 96
+2012-12-26 22:15:41,687 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 7 and evaluation 96
+2012-12-26 22:15:41,687 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 7 and evaluation 96
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - termination test using stopterminator at generation 7 and evaluation 96
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - selection using tournament_selection at generation 7 and evaluation 96
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 7 and evaluation 96
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 7 and evaluation 96
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:41,703 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 7 and evaluation 96
+2012-12-26 22:15:44,421 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 7 and evaluation 108
+2012-12-26 22:15:44,421 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:44,421 - inspyred.ec - DEBUG - migration using default_migration at generation 7 and evaluation 108
+2012-12-26 22:15:44,421 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:44,423 - inspyred.ec - DEBUG - archival using default_archiver at generation 7 and evaluation 108
+2012-12-26 22:15:44,423 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:44,424 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:44,424 - inspyred.ec - DEBUG - observation using observer_function at generation 8 and evaluation 108
+2012-12-26 22:15:44,924 - inspyred.ec - DEBUG - observation using file_observer at generation 8 and evaluation 108
+2012-12-26 22:15:44,927 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 8 and evaluation 108
+2012-12-26 22:15:44,953 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 8 and evaluation 108
+2012-12-26 22:15:44,953 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 8 and evaluation 108
+2012-12-26 22:15:44,957 - inspyred.ec - DEBUG - termination test using stopterminator at generation 8 and evaluation 108
+2012-12-26 22:15:44,957 - inspyred.ec - DEBUG - selection using tournament_selection at generation 8 and evaluation 108
+2012-12-26 22:15:44,959 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:44,960 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 8 and evaluation 108
+2012-12-26 22:15:44,961 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 8 and evaluation 108
+2012-12-26 22:15:44,963 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:44,963 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 8 and evaluation 108
+2012-12-26 22:15:47,589 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 8 and evaluation 120
+2012-12-26 22:15:47,591 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:47,591 - inspyred.ec - DEBUG - migration using default_migration at generation 8 and evaluation 120
+2012-12-26 22:15:47,591 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:47,592 - inspyred.ec - DEBUG - archival using default_archiver at generation 8 and evaluation 120
+2012-12-26 22:15:47,592 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:47,592 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:47,592 - inspyred.ec - DEBUG - observation using observer_function at generation 9 and evaluation 120
+2012-12-26 22:15:48,095 - inspyred.ec - DEBUG - observation using file_observer at generation 9 and evaluation 120
+2012-12-26 22:15:48,096 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 9 and evaluation 120
+2012-12-26 22:15:48,121 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 9 and evaluation 120
+2012-12-26 22:15:48,122 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 9 and evaluation 120
+2012-12-26 22:15:48,131 - inspyred.ec - DEBUG - termination test using stopterminator at generation 9 and evaluation 120
+2012-12-26 22:15:48,131 - inspyred.ec - DEBUG - selection using tournament_selection at generation 9 and evaluation 120
+2012-12-26 22:15:48,132 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:48,137 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 9 and evaluation 120
+2012-12-26 22:15:48,138 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 9 and evaluation 120
+2012-12-26 22:15:48,138 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:48,140 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 9 and evaluation 120
+2012-12-26 22:15:50,836 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 9 and evaluation 132
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - migration using default_migration at generation 9 and evaluation 132
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - archival using default_archiver at generation 9 and evaluation 132
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:50,838 - inspyred.ec - DEBUG - observation using observer_function at generation 10 and evaluation 132
+2012-12-26 22:15:51,339 - inspyred.ec - DEBUG - observation using file_observer at generation 10 and evaluation 132
+2012-12-26 22:15:51,342 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 10 and evaluation 132
+2012-12-26 22:15:51,367 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 10 and evaluation 132
+2012-12-26 22:15:51,368 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 10 and evaluation 132
+2012-12-26 22:15:51,375 - inspyred.ec - DEBUG - termination test using stopterminator at generation 10 and evaluation 132
+2012-12-26 22:15:51,375 - inspyred.ec - DEBUG - selection using tournament_selection at generation 10 and evaluation 132
+2012-12-26 22:15:51,375 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:51,378 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 10 and evaluation 132
+2012-12-26 22:15:51,380 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 10 and evaluation 132
+2012-12-26 22:15:51,381 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:51,381 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 10 and evaluation 132
+2012-12-26 22:15:54,063 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 10 and evaluation 144
+2012-12-26 22:15:54,065 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:54,065 - inspyred.ec - DEBUG - migration using default_migration at generation 10 and evaluation 144
+2012-12-26 22:15:54,066 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:54,066 - inspyred.ec - DEBUG - archival using default_archiver at generation 10 and evaluation 144
+2012-12-26 22:15:54,068 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:54,069 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:54,069 - inspyred.ec - DEBUG - observation using observer_function at generation 11 and evaluation 144
+2012-12-26 22:15:54,569 - inspyred.ec - DEBUG - observation using file_observer at generation 11 and evaluation 144
+2012-12-26 22:15:54,572 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 11 and evaluation 144
+2012-12-26 22:15:54,591 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 11 and evaluation 144
+2012-12-26 22:15:54,592 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 11 and evaluation 144
+2012-12-26 22:15:54,601 - inspyred.ec - DEBUG - termination test using stopterminator at generation 11 and evaluation 144
+2012-12-26 22:15:54,601 - inspyred.ec - DEBUG - selection using tournament_selection at generation 11 and evaluation 144
+2012-12-26 22:15:54,601 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:54,607 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 11 and evaluation 144
+2012-12-26 22:15:54,608 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 11 and evaluation 144
+2012-12-26 22:15:54,611 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:54,612 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 11 and evaluation 144
+2012-12-26 22:15:57,259 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 11 and evaluation 156
+2012-12-26 22:15:57,259 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:57,259 - inspyred.ec - DEBUG - migration using default_migration at generation 11 and evaluation 156
+2012-12-26 22:15:57,259 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:57,259 - inspyred.ec - DEBUG - archival using default_archiver at generation 11 and evaluation 156
+2012-12-26 22:15:57,260 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-26 22:15:57,260 - inspyred.ec - DEBUG - population size is now 12
+2012-12-26 22:15:57,260 - inspyred.ec - DEBUG - observation using observer_function at generation 12 and evaluation 156
+2012-12-26 22:15:57,762 - inspyred.ec - DEBUG - observation using file_observer at generation 12 and evaluation 156
+2012-12-26 22:15:57,763 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 12 and evaluation 156
+2012-12-26 22:15:57,783 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 12 and evaluation 156
+2012-12-26 22:15:57,785 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 12 and evaluation 156
+2012-12-26 22:15:57,795 - inspyred.ec - DEBUG - termination test using stopterminator at generation 12 and evaluation 156
+2012-12-26 22:15:57,795 - inspyred.ec - DEBUG - selection using tournament_selection at generation 12 and evaluation 156
+2012-12-26 22:15:57,796 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-26 22:15:57,799 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 12 and evaluation 156
+2012-12-26 22:15:57,799 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 12 and evaluation 156
+2012-12-26 22:15:57,801 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-26 22:15:57,801 - inspyred.ec - DEBUG - evaluation using evaluatorf at generation 12 and evaluation 156

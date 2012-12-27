@@ -1,0 +1,203 @@
+2012-12-27 11:14:38,194 - inspyred.ec - DEBUG - generating initial population
+2012-12-27 11:14:38,194 - inspyred.ec - DEBUG - evaluating initial population
+2012-12-27 11:14:38,197 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:14:38,197 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:14:38,200 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:14:45,917 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:45,917 - inspyred.ec - DEBUG - archiving initial population
+2012-12-27 11:14:45,917 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:14:45,918 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:45,920 - inspyred.ec - DEBUG - observation using observer_function at generation 0 and evaluation 12
+2012-12-27 11:14:45,990 - inspyred.ec - DEBUG - observation using file_observer at generation 0 and evaluation 12
+2012-12-27 11:14:45,999 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 0 and evaluation 12
+2012-12-27 11:14:46,022 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 0 and evaluation 12
+2012-12-27 11:14:46,025 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 0 and evaluation 12
+2012-12-27 11:14:46,056 - inspyred.ec - DEBUG - termination test using stopterminator at generation 0 and evaluation 12
+2012-12-27 11:14:46,059 - inspyred.ec - DEBUG - selection using tournament_selection at generation 0 and evaluation 12
+2012-12-27 11:14:46,065 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:14:46,088 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 0 and evaluation 12
+2012-12-27 11:14:46,101 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 0 and evaluation 12
+2012-12-27 11:14:46,115 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:14:46,118 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 0 and evaluation 12
+2012-12-27 11:14:46,125 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:14:46,130 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:14:46,138 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:14:51,710 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 0 and evaluation 24
+2012-12-27 11:14:51,710 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:51,710 - inspyred.ec - DEBUG - migration using default_migration at generation 0 and evaluation 24
+2012-12-27 11:14:51,711 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:51,711 - inspyred.ec - DEBUG - archival using default_archiver at generation 0 and evaluation 24
+2012-12-27 11:14:51,713 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:14:51,713 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:51,713 - inspyred.ec - DEBUG - observation using observer_function at generation 1 and evaluation 24
+2012-12-27 11:14:51,713 - inspyred.ec - DEBUG - observation using file_observer at generation 1 and evaluation 24
+2012-12-27 11:14:51,716 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 1 and evaluation 24
+2012-12-27 11:14:51,726 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 1 and evaluation 24
+2012-12-27 11:14:51,727 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 1 and evaluation 24
+2012-12-27 11:14:51,732 - inspyred.ec - DEBUG - termination test using stopterminator at generation 1 and evaluation 24
+2012-12-27 11:14:51,732 - inspyred.ec - DEBUG - selection using tournament_selection at generation 1 and evaluation 24
+2012-12-27 11:14:51,733 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:14:51,755 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 1 and evaluation 24
+2012-12-27 11:14:51,767 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 1 and evaluation 24
+2012-12-27 11:14:51,779 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:14:51,782 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 1 and evaluation 24
+2012-12-27 11:14:51,788 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:14:51,792 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:14:51,799 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 1 and evaluation 36
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - migration using default_migration at generation 1 and evaluation 36
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - archival using default_archiver at generation 1 and evaluation 36
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:14:57,223 - inspyred.ec - DEBUG - observation using observer_function at generation 2 and evaluation 36
+2012-12-27 11:14:57,270 - inspyred.ec - DEBUG - observation using file_observer at generation 2 and evaluation 36
+2012-12-27 11:14:57,270 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 2 and evaluation 36
+2012-12-27 11:14:57,302 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 2 and evaluation 36
+2012-12-27 11:14:57,302 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 2 and evaluation 36
+2012-12-27 11:14:57,332 - inspyred.ec - DEBUG - termination test using stopterminator at generation 2 and evaluation 36
+2012-12-27 11:14:57,332 - inspyred.ec - DEBUG - selection using tournament_selection at generation 2 and evaluation 36
+2012-12-27 11:14:57,348 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:14:57,364 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 2 and evaluation 36
+2012-12-27 11:14:57,380 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 2 and evaluation 36
+2012-12-27 11:14:57,395 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:14:57,395 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 2 and evaluation 36
+2012-12-27 11:14:57,395 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:14:57,411 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:14:57,411 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:02,980 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 2 and evaluation 48
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - migration using default_migration at generation 2 and evaluation 48
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - archival using default_archiver at generation 2 and evaluation 48
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - observation using observer_function at generation 3 and evaluation 48
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - observation using file_observer at generation 3 and evaluation 48
+2012-12-27 11:15:02,996 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 3 and evaluation 48
+2012-12-27 11:15:03,026 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 3 and evaluation 48
+2012-12-27 11:15:03,026 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 3 and evaluation 48
+2012-12-27 11:15:03,058 - inspyred.ec - DEBUG - termination test using stopterminator at generation 3 and evaluation 48
+2012-12-27 11:15:03,058 - inspyred.ec - DEBUG - selection using tournament_selection at generation 3 and evaluation 48
+2012-12-27 11:15:03,073 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:15:03,089 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 3 and evaluation 48
+2012-12-27 11:15:03,089 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 3 and evaluation 48
+2012-12-27 11:15:03,121 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:15:03,121 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 3 and evaluation 48
+2012-12-27 11:15:03,121 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:15:03,121 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:15:03,135 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:08,628 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 3 and evaluation 60
+2012-12-27 11:15:08,628 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:08,628 - inspyred.ec - DEBUG - migration using default_migration at generation 3 and evaluation 60
+2012-12-27 11:15:08,628 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - archival using default_archiver at generation 3 and evaluation 60
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - observation using observer_function at generation 4 and evaluation 60
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - observation using file_observer at generation 4 and evaluation 60
+2012-12-27 11:15:08,642 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 4 and evaluation 60
+2012-12-27 11:15:08,674 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 4 and evaluation 60
+2012-12-27 11:15:08,674 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 4 and evaluation 60
+2012-12-27 11:15:08,720 - inspyred.ec - DEBUG - termination test using stopterminator at generation 4 and evaluation 60
+2012-12-27 11:15:08,720 - inspyred.ec - DEBUG - selection using tournament_selection at generation 4 and evaluation 60
+2012-12-27 11:15:08,720 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:15:08,752 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 4 and evaluation 60
+2012-12-27 11:15:08,752 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 4 and evaluation 60
+2012-12-27 11:15:08,767 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:15:08,783 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 4 and evaluation 60
+2012-12-27 11:15:08,783 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:15:08,783 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:15:08,799 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 4 and evaluation 72
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - migration using default_migration at generation 4 and evaluation 72
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - archival using default_archiver at generation 4 and evaluation 72
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:14,368 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:14,384 - inspyred.ec - DEBUG - observation using observer_function at generation 5 and evaluation 72
+2012-12-27 11:15:14,414 - inspyred.ec - DEBUG - observation using file_observer at generation 5 and evaluation 72
+2012-12-27 11:15:14,414 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 5 and evaluation 72
+2012-12-27 11:15:14,446 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 5 and evaluation 72
+2012-12-27 11:15:14,446 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 5 and evaluation 72
+2012-12-27 11:15:14,477 - inspyred.ec - DEBUG - termination test using stopterminator at generation 5 and evaluation 72
+2012-12-27 11:15:14,477 - inspyred.ec - DEBUG - selection using tournament_selection at generation 5 and evaluation 72
+2012-12-27 11:15:14,493 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:15:14,509 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 5 and evaluation 72
+2012-12-27 11:15:14,523 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 5 and evaluation 72
+2012-12-27 11:15:14,539 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:15:14,539 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 5 and evaluation 72
+2012-12-27 11:15:14,539 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:15:14,555 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:15:14,555 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:19,980 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 5 and evaluation 84
+2012-12-27 11:15:19,982 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:19,982 - inspyred.ec - DEBUG - migration using default_migration at generation 5 and evaluation 84
+2012-12-27 11:15:19,983 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:19,983 - inspyred.ec - DEBUG - archival using default_archiver at generation 5 and evaluation 84
+2012-12-27 11:15:19,983 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:19,983 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:19,984 - inspyred.ec - DEBUG - observation using observer_function at generation 6 and evaluation 84
+2012-12-27 11:15:19,986 - inspyred.ec - DEBUG - observation using file_observer at generation 6 and evaluation 84
+2012-12-27 11:15:19,993 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 6 and evaluation 84
+2012-12-27 11:15:20,023 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 6 and evaluation 84
+2012-12-27 11:15:20,028 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 6 and evaluation 84
+2012-12-27 11:15:20,063 - inspyred.ec - DEBUG - termination test using stopterminator at generation 6 and evaluation 84
+2012-12-27 11:15:20,066 - inspyred.ec - DEBUG - selection using tournament_selection at generation 6 and evaluation 84
+2012-12-27 11:15:20,075 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:15:20,105 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 6 and evaluation 84
+2012-12-27 11:15:20,115 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 6 and evaluation 84
+2012-12-27 11:15:20,131 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:15:20,135 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 6 and evaluation 84
+2012-12-27 11:15:20,141 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:15:20,148 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:15:20,154 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:25,690 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 6 and evaluation 96
+2012-12-27 11:15:25,690 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:25,690 - inspyred.ec - DEBUG - migration using default_migration at generation 6 and evaluation 96
+2012-12-27 11:15:25,690 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - archival using default_archiver at generation 6 and evaluation 96
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - observation using observer_function at generation 7 and evaluation 96
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - observation using file_observer at generation 7 and evaluation 96
+2012-12-27 11:15:25,706 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 7 and evaluation 96
+2012-12-27 11:15:25,721 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 7 and evaluation 96
+2012-12-27 11:15:25,737 - inspyred.ec - DEBUG - termination test using diversity_termination at generation 7 and evaluation 96
+2012-12-27 11:15:25,769 - inspyred.ec - DEBUG - termination test using stopterminator at generation 7 and evaluation 96
+2012-12-27 11:15:25,783 - inspyred.ec - DEBUG - selection using tournament_selection at generation 7 and evaluation 96
+2012-12-27 11:15:25,783 - inspyred.ec - DEBUG - selected 12 candidates
+2012-12-27 11:15:25,799 - inspyred.ec - DEBUG - variation using arithmetic_crossover at generation 7 and evaluation 96
+2012-12-27 11:15:25,815 - inspyred.ec - DEBUG - variation using gaussian_mutation at generation 7 and evaluation 96
+2012-12-27 11:15:25,831 - inspyred.ec - DEBUG - created 12 offspring
+2012-12-27 11:15:25,831 - inspyred.ec - DEBUG - evaluation using parallel_evaluation_mp at generation 7 and evaluation 96
+2012-12-27 11:15:25,831 - inspyred.ec - DEBUG - unable to pickle args parameter individuals_file in parallel_evaluation_mp
+2012-12-27 11:15:25,846 - inspyred.ec - DEBUG - unable to pickle args parameter statistics_file in parallel_evaluation_mp
+2012-12-27 11:15:25,846 - inspyred.ec - DEBUG - unable to pickle args parameter _ec in parallel_evaluation_mp
+2012-12-27 11:15:31,463 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - migration using default_migration at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - archival using default_archiver at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using observer_function at generation 8 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using file_observer at generation 8 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 8 and evaluation 108
+2012-12-27 11:15:31,493 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 8 and evaluation 108
+2012-12-27 11:15:31,493 - inspyred.ec - DEBUG - termination from evaluation_termination at generation 8 and evaluation 108
+eter _ec in parallel_evaluation_mp
+2012-12-27 11:15:31,463 - inspyred.ec - DEBUG - replacement using generational_replacement at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - migration using default_migration at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - archival using default_archiver at generation 7 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - archive size is now 0
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - population size is now 12
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using observer_function at generation 8 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using file_observer at generation 8 and evaluation 108
+2012-12-27 11:15:31,477 - inspyred.ec - DEBUG - observation using swmm_best_observer at generation 8 and evaluation 108
+2012-12-27 11:15:31,493 - inspyred.ec - DEBUG - termination test using evaluation_termination at generation 8 and evaluation 108
+2012-12-27 11:15:31,493 - inspyred.ec - DEBUG - termination from evaluation_termination at generation 8 and evaluation 108
