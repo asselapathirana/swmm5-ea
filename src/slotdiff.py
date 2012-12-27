@@ -16,10 +16,13 @@ class slotDiff():
             after=f2.read()
             #dmp.diff_main(before,after)
             k=self.dmp.diff_main(after,before)
-            self.dmp.diff_cleanupSemantic(k)
-            k1=[x[1].strip() for x in k if x[0]==1]
+            self.dmp.diff_cleanupEfficiency(k)
+            k1=[x[1].strip().split() for x in k if x[0]==1]
+            # first split and flattern
+            k1=[item for sublist in k1 for item in sublist]
             k1=[x for x in k1 if x!='']
-            k2=[x[1].strip() for x in k if x[0]==-1]
+            k2=[x[1].strip().split() for x in k if x[0]==-1]
+            k2=[item for sublist in k2 for item in sublist]            
             k2=[x for x in k2 if x!=''] 
             if len(k1)!=len(k2):
                 return False
