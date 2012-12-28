@@ -84,28 +84,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QScrollArea" name="slotdisplay_cont">
-            <property name="widgetResizable">
+           <widget class="QTextEdit" name="slotdisplay">
+            <property name="readOnly">
              <bool>true</bool>
             </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>174</width>
-               <height>490</height>
-              </rect>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <item row="0" column="0">
-               <layout class="QVBoxLayout" name="slotdisplay"/>
-              </item>
-             </layout>
-            </widget>
            </widget>
           </item>
          </layout>
+         <zorder>slotdisplay</zorder>
+         <zorder>update</zorder>
         </widget>
        </item>
       </layout>
@@ -190,6 +177,7 @@
   <tabstop>addvar</tabstop>
   <tabstop>nextvar</tabstop>
   <tabstop>update</tabstop>
+  <tabstop>slotdisplay</tabstop>
   <tabstop>caltype</tabstop>
   <tabstop>calids</tabstop>
   <tabstop>calbutton</tabstop>

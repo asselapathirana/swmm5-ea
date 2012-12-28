@@ -11,18 +11,16 @@ def _call(cmd):
 def _ui2py(name):
  _call(PYUIC+"  qt" + os.sep + os.sep + name+".ui"+" -o  src" + os.sep+os.sep+name+".py")
 
+_call("python service"+os.sep+os.sep+"qrcgen.py  res res")
+#now convert that to python file 
+_call(PYRCC+" -o src/res_rc.py res.qrc")
+_ui2py("mainwindow_")
+_ui2py("parameters_dialog_")
+_ui2py("swmmedit_dialog_")
+_ui2py("about_dialog_")
 
-if __name__=="__main__":
- _call("python service"+os.sep+os.sep+"qrcgen.py  res res")
- #now convert that to python file 
- _call(PYRCC+" -o src/res_rc.py res.qrc")
- _ui2py("mainwindow_")
- _ui2py("parameters_dialog_")
- _ui2py("swmmedit_dialog_")
- _ui2py("about_dialog_")
- 
- # forget files listed in .hgignore
- _call('hg forget "set:hgignore() and not ignored()" ')
+# forget files listed in .hgignore
+_call('hg forget "set:hgignore() and not ignored()" ')
 
 
 

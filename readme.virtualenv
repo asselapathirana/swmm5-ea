@@ -9,7 +9,6 @@ PyQT=4.8.1 (installs sip too, but see below)
 yaml=3.10
 sip=4.11.2 (if manually copying sip.pyd/so has to be copied to sie-packages root in addition to PyQT installation)
 swmm5 (this is included in the source tree, so no need to install seperately)
-diff_match_patch=20121119
 
 (Do not rely on pip freeze. It does not list manually copied modules)
 

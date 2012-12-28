@@ -31,7 +31,7 @@ MIN_SLOPE            0
 [EVAPORATION]
 ;;Type       Parameters
 ;;---------- ----------
-CONSTANT     0.0
+CONSTANT     		0.0
 DRY_ONLY     NO
 
 [RAINGAGES]

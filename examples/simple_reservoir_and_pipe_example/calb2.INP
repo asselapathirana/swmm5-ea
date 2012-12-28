@@ -60,32 +60,24 @@ E1               70         0.5        7
 ;;               Invert     Max.       Init.      Surcharge  Ponded    
 ;;Name           Elev.      Depth      Depth      Depth      Area      
 ;;-------------- ---------- ---------- ---------- ---------- ----------
-J12              15.649     0          0          0          0         
+J8               23.459     3          0          0          0         
 
 [OUTFALLS]
 ;;               Invert     Outfall    Stage/Table      Tide
 ;;Name           Elev.      Type       Time Series      Gate
 ;;-------------- ---------- ---------- ---------------- ----
-1                0          FREE                        NO
-
-[STORAGE]
-;;               Invert   Max.     Init.    Storage    Curve                      Ponded   Evap.   
-;;Name           Elev.    Depth    Depth    Curve      Params                     Area     Frac.    Infiltration Parameters
-;;-------------- -------- -------- -------- ---------- -------- -------- -------- -------- -------- -----------------------
-J8               23.459    1.0 0        FUNCTIONAL  5000 0        0        0        0       
+J12              15.649     FREE                        NO
 
 [CONDUITS]
 ;;               Inlet            Outlet                      Manning    Inlet      Outlet     Init.      Max.      
 ;;Name           Node             Node             Length     N          Offset     Offset     Flow       Flow      
 ;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
 T5               J8               J12              235        0.01       0          0          0          0         
-1                J12              1                400        0.01       0          0          0          0         
 
 [XSECTIONS]
 ;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels   
 ;;-------------- ------------ ---------------- ---------- ---------- ---------- ----------
-T5               RECT_CLOSED   1  1 0          0          1                    
-1                CIRCULAR     .5                0          0          0          1                    
+T5               RECT_OPEN    .4               3          0          0          1                    
 
 [LOSSES]
 ;;Link           Inlet      Outlet     Average    Flap Gate 
@@ -276,9 +268,8 @@ Units      None
 [COORDINATES]
 ;;Node           X-Coord            Y-Coord           
 ;;-------------- ------------------ ------------------
-J12              5312.184           5063.248          
-1                6776.765           5398.633          
 J8               5138.567           3802.918          
+J12              5312.184           5063.248          
 
 [VERTICES]
 ;;Link           X-Coord            Y-Coord           

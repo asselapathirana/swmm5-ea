@@ -140,8 +140,6 @@ mainwindow_.Ui_SWMM5EA):
     def on_action_Insert_Slots_triggered(self,checed=None):
         if(self.controller.project.swmmfilename):
             tx=self.controller.get_slotted_data()
-            if not tx:
-                return 
             ids=self.controller.project.get_ids()
             if not ids:
                 print "Problem retriving ids of objects. Check SWMM file."

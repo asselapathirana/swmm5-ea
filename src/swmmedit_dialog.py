@@ -4,12 +4,6 @@ import guiqwt.plot
 import swmmedit_dialog_
 import swmm_ea_controller
 
-class _PushButton(QtGui.QPushButton):
-     def __init__(self, label=None, textlocation=None):
-          super(QtGui.QPushButton, self).__init__(label)
-          self.textlocation=textlocation
-
-
 class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
 
 
@@ -27,7 +21,7 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
           if(text):
                self.editor.insertPlainText(text)
           self.highlighter=highlighter(self.editor)
-          #self.highlighter2=highlighter(self.slotdisplay)
+          self.highlighter2=highlighter(self.slotdisplay)
           self.text=text
           self.gototop(True)
           self.on_update_clicked()
@@ -105,24 +99,9 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
           while True:
                c=doc.find(regex,c)
                if c.isNull(): break
-               self.slots.append(_PushButton(c.selectedText(),c))
-               #print c.selectedText()
+               self.slots.append([c.selectedText(),c])
           self.updateslots()
-          
-     def findText(self,cursor, text):
-          self.gototop(True)
-          regex = QtCore.QRegExp(QtCore.QRegExp.escape(text))
-          index = regex.indexIn(self.editor.toPlainText(), 0)
-          if (index<0): 
-               print "Problem locating! (Try manually)"
-               return
-          self.editor.setTextCursor(cursor)
-          cursor.setPosition(index)
-          self.editor.ensureCursorVisible()          
-          cursor.movePosition(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor, len(text)) 
-          self.editor.ensureCursorVisible() 
-          #print index, len(text)
-          
+
      def gototop(self,updatewindow=False):
           c=self.editor.textCursor()
           c.setPosition(QtGui.QTextCursor.Start) # start on top\
@@ -139,36 +118,16 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
           self.calid_=[j,str(self.calids.itemText(j))]
           QtGui.QDialog.accept(self)
 
-     def clearLayout(self, layout):
-         for i in reversed(range(layout.count())):
-             item = layout.itemAt(i)
-     
-             if isinstance(item, QtGui.QWidgetItem):
-                 #print "widget" + str(item)
-                 item.widget().close()
-             elif isinstance(item, QtGui.QSpacerItem):
-                  pass
-             else:
-                  self.clearLayout(item.layout())
-             layout.removeItem(item)          
 
      def updateslots(self):
-          self.clearLayout(self.slotdisplay)
-          
-          for line in self.slots:         
-               self.slotdisplay.addWidget(line)
-               line.clicked.connect(self.onVarButtonClicked)
-          self.spacer=QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-          self.slotdisplay.addItem(self.spacer)
-          
-          
-     def onVarButtonClicked(self):
-          self.findText(self.sender().textlocation, self.sender().text() )
+          self.slotdisplay.setPlainText("")
+          for line in self.slots:           
+               self.slotdisplay.insertPlainText(line[0]+"\n")
 
 class HighlightingRule():
-     def __init__(self, pattern, fmt):
+     def __init__(self, pattern, format):
           self.pattern = pattern
-          self.fmt = fmt
+          self.format = format
 
 class highlighter(QtGui.QSyntaxHighlighter ):     
      def __init__( self, parent):
@@ -177,9 +136,9 @@ class highlighter(QtGui.QSyntaxHighlighter ):
           self.highlightingRules = []   
           reservedClasses = QtGui.QTextCharFormat()
           reservedClasses.setForeground( QtCore.Qt.darkRed )
-          #reservedClasses.setBackground( QtCore.Qt.green)
+          reservedClasses.setBackground( QtCore.Qt.green)
           reservedClasses.setFontWeight( QtGui.QFont.Bold)
-          regex=QtCore.QRegExp(QtCore.QString(u"@!.*!@"))
+          regex=QtCore.QRegExp(u"@!.*!@")
           regex.setMinimal(True)
           self.rule = HighlightingRule( regex, reservedClasses )
           self.highlightingRules.append( self.rule )
@@ -187,11 +146,10 @@ class highlighter(QtGui.QSyntaxHighlighter ):
      def highlightBlock( self, text ):
           for rule in self.highlightingRules:
                expression = QtCore.QRegExp( self.rule.pattern )
-               index=0
+               index = expression.indexIn( text )
                while index >= 0:
-                    index = expression.indexIn( text, index)
                     length = expression.matchedLength()
-                    self.setFormat( index, length, self.rule.fmt )
+                    self.setFormat( index, length, self.rule.format )
                     index = text.indexOf( expression, index + length )
           self.setCurrentBlockState( 0 ) 
 
