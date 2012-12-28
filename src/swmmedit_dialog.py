@@ -106,7 +106,7 @@ class Ui_swmmedit_dialog(QtGui.QDialog,swmmedit_dialog_.Ui_Dialog):
                c=doc.find(regex,c)
                if c.isNull(): break
                self.slots.append(_PushButton(c.selectedText(),c))
-               print c.selectedText()
+               #print c.selectedText()
           self.updateslots()
           
      def findText(self,cursor, text):
