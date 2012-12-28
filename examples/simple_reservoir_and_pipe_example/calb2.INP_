@@ -72,13 +72,13 @@ J12              15.649     0          0          0          0
 ;;               Invert   Max.     Init.    Storage    Curve                      Ponded   Evap.   
 ;;Name           Elev.    Depth    Depth    Curve      Params                     Area     Frac.    Infiltration Parameters
 ;;-------------- -------- -------- -------- ---------- -------- -------- -------- -------- -------- -----------------------
-J8               23.459    @!v1!@ 0        FUNCTIONAL  @!v2!@ 0        0        0        0       
+J8               23.459    @!v1!@ 0        FUNCTIONAL  @!v2+v3+max(v4,v5)+v1+v2+v3!@ 0        0        0        0       
 
 [CONDUITS]
 ;;               Inlet            Outlet                      Manning    Inlet      Outlet     Init.      Max.      
 ;;Name           Node             Node             Length     N          Offset     Offset     Flow       Flow      
 ;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
-T5               J8               J12              235        0.01       0          0          0          0         
+T5               J8               J12              235        0.01       0          0          0           @!v5!@ 
 1                J12              1                400        0.01       0          0          0          0         
 
 [XSECTIONS]
