@@ -425,6 +425,9 @@ You can do two things:
     
 if __name__ == "__main__":
     import sys
+    import multiprocessing, logging
+    logger = multiprocessing.log_to_stderr()
+    logger.setLevel(multiprocessing.SUBDEBUG)    
     sc=swmmeacontroller()
     sys.exit(sc.show())
         

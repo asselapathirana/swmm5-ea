@@ -227,8 +227,11 @@ class Project():
             try:
                 self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
             except:
-                print "problem: no swmm files in the directory."
-                return self.LOAD_NOSWMMFILE
+                try:
+                    self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.INP')[0]))
+                except:
+                    print "problem: no swmm files in the directory."
+                    return self.LOAD_NOSWMMFILE
         else:
             self.setSwmmfile(swmmfilename)
         self.read_in_swmm_file()

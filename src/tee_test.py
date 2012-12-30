@@ -22,7 +22,9 @@ class StreamLogger(object):
             self.log.info('%s%s' % (self.prefix, tmp))
             self.data = ''
 
-
+    def flush(self):
+        """This is sometimes needed"""
+        pass
 
 
 if __name__ =="__main__":

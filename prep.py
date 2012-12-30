@@ -3,7 +3,9 @@ import subprocess, os
 import PyQt4
 PYUIC="python "+os.path.dirname(PyQt4.__file__)+os.sep+os.sep+"uic"+os.sep+os.sep+"pyuic.py"
 PYRCC=os.path.dirname(PyQt4.__file__)+os.sep+os.sep+"bin"+os.sep+os.sep+"pyrcc4"
-
+if os.name=='posix':
+   PYUIC='pyuic4'
+   PYRCC='pyrcc4'
 def _call(cmd):
  print cmd
  subprocess.call(cmd, shell=True)

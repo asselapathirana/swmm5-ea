@@ -1,6 +1,6 @@
 #Written programmetically!
 !!python/object:swmmeaproject.parameters_class_
-calfile: C:\Users\apa.EDUCATION\Desktop\cal2\linkt5flow.cal
+calfile: /home/assela/swmm5-ea/examples/simple_reservoir_and_pipe_example/linkt5flow.cal
 calid: [0, T5]
 caltype:
 - 7
@@ -14,7 +14,7 @@ gnuplotscript: plotfile.plt
 max_evaluations: 2400
 maximize: false
 mutation_rate: 0.2
-num_cpus: 1
+num_cpus: 4
 num_crossover_points: 2
 num_elites: 1
 num_inputs: 6
