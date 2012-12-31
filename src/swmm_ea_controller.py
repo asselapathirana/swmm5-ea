@@ -13,7 +13,7 @@ import slotdiff
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.8.1.0"
+VERSION="0.8.2.0"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"GNU General Public License version 3"
 PUBLISHER=u"Assela Pathirana"
