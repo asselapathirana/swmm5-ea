@@ -1,6 +1,4 @@
 import os, shutil, sys, tempfile
-print sys.argv[0]
-print os.path.dirname(sys.argv[0])
 from PyQt4 import QtCore, QtGui
 import guiqwt
 #guiqwt
@@ -428,9 +426,6 @@ You can do two things:
     
 if __name__ == "__main__":
     import sys
-    import multiprocessing, logging
-    logger = multiprocessing.log_to_stderr()
-    logger.setLevel(multiprocessing.SUBDEBUG)    
     sc=swmmeacontroller()
     sys.exit(sc.show())
         
