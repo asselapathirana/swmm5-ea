@@ -5,7 +5,17 @@ Building Stand-alone executable
 [Preperation: First in inspyred\ec\observers.py comment out the following two imports (hack! so undo later!)
 #import email
 #import smtplib
-2. entry point here whould be swmm5ec_.pyw (a simple script that calls swmm_ea_controller.py)
+2. entry point here whould be swmm5ec_.pyw (a simple script that calls swmm_ea_controller.py) (for windows)
+3. guidata/configtools.py has to be patched as follows: 
+
+36c36,37
+<         if osp.isfile(parentdir): 
+---
+>         parentdir2 = osp.split(datapath.rstrip(os.path.sep))[0]
+>         if osp.isfile(parentdir) or osp.isfile(parentdir2):
+
+(for linux)
+
 ]
 
 ** when using cx_freeze (or any other freezing utility,) freeze_support calling at the top level is essential for sane operation of frozen code. 

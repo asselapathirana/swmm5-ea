@@ -1,14 +1,17 @@
+import os, shutil, sys, tempfile
+print sys.argv[0]
+print os.path.dirname(sys.argv[0])
 from PyQt4 import QtCore, QtGui
 import guiqwt
 #guiqwt
 import guiqwt.plot
-import os, shutil, sys, tempfile
 
 import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
 #from guiqwt import QwtPlot
+
 
 # program metadata
 
@@ -138,7 +141,7 @@ class swmmeacontroller():
         from time import strftime, localtime
         log = logging.getLogger(strftime("%Y%b%d:%H:%M:%S:", localtime()))
         # open our log file
-        self.logfile=tempfile.gettempdir()+ os.sep+os.path.basename(__file__)+".log"
+        self.logfile=tempfile.gettempdir()+ os.sep+os.path.basename(sys.argv[0])+".log"
         logging.basicConfig(level=logging.INFO,
                         filename=self.logfile,
                         filemode='a')

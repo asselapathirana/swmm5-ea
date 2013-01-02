@@ -7,8 +7,11 @@ sys.path.append(".."+os.sep+os.sep+"service")
 
 try:
     from guidata.disthelpers import Distribution
+    import guidata.configtools as gc
 except ImportError:
     raise ImportError, "This script requires guidata 1.4+"
+
+
 
 import swmm_ea_controller as sc
 
