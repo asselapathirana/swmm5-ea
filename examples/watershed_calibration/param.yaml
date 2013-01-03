@@ -1,6 +1,6 @@
 #Written programmetically!
 !!python/object:swmmeaproject.parameters_class_
-calfile: /home/assela/swmm5-ea/examples/simple_reservoir_and_pipe_example/linkt5flow.cal
+calfile: E:\learn\swmm5ea-repo\swmm5-ea\examples\watershed_calibration\linkt5flow.cal
 calid: [0, T5]
 caltype:
 - 7
@@ -20,7 +20,7 @@ num_elites: 1
 num_inputs: 6
 num_selected: 12
 pop_size: 12
-swmmResultCodes: [0, 0, 0]
+swmmResultCodes: [2, 0, 0]
 swmmout_cost_function: !!python/unicode 'f**2.*.1'
 swmmouttype: [1, Calibration var.]
 valuerange:

@@ -14,7 +14,7 @@ gnuplotscript: plotfile.plt
 max_evaluations: 2400
 maximize: false
 mutation_rate: 0.2
-num_cpus: 1
+num_cpus: 4
 num_crossover_points: 2
 num_elites: 1
 num_inputs: 4
