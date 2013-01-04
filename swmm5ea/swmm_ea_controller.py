@@ -18,10 +18,32 @@ VERSION="0.8.2.0"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"GNU General Public License version 3"
 PUBLISHER=u"Assela Pathirana"
+AUTHOR=u"Assela Pathirana"
 URL="http://assela.pathirana.net/SWMM5_EA"
 TARGET="swmm5ec.exe"
 SETUPNAME=NAME+"-"+VERSION
+PLATFORM="POSIX, WINDOWS"
+EMAIL="assela@pathirana.net"
+DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME
+CLASSIFY=[
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Environment :: Other Environment",
+        "Intended Audience :: Education",
+        "Intended Audience :: End Users/Desktop",
+        "License :: OSI Approved :: GNU General Public License v3",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft :: Windows",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Development Status :: 4 - Beta",
+        "Natural Language :: English"
+        ]
+LONGDISC="""\
+Optimizing Urban Drainage Networks with EPA-SWMM 5.0 and Evolutionary Methods"
+-------------------------------------
 
+Python 2.7 version. 
+"""
 
 
 RUN_STATUS_TOBEINITED=0

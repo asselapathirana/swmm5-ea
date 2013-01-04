@@ -11,13 +11,13 @@ def _call(cmd):
  subprocess.call(cmd, shell=True)
 
 def _ui2py(name):
- _call(PYUIC+"  qt" + os.sep + os.sep + name+".ui"+" -o  src" + os.sep+os.sep+name+".py")
+ _call(PYUIC+"  qt" + os.sep + os.sep + name+".ui"+" -o  swmm5ea" + os.sep+os.sep+name+".py")
 
 
-if __name__=="__main__":
+if __name__=="__main__":	
  _call("python service"+os.sep+os.sep+"qrcgen.py  res res")
  #now convert that to python file 
- _call(PYRCC+" -o src/res_rc.py res.qrc")
+ _call(PYRCC+" -o swmm5ea/res_rc.py res.qrc")
  _ui2py("mainwindow_")
  _ui2py("parameters_dialog_")
  _ui2py("swmmedit_dialog_")

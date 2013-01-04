@@ -1,7 +1,9 @@
+# this script should live in service directory
 import sys
 import os
 
 sys.path.append(".."+os.sep+os.sep+"service")
+sys.path.append(".."+os.sep+os.sep+"swmm5ea")
 
 """Create a stand-alone executable"""
 
@@ -20,7 +22,7 @@ def create_executable():
     dist = Distribution()
     dist.setup(name=sc.NAME, version=sc.VERSION,
                description=sc.DESCRIPTION,
-               script="swmm5ec_.pyw", target_name=sc.TARGET,
+               script="..\swmm5ea\swmm5ec_.pyw", target_name=sc.TARGET,
     icon="../res/DNA.ico")
     dist.add_modules('guidata', 'guiqwt')
     # Building executable
