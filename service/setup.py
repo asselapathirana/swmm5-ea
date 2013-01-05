@@ -55,11 +55,11 @@ def create_setupscript():
     DefaultDirName={pf}\{#MyAppName}
     DefaultGroupName={#MyAppName}
     AllowNoIcons=yes
-    LicenseFile=license.txt
-    InfoBeforeFile=README.txt
-    InfoAfterFile=POST_INSTALL.txt
+    LicenseFile=%(p)sCOPYING.txt
+    InfoBeforeFile=%(p3)sREADME.txt
+    InfoAfterFile=POSTINSTALL.txt
     OutputBaseFilename={#MyOutputBaseName}
-    SetupIconFile=..\res\DNA.ico
+    SetupIconFile=%(p2)sDNA.ico
     Compression=lzma
     SolidCompression=yes
     
@@ -84,7 +84,7 @@ def create_setupscript():
     
     [Run]
     Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-    """
+    """ 
     
     f=open("install.iss","w")
     import swmm_ea_controller as sc
@@ -93,7 +93,10 @@ def create_setupscript():
                         ,"publisher": sc.PUBLISHER
                         ,"url": sc.URL
                         ,"exename": sc.TARGET, 
-                        "outputbasename": sc.SETUPNAME})
+                        "outputbasename": sc.SETUPNAME, 
+                        "p": ".."+os.sep+"swmm5ea"+os.sep, 
+                        "p2": ".."+os.sep+"res"+os.sep,
+                        "p3": ".."+os.sep})
     f.close()
     
 

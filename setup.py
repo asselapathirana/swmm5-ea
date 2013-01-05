@@ -1,6 +1,6 @@
 # chardet's setup.py
 from distutils.core import setup
-import itertools
+from itertools mpoort product
 from swmm5ea import swmm_ea_controller as sc
 
 EXAMPLES=("storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration")

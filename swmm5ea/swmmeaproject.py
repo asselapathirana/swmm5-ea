@@ -219,7 +219,8 @@ class Project():
         f = open(pfilename)   
         flag=self.string_to_param(f.read())
         if not flag: 
-            print "Problem opening and loading : "
+            print "Problem opening and loading : ", pfilename
+            raise()
         
         f.close() 
         if not swmmfilename:
@@ -249,8 +250,9 @@ class Project():
 
 
     def string_to_param(self, string ):
-
-        f=StringIO.StringIO(string)
+        """As a policy we ignore entries !!python/object: and read as dictionary"""
+        st=string.replace("!!python/object:","#!!python/object:")
+        f=StringIO.StringIO(st)
         self.parameters=parameters_class_()
         # now add the parameter to ensure compatibility with old version
         self.parameters.swmmouttype=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]# default
@@ -258,14 +260,17 @@ class Project():
             import yaml
             dataMap = yaml.load(f)  
             f.close()
-            #if the yaml file has the header !!python/object:swmmeaproject.parameters_class_
-            # yaml.load will load the object directly. 
-            # if not loads a dictionary
-            if(dataMap.__class__.__name__==self.parameters.__class__.__name__):
-                self.parameters=dataMap
-            else:
-                for key in dataMap :
-                    setattr(self.parameters, key, dataMap[key])
+            ##if the yaml file has the header !!python/object:swmmeaproject.parameters_class_
+            ## yaml.load will load the object directly. 
+            ## if not loads a dictionary
+            #if(dataMap.__class__.__name__==self.parameters.__class__.__name__):
+                #self.parameters=dataMap
+            #else:
+                #for key in dataMap :
+                    #setattr(self.parameters, key, dataMap[key])
+                    
+            for key in dataMap :
+                setattr(self.parameters, key, dataMap[key])             
         except: 
             print "Problem reading parameters ",  sys.exc_info()
             return None
@@ -273,8 +278,10 @@ class Project():
 
 
 
-    def remove_temp_vars(self,params):
-        """ removes the temporary parameters in params object """
+    def cleanup_and_make_to_dict(self,params):
+        """ 1. removes the temporary parameters in params object.
+            2. convert it to a dictionary. 
+            """
         from  copy  import deepcopy
         p=deepcopy(params)
         for item in [ "calINITEMPLATE", "calibdata", "bestlist", "linestring",  "projectdirectory",  "resultsdirectory", "templatefile", "datadirectory" ]: 
@@ -282,7 +289,7 @@ class Project():
                 delattr(p,item)
             except: 
                 pass
-        return p
+        return p.__dict__
 
     def save(self):
 
@@ -295,7 +302,7 @@ class Project():
         f=open(self.dirname+os.sep+self.paramfilename,'w')
         import yaml
         f.write("#Written programmetically!\n")
-        d=yaml.dump(self.remove_temp_vars(self.parameters),f)
+        d=yaml.dump(self.cleanup_and_make_to_dict(self.parameters),f)
         f.close()
 
         print self.paramfilename + " saved."
