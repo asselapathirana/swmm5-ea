@@ -13,7 +13,7 @@ numpy=1.6.2
 PyQT=4.8.1 
 yaml=3.10
 sip=4.11.2 
-swmm5 
+swmm5=0.3
 diff_match_patch=20121119
 
 Installation: 

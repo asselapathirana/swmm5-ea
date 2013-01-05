@@ -23,7 +23,7 @@ import swmmout
 import swmm_ea_controller
 from PyQt4 import QtCore, QtGui
 
-import swmm5 as sw
+from swmm5 import swmm5 as sw
 
 
 class dumb(object):

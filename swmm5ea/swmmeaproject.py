@@ -7,7 +7,7 @@ import StringIO
 import swmm5ec
 import guiqwt
 import swmmout
-import swmm5 as sw
+import swmm5.swmm5 as sw
 import swmm_ea_controller
 from PyQt4 import QtCore
 
