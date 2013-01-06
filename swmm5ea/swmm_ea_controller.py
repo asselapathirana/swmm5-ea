@@ -14,9 +14,9 @@ import slotdiff
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.8.2.0"
+VERSION="0.8.3.0"
 DESCRIPTION=u"SWMM5-EA"
-LICENSE=u"GNU General Public License version 3"
+LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 PUBLISHER=u"Assela Pathirana"
 AUTHOR=u"Assela Pathirana"
 URL="http://assela.pathirana.net/SWMM5_EA"
@@ -24,14 +24,14 @@ TARGET="swmm5ec.exe"
 SETUPNAME=NAME+"-"+VERSION
 PLATFORM="POSIX, WINDOWS"
 EMAIL="assela@pathirana.net"
-DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME
+DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip"
 CLASSIFY=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Environment :: Other Environment",
         "Intended Audience :: Education",
         "Intended Audience :: End Users/Desktop",
-        "License :: OSI Approved :: GNU General Public License v3",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -39,7 +39,9 @@ CLASSIFY=[
         "Natural Language :: English"
         ]
 LONGDISC="""\
-Optimizing Urban Drainage Networks with EPA-SWMM 5.0 and Evolutionary Methods"
+Optimizing Urban Drainage Networks 
+with EPA-SWMM 5.0 and Evolutionary Methods"
+
 -------------------------------------
 
 Python 2.7 version. 

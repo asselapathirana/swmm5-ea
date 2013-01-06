@@ -1,15 +1,14 @@
 # chardet's setup.py
 from distutils.core import setup
-from itertools mpoort product
+from itertools import product
 from swmm5ea import swmm_ea_controller as sc
 
 EXAMPLES=("storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration")
 EXTS=["inp", "inp_", "yaml", "cal"]
 EXTS.extend([x.upper() for x in EXTS])
-EXAMPLES=list(itertools.product(EXAMPLES,EXTS))
+EXAMPLES=list(product(EXAMPLES,EXTS))
 package_data=[ "examples/"+x[0]+"/*."+x[1] for x in EXAMPLES]
 #package_data.append("*.pyw")
-print package_data
 setup(
     name = sc.NAME,
     packages = ["swmm5ea"],

@@ -1,3 +1,12 @@
+Building:
+--------
+1. Use setup.py on top to build sdist and bdist_wininst
+python setup.py sdist
+python setup.py bdist_wininst
+2. Use setup.py in service to build standalone exe for windows
+python setup.py 
+ then use innosetup with the generated script (install.iss) to build the exe. 
+
 Debugging:
 * When debugging main entrypoint should be the main function in swmm_ea_controller.py
 Building Stand-alone executable
