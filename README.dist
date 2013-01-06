@@ -1,0 +1,21 @@
+Creating a new version and distribute
+a) Change the version details in swmm5ea/swmm_ea_controller.py
+b) Change the version details in swmm/swmm/setup.py
+Check everything and commit
+hg commit -m "message"
+hg push
+
+How to distribute
+** Do the following within cygwin system with gpg key ** 
+1. Build the stand-alone version 
+go to service; python setup.py; then run install.iss with innosetup 
+(step 1 can be done onnly in windows!)
+2. go to swmm5-ea root (this directory)
+python setup.py register sdist upload --sign
+python setup.py register bdist_wininst upload --sign
+(source and windows installer packages. Can be done both in windows or POSIX)
+3. python setup.py register
+(this will add the proper meta data to the pypi 
+-- don't know why by the command in (2) does not do this properly!)
+4. Now go to swmm directory and do steps (2) and (3). 
+5. 

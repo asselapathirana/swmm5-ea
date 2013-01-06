@@ -30,6 +30,7 @@ proj.directory-list = [{'dirloc': loc('../examples'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-list = [loc('../prep.py'),
+                  loc('../README.dist'),
                   loc('../README.txt'),
                   loc('../service/action_slots.bash'),
                   loc('../setup.py'),
