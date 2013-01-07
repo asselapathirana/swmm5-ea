@@ -6,10 +6,20 @@ hg commit -m "message"
 hg push
 
 How to distribute
-** Do the following within cygwin system with gpg key ** 
-1. Build the stand-alone version 
-go to service; python setup.py; then run install.iss with innosetup 
+
+* Checklist
+(a) Check the versions in swmm_ea_controller.py and swmm/setup.py
+(b) In root level setup files check if EXAMPLES and EXTS variables are up to date (e.g. when you add new examples)
+(c) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
+
+
+1. Build the stand-alone and windows binary versions
+python setup.py bdist_wininst
+go to service; python setup.py (this automatically run install.iss with innosetup  too)
+(Best to get a fresh commandline for those two commands)
 (step 1 can be done onnly in windows!)
+
+** Do the following within cygwin system with gpg key ** 
 2. go to swmm5-ea root (this directory)
 python setup.py register sdist upload --sign
 python setup.py register bdist_wininst upload --sign
@@ -18,4 +28,7 @@ python setup.py register bdist_wininst upload --sign
 (this will add the proper meta data to the pypi 
 -- don't know why by the command in (2) does not do this properly!)
 4. Now go to swmm directory and do steps (2) and (3). 
-5. 
+5. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it
+./upload2google.bash Output/SWMM5_EA-x.y.z.k.exe
+(If the server says "Forbidden (403)" that might mean there's already a file under that name. Confusing)
+Delete the file and try again)

@@ -98,8 +98,13 @@ def create_setupscript():
                         "p2": ".."+os.sep+"res"+os.sep,
                         "p3": ".."+os.sep})
     f.close()
+
+def run_innosetup():
+    import subprocess
+    subprocess.call(['c:\\Program Files (x86)\\Inno Setup 5\\ISCC.exe', 'install.iss'])
     
 
 if __name__ == '__main__':
     create_executable()
     create_setupscript()
+    run_innosetup()
