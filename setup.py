@@ -1,18 +1,20 @@
-import sys, os
+# chardet's setup.py
 from distutils.core import setup
 from itertools import product
-sys.path.append("."+os.sep+os.sep+"swmm5ea")
-import swmm_ea_controller as sc
+from swmm5ea import swmm_ea_controller as sc
 
 with open("README.txt","r") as f:
     README=f.read()
 
-cwd=os.path.join(os.getcwd(),"swmm5ea")
-package_data=[x[len(cwd)+1:] for x in sc.LIST_OF_FILE_GLOBS ]
-
-
+EXAMPLES=("storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration")
+EXTS=["inp", "inp_", "yaml", "cal"]
+EXTS.extend([x.upper() for x in EXTS])
+EXAMPLES=list(product(EXAMPLES,EXTS))
+package_data=[ "examples/"+x[0]+"/*."+x[1] for x in EXAMPLES]
 #package_data.append("*.pyw")
-LONGDISC="""%(rm)s\n""" % { "rm": README}
+LONGDISC=sc.LONGDISC+"""
+\n--------\nREADME.txt\n-------
+%(rm)s\n""" % { "rm": README}
 setup(
     name = sc.NAME,
     packages = ["swmm5ea"],

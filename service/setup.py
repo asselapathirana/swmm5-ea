@@ -16,32 +16,14 @@ except ImportError:
 
 
 import swmm_ea_controller as sc
-from glob import glob
-from os.path import dirname, basename
 
 def create_executable():
     """Build executable using ``guidata.disthelpers``"""
-    head=os.path.join("..","swmm5ea")
-    #lst=[glob(os.path.join(head,x)) for x in sc.LIST_OF_FILE_GLOBS]
-    #lst=[item for sublist in lst for item in sublist]
-    #data_files=[[dirname(x)[13:],[x]] for x in lst]
-    
-    cwd=os.path.abspath(os.path.join(os.getcwd(),"..","swmm5ea"))
-    data_files=[[
-        os.path.dirname(x[len(cwd)+1:]),
-        [os.path.join("..","swmm5ea",x[len(cwd)+1:])]
-        ] for x in sc.LIST_OF_FILE_GLOBS ]  
-    
-    for i in data_files:
-        print i
-    #raw_input()    
     dist = Distribution()
-    dist.setup( name=sc.NAME, version=sc.VERSION,
+    dist.setup(name=sc.NAME, version=sc.VERSION,
                description=sc.DESCRIPTION,
                script="..\swmm5ea\swmm5ec_.pyw", target_name=sc.TARGET,
-    icon="../res/DNA.ico",
-    data_files=data_files)
-
+    icon="../res/DNA.ico")
     dist.add_modules('guidata', 'guiqwt')
     # Building executable
     dist.build('cx_Freeze')
@@ -96,8 +78,6 @@ def create_setupscript():
     [Icons]
     Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
     Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
-    Name: "{group}\{#MyAppName}-Examples"; Filename: "{app}\examples"
-    Name: "{group}\{#MyAppName}-Users' Guide"; Filename: "{app}\doc\_build\html\index.html"
     Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
     Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
     Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
@@ -108,7 +88,6 @@ def create_setupscript():
     
     f=open("install.iss","w")
     import swmm_ea_controller as sc
-
     f.write(template % { "name" : sc.NAME
                         ,"version": sc.VERSION
                         ,"publisher": sc.PUBLISHER
@@ -123,7 +102,7 @@ def create_setupscript():
 def run_innosetup():
     import subprocess
     subprocess.call(['c:\\Program Files (x86)\\Inno Setup 5\\ISCC.exe', 'install.iss'])
-
+    
 
 if __name__ == '__main__':
     create_executable()

@@ -4,22 +4,12 @@ import os
 from  distutils.dir_util import copy_tree
 import sys
 import StringIO
+import swmm5ec
 import guiqwt
 import swmmout
 import swmm5.swmm5 as sw
 import swmm_ea_controller
 from PyQt4 import QtCore
-
-fi=os.path.dirname(os.path.abspath(__file__))
-cdir=os.path.abspath(os.path.join(fi,"..","customcode"))
-if os.path.exists(cdir):
-    if os.path.exists(os.path.join(cdir,"swmm5ec_custom.py")):
-        sys.path.append(cdir)
-        exec('import %s as swmm5ec' % "swmm5ec_custom")
-    else:
-        import swmm5ec
-else:
-    import swmm5ec
 
 
 
@@ -64,6 +54,8 @@ class Project():
             self.setSwmmfile(data.swmmfilename)
             self.save()   
         self.slotted_swmmfilename=None
+
+
 
 
     def pause_optimization(self,state):
@@ -167,8 +159,6 @@ class Project():
         print "List of parameters:"
         print self.parameters
         print "*****************************************************************"
-        print "(Advanced message) Using swmm5ec : %s" % swmm5ec.__file__
-        print "*****************************************************************"
         parameters=self.parameters
         parameters.bestlist=[]
         for i in range(parameters.pop_size+1):
@@ -188,6 +178,9 @@ class Project():
         return True
 
 
+
+
+
     def write_slotted_swmm_file(self, full_fname, text):
         f=open(full_fname,'w')
         f.write(text)
@@ -201,22 +194,16 @@ class Project():
             self.read_in_swmm_file()
             return True
         except: 
-            print "swmm file: %s can not be found!" % (self.swmmfilename)
             self.setSwmmfile(None)
             return False
 
     def getSlottedData(self):
         sf=self.dirname+os.sep+(self.slotted_swmmfilename or "")
-        slot=True
         if not (self.slotted_swmmfilename and os.path.exists(sf)):
-            # then we read the original swmm file
-            slot=False
             sf=self.dirname+os.sep+self.swmmfilename
         f=open(sf)
         t=f.read()
         f.close()
-        if (not slot) and self.parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE: # we've read original swmm file and this analysis is multiple
-            return reduce(lambda x,y: x+y, (swmm_ea_controller.SWMMSTAGESEPERATOR % (i) + t for i in range(self.parameters.stages)))
         return t
 
     def load(self, dirname=None, swmmfilename=None):
@@ -237,20 +224,15 @@ class Project():
         
         f.close() 
         if not swmmfilename:
-            # now check in parameters. 
-            if hasattr(self.parameters,"swmmfilename"):
-                print "Reading in swmmfilename from params.yaml as %s. " % (self.parameters.swmmfilename)
-                self.setswmmfile(self.parameters.swmmfilename)
-            else:
-                import glob
+            import glob
+            try:
+                self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
+            except:
                 try:
-                    self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
+                    self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.INP')[0]))
                 except:
-                    try:
-                        self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.INP')[0]))
-                    except:
-                        print "problem: no swmm files in the directory."
-                        return self.LOAD_NOSWMMFILE
+                    print "problem: no swmm files in the directory."
+                    return self.LOAD_NOSWMMFILE
         else:
             self.setSwmmfile(swmmfilename)
         self.read_in_swmm_file()
@@ -274,10 +256,6 @@ class Project():
         self.parameters=parameters_class_()
         # now add the parameter to ensure compatibility with old version
         self.parameters.swmmouttype=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]# default
-        self.parameters.stage_size=1
-        self.parameters.discount_rate=1.0
-        self.parameters.stages=1
-        self.parameters.multiObjective=False
         try:
             import yaml
             dataMap = yaml.load(f)  
@@ -324,8 +302,6 @@ class Project():
         f=open(self.dirname+os.sep+self.paramfilename,'w')
         import yaml
         f.write("#Written programmetically!\n")
-        print "Adding name of swmmfile, %s to parameters" % (self.swmmfilename)
-        self.parameters.swmmfilename=self.swmmfilename
         d=yaml.dump(self.cleanup_and_make_to_dict(self.parameters),f)
         f.close()
 

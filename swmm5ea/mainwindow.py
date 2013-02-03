@@ -6,7 +6,7 @@ import swmmedit_dialog
 import swmm_ea_controller
 import parameters_dialog
 import sys
-import about_dialog
+import about_dialog_
 
 class MainWindow(QtGui.QMainWindow,
 mainwindow_.Ui_SWMM5EA):
@@ -36,8 +36,8 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
-    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", xtitle=None, plottitle=None,zoomextent=False):
-        self.curve.plot.set_titles(plottitle,xtitle,ytitle)
+    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", zoomextent=False):
+        self.curve.plot.set_titles(None,None,ytitle)
         #print run_status
         self.status1.setText("Project:"+(project or ""))
         #print "here", self
@@ -184,29 +184,14 @@ mainwindow_.Ui_SWMM5EA):
     #actionSave_As
     @QtCore.pyqtSignature("")
     def on_actionSave_As_triggered(self,checed=None):
-
-        fl=QtGui.QFileDialog.getSaveFileName(self, "New Project Direcoty", options = QtGui.QFileDialog.ShowDirsOnly, filter="Directory")
-        if str:
-            if(self.controller.saveproject(str(self.qt_fix_path(fl)) )):
-                self.controller.settings.setValue("lastprojectloc",fl)            
-        return 
-        #dlg=QtGui.QFileDialog(self,caption="New directory");
-        #dlg.setFileMode(QtGui.QFileDialog.AnyFile)
-        #dlg.setOption(QtGui.QFileDialog.ShowDirsOnly)
-        #dlg.setOption(QtGui.QFileDialog.DontUseNativeDialog)
-        #dlg.setNameFilter("Directory name")
-        #dlg.setLabelText(QtGui.QFileDialog.FileName,"Directory")
-        #dlg.setLabelText(QtGui.QFileDialog.Accept,"Create")
-        #dlg.setLabelText(QtGui.QFileDialog.Reject,"Cancel")
-        #dlg.setLabelText(QtGui.QFileDialog.FileType,"")
-        #dlg.setLabelText(QtGui.QFileDialog.LookIn,"Project Directory")
-        
-        ##dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
-        ##newdir=QtGui.QFileDialog.getSaveFileName(self,
-        ##                                         "Save project as", ".", "*")
-        #if dlg.exec_():
-            #if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
-                #self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
+        dlg=QtGui.QFileDialog(self);
+        dlg.setFileMode(QtGui.QFileDialog.Directory)
+        dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
+        #newdir=QtGui.QFileDialog.getSaveFileName(self,
+        #                                         "Save project as", ".", "*")
+        if dlg.exec_():
+            if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
+                self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
 
 
     #action_SaveProject
@@ -234,17 +219,16 @@ mainwindow_.Ui_SWMM5EA):
     @QtCore.pyqtSignature("")
     def on_actionHelp_About_triggered(self,checed=None):
         self.about_dialog_window = QtGui.QDialog()
-        self.about_dialog_ui = about_dialog.Ui_Dialog()
+        self.about_dialog_ui = about_dialog_.Ui_Dialog()
         self.about_dialog_ui.setupUi(self.about_dialog_window)
         self.about_dialog_window.exec_()    
 
 
-    #actionHelp_Users_Guide
+        #actionHelp_Users_Guide
     @QtCore.pyqtSignature("")
     def on_actionHelp_Users_Guide_triggered(self,checed=None):
-        #reply = QtGui.QMessageBox.information(self, "Help","Please refer to http://assela.pathirana.net for help using this application.",  
-        #                                      QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-        self.controller.showHelp()
+        reply = QtGui.QMessageBox.information(self, "Help","Please refer to http://assela.pathirana.net for help using this application.",  
+                                              QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
 
     def normalOutputWritten(self, text):
@@ -290,4 +274,3 @@ mainwindow_.Ui_SWMM5EA):
     #ui.show()
     #ex=app.exec_()
     #sys.exit(ex)
-    

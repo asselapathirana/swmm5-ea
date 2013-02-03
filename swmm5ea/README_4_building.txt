@@ -1,13 +1,11 @@
 Building:
 --------
-0. Use make html to build docoumentation from swmm5ea/doc directory. 
 1. Use setup.py on top to build sdist and bdist_wininst
 python setup.py sdist
 python setup.py bdist_wininst
-2. Use setup.py in directory "./service" to build standalone exe for windows
-python setup.py (Note: no need tpo give additional option like bdist_wininst) 
-It will also run innnosetup and make the installer. 
-NOTE: data_files=[[dirname(x)[13:],[x]] for x in lst] line on service/setup.py is a precarious way of doing things. Fix this. 
+2. Use setup.py in service to build standalone exe for windows
+python setup.py 
+ then use innosetup with the generated script (install.iss) to build the exe. 
 
 Debugging:
 * When debugging main entrypoint should be the main function in swmm_ea_controller.py
@@ -32,7 +30,7 @@ Building Stand-alone executable
 ** when using cx_freeze (or any other freezing utility,) freeze_support calling at the top level is essential for sane operation of frozen code. 
 (This is done in swmm5ec_.pyw
 
-** VERSIONS etc: All information is kept central in metadata.py
+** VERSIONS etc: All information is kept central in swmm_ea_controller.py
 ** innosetup: setup.py will write the install.iss file, which can directly be compiled with innosetup. 
 
 

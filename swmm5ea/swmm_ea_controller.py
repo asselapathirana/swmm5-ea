@@ -4,17 +4,108 @@ import guiqwt
 #guiqwt
 import guiqwt.plot
 
-
 import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
-import re, fnmatch
-from glob import glob
-from itertools import product
 #from guiqwt import QwtPlot
 
-from metadata import *
+
+# program metadata
+
+NAME=u"SWMM5_EA" # do not have spaces !!
+VERSION="0.8.4.0"
+DESCRIPTION=u"SWMM5-EA"
+LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+PUBLISHER=u"Assela Pathirana"
+AUTHOR=u"Assela Pathirana"
+URL="http://assela.pathirana.net/SWMM5_EA"
+TARGET="swmm5ec.exe"
+SETUPNAME=NAME+"-"+VERSION
+PLATFORM="POSIX, WINDOWS"
+EMAIL="assela@pathirana.net"
+DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip"
+CLASSIFY=[
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Environment :: Other Environment",
+        "Intended Audience :: Education",
+        "Intended Audience :: End Users/Desktop",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft :: Windows",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Development Status :: 4 - Beta",
+        "Natural Language :: English"
+        ]
+LONGDISC="""\
+Optimizing Urban Drainage Networks 
+with EPA-SWMM 5.0 and Evolutionary Methods"
+
+-------------------------------------
+
+Python 2.7 version. 
+"""
+
+
+RUN_STATUS_TOBEINITED=0
+RUN_STATUS_INITED=1
+RUN_STATUS_RUNNING=2
+RUN_STATUS_PAUSED=3
+
+#
+SWMMREULTSTYPE_FLOOD=0
+SWMMREULTSTYPE_CALIB=1
+SWMMCHOICES= [
+     'Flood Volume',
+     'Calibration var.'
+    ] 
+PLOTYTITLE=[
+    'Cost',
+    'Error']
+SWMMCALIBRATIONFILE=[# ORDER the following appear in swmm5 gui (belive me the order there is different!)
+                     1, 8, 9, 10, 
+                     #2,
+                     3, 6, 7, #5, 
+                     4,  12, 11 
+                     ]
+SWMMCALIBRATIONTYPES=[# this should match with SWMMVARTYPES
+    "Subcatchment Runoff",                            #0
+    "Subcatchment Groundwater Flow",                  #1
+    "Subcatchment Groundwater Elevation", #2
+    "Subcatchment Snow Pack Depth", #3
+   # "Subcatchment Pollutant Washoff (pollutant 1)", #4
+    "Node Depth", #5
+    "Node Lateral Inflow", #6 
+    "Node Flooding", #7
+    #"Node Water Quality (pollutant 1)", #8 
+    "Link Flow", #9
+    "Link Velocity", #10 
+    "Link Depth"] #11
+SWMMCALIBRATIONTYPES2=[# this should match with above and below
+     'subcatchments',
+     'subcatchments',
+     'subcatchments',
+     'subcatchments',
+     #'subcatchments',
+     'nodes',
+     'nodes',
+     'nodes',
+     #'nodes',
+     'links',
+     'links',
+     'links'] 
+SWMMVARTYPES=[ # refer to swmm5 interfacing guide. This should match with SWMMCALIBRATIONTYPES
+    [0,3],[0,4],[0,5],[0,1],
+    #[0,6],
+    [1,0],[1,3],[1,5],
+    #[1,6],
+    [2,0],[2,2],[2,1] 
+    ]    
+
+
+# make sure the indexes match the values above
+
 
 
 class EmittingStream(QtCore.QObject):
@@ -60,15 +151,6 @@ class swmmeacontroller():
             
         self.ups()
         
-    def showHelp(self):
-        loc=os.path.abspath(
-            os.path.join(os.path.dirname(__file__),"..","doc","_build","html","index.html"))
-        sys.stdout.write("opening help..")
-        if (not QtGui.QDesktopServices.openUrl(QtCore.QUrl("file:///"+loc))):
-            print "Failed to open help!"
-            
-        print("... done.")
-        
         
     def QSettings_init(self):
         self.app.setOrganizationName("UNESCO-IHE/Assela Pathirana")
@@ -95,7 +177,6 @@ class swmmeacontroller():
         #sys.stdout = EmittingStream(textWritten=self.ui.normalOutputWritten)
         #sys.stderr = EmittingStream(textWritten=self.ui.normalErrorWritten)
         print "Log file: ", self.logfile   
-
     def show_message(self,msg):
         self.ui.normalOutputWritten(msg)
 
@@ -103,11 +184,10 @@ class swmmeacontroller():
         if(not self.project.initialize_optimization()):
             return False
         QtCore.QObject.connect(self.project.swmm5ec,QtCore.SIGNAL("nextGeneration(PyQt_PyObject)"),self.plot_next)
-        QtCore.QObject.connect(self.project.swmm5ec,QtCore.SIGNAL('message(QString)'),self.show_message)   
+        QtCore.QObject.connect(self.project.swmm5ec,QtCore.SIGNAL('message(QString)'),self.show_message)        
         self.resultslist=[[],[]]
-        if not self.project.parameters.multiObjective:
-            for i in range(self.project.parameters.pop_size):
-                self.resultslist[1].append([])        
+        for i in range(self.project.parameters.pop_size):
+            self.resultslist[1].append([])        
         #QObject.connect(self.testThread, SIGNAL("testFinished(PyQt_PyObject)"), self.testFinishedFromThread)
         self.run_status=RUN_STATUS_INITED
         self.ups()
@@ -121,95 +201,68 @@ class swmmeacontroller():
                 
         
     def plot_next(self, data):
-
+        #from numpy import linspace, sin
+        #x = linspace(-10, 10, 200)  
+        #self.ui.curve.get_plot().del_all_items()
+        #self._plot(make.curve(x, sin(2*x), color="r"))
         pl=self.ui.curve.get_plot()
         pl.del_all_items()        
-
+        self.resultslist[0].append(data[0])
         c=[]
-        if self.project.parameters.multiObjective:
-            k=[]
-            l=[]
-            for i,j in sorted(data[1],key=lambda p: p[0]):
-                k.append(i)
-                l.append(j)
-            self.resultslist[0].append(k)
-            self.resultslist[1].append(l)
-            
-            for i in max(5,range(len(self.resultslist[0]))):
-                st=self.styles(i, gen=len(self.resultslist[0]))
-                c.append(make.curve(self.resultslist[0][-i-1],self.resultslist[1][-i-1],**st))
-                #c.append(make.curve(d[0],d[1],**st))
-            [self._plot(i) for i in reversed(c)]
-            
-            self._plot(make.legend("TR", restrict_items=c[:7]))         
-        else:
-            self.resultslist[0].append(data[0])
-            for i in range(len(data[1])): 
-                self.resultslist[1][i].append(data[1][i])  
-                if i==len(data[1])-1:
-                    st=self.styles(-1)
-                else:
-                    st=self.styles(i)
-                
-                c.append(make.curve(self.resultslist[0], self.resultslist[1][i],  **st))
-            [self._plot(i) for i in reversed(c)]
-            
-            lt=len(self.resultslist[1])
-            if  lt > 4:
-                its=c[:4]
-                its.append(c[-1])
+        for i in range(len(data[1])): 
+            if i==len(data[1])-1:
+                st=self.styles(-1)
             else:
-                its=c[:lt+1]
-            self._plot(make.legend("TR", restrict_items=its))         
+                st=self.styles(i)
+            self.resultslist[1][i].append(data[1][i])
+            c.append(make.curve(self.resultslist[0], self.resultslist[1][i],  **st))
+            self._plot(c[i])
+        lt=len(self.resultslist[1])
+        if  lt > 4:
+            its=c[:4]
+            its.append(c[-1])
+        else:
+            its=c[:lt+1]
+        self._plot(make.legend("TR", restrict_items=its))         
+        
         self.zoom_the_plot(data)
+        
+        
         pl.replot()
 
     def zoom_the_plot(self, data=None):
-        pl=self.ui.curve.get_plot()
-        if self.project.parameters.multiObjective:
-            xmin=xmax=ymin=ymax=1
-            s1=sorted(self.resultslist[0][-1])
-            s2=sorted(self.resultslist[1][-1])
-            xmin=s1[0]
-            xmax=s1[-1]
-            ymin=s2[0]
-            ymax=s2[-1]
+        validforzoom=3
+        if (not hasattr(self, "resultslist")) or len(self.resultslist[0])<1:
+            return 
+        if not data:
+            data=[self.resultslist[0][-1],self.resultslist[1][-1]]
+        if data[0] > 4:
+            mid=int(len(self.resultslist[0])/2)
         else:
-            validforzoom=3
-            if (not hasattr(self, "resultslist")) or len(self.resultslist[0])<1:
-                return 
-            if not data:
-                data=[self.resultslist[0][-1],self.resultslist[1][-1]]
-            if data[0] > 4:
-                mid=int(len(self.resultslist[0])/2)
-            else:
-                mid=0
-            # but, if the user has indicated zoomextent..
-            if self.hasParam("zoomextent") and self.project.parameters.zoomextent:
-                mid=0
-                validforzoom=None
-                        
-
-            
-            xmin=self.resultslist[0][mid]
-            k=map( lambda x: x[mid:], self.resultslist[1][:validforzoom])
-            fl=[item for sublist in k for item in sublist]
-     
-            xmax=len(self.resultslist[0])
-            ymin=min(fl)
-            ymax=max(fl)
-            diff=(ymax-ymin)
-            ymin=ymin-.2*diff
-            ymax=ymax+.2*diff
-            
-            
+            mid=0
+        # but, if the user has indicated zoomextent..
+        if self.hasParam("zoomextent") and self.project.parameters.zoomextent:
+            mid=0
+            validforzoom=None
+                    
+        pl=self.ui.curve.get_plot()
+        
+        xmin=self.resultslist[0][mid]
+        k=map( lambda x: x[mid:], self.resultslist[1][:validforzoom])
+        fl=[item for sublist in k for item in sublist]
+        xmax=len(self.resultslist[0])
+        ymin=min(fl)
+        ymax=max(fl)
+        diff=(ymax-ymin)
+        ymin=ymin-.2*diff
+        ymax=ymax+.2*diff
         #print "setting limits: ", xmin,xmax,ymin,ymax
         pl.set_plot_limits(xmin,xmax,ymin,ymax)
 
-    def styles(self,i, gen=None):
+    def styles(self,i):
         
         """
-        returns all the styles for item i. Pass -1 to get the styles for the last (least fit) member.  Pass gen when handling MOO
+        returns all the styles for item i. Pass -1 to get the styles for the last (least fit) member. 
         title=u"",
                       color=None, linestyle=None, linewidth=None,
                       marker=None, markersize=None, markerfacecolor=None,
@@ -222,46 +275,25 @@ class swmmeacontroller():
         col=["r","b", "g", "c", "m", "k"]
         syb=["Ellipse", "Rect", "Diamond", "Triangle", "DTriangle", "UTriangle", "LTriangle", "RTriangle", "Cross", "XCross", "HLine", "VLine", "Star1", "Star2", "Hexagon"]
         #markersize=10
-        style["curvestyle"]="NoCurve"
-        if self.project.parameters.multiObjective:
-            style["title"]="Gen-"+str(gen-i)
-            if i<6:
-                style["color"]=col[i]
-                style["marker"]=syb[i]
-                style["markerfacecolor"]=col[i]  
-                if i==0:
-                    style["title"]="Latest"
-                    style["curvestyle"]="Lines"
-            else:
-                col="G"
-                style["color"]=col
-                style["marker"]="Triangle"
-                style["markerfacecolor"]=col
-                style["title"]="Past"
-                
-            
-            
-                
-        else:
-            style["title"]="I-"+str(i)
-            if i == -1: 
-                style["title"]="Worst"  
-            elif i==0:
-                style["title"]="Best"
-            if i< 4:
-                style["color"]=col[i]
-                if i > 0: 
-                    style["curvestyle"]="NoCurve"
-                else:
-                    style["curvestyle"]="Lines"
-                style["marker"]=syb[i]
-                style["markerfacecolor"]=col[i]
-            else:
-                col="G"
-                style["color"]=col
+        style["title"]="I-"+str(i)
+        if i == -1: 
+            style["title"]="Worst"  
+        elif i==0:
+            style["title"]="Best"
+        if i< 4:
+            style["color"]=col[i]
+            if i > 0: 
                 style["curvestyle"]="NoCurve"
-                style["marker"]='Triangle'
-                style["markerfacecolor"]=col
+            else:
+                style["curvestyle"]="Lines"
+            style["marker"]=syb[i]
+            style["markerfacecolor"]=col[i]
+        else:
+            col="G"
+            style["color"]=col
+            style["curvestyle"]="NoCurve"
+            style["marker"]='Triangle'
+            style["markerfacecolor"]=col
             
         return style
     
@@ -303,18 +335,13 @@ class swmmeacontroller():
         self.ups()
     def LoadProject(self, yamlfile):       
         self.project=swmmeaproject.Project(dirname=os.path.dirname(yamlfile))
-        self.get_slotted_data()
         self.ups()
         
     def get_slotted_data(self):
         sf=self.project.swmmfilename+"_"
-        sf_with_path=self.project.dirname+os.sep+sf
-        if(self.project.parameters.swmmouttype[0]==SWMMREULTSTYPE_STAGE):
-            multiple=self.project.parameters.stages
-        else:
-            multiple=False
-        if os.path.exists(sf_with_path):
-            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,sf_with_path,multiple)
+        
+        if os.path.exists(self.project.dirname+os.sep+sf):
+            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,self.project.dirname+os.sep+sf)
             if(sd.testDiff()):
                 print sf, " looks like derived from ", self.project.swmmfilename, ". Reusing it!"
                 self.inp_diff_passed=True
@@ -413,17 +440,13 @@ You can do two things:
         d,s,f=None,None,None
         if self.project:
             d,s,f=self.project.dirname, self.project.swmmfilename, self.project.slotted_swmmfilename
-        tx,ty,tp=[None]*3
+        t=None
         z=False
         if self.hasParam("swmmouttype"):
-                if self.project.parameters.multiObjective:
-                    tx,ty,tp=MOOTITLES
-                else:
-                        ty=PLOTYTITLE[self.project.parameters.swmmouttype[0]]
-                        tx,tt=SOOTITLES
+            t=PLOTYTITLE[self.project.parameters.swmmouttype[0]]
         if self.hasParam("zoomextent"):
             z=self.project.parameters.zoomextent
-        self.ui.updateStatus(d,s,f,self.run_status,ty,tx,tp,z)
+        self.ui.updateStatus(d,s,f,self.run_status,t,z)
     
 if __name__ == "__main__":
     import sys

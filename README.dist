@@ -8,10 +8,11 @@ hg push
 How to distribute
 
 * Checklist
-(a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
-(b) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
+(a) Check the versions in swmm_ea_controller.py and swmm/setup.py
+(b) In root level setup files check if EXAMPLES and EXTS variables are up to date (e.g. when you add new examples)
+(c) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
 
-0. Use make html to build docoumentation from swmm5ea/doc directory. 
+
 1. Build the stand-alone and windows binary versions
 python setup.py bdist_wininst
 go to service; python setup.py (this automatically run install.iss with innosetup  too)
@@ -20,9 +21,14 @@ go to service; python setup.py (this automatically run install.iss with innosetu
 
 ** Do the following within cygwin system with gpg key ** 
 2. go to swmm5-ea root (this directory)
-python setup.py register sdist upload bdist_wininst --sign
+python setup.py register sdist upload --sign
+python setup.py register bdist_wininst upload --sign
 (source and windows installer packages. Can be done both in windows or POSIX)
-3. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
+3. python setup.py register
+(this will add the proper meta data to the pypi 
+-- don't know why by the command in (2) does not do this properly!)
+4. Now go to swmm directory and do steps (2) and (3). 
+5. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
 cd to service
 ./upload2google.bash Output/SWMM5_EA-x.y.z.k.exe
 (If the server says "Forbidden (403)" that might mean there's already a file under that name. Confusing)
