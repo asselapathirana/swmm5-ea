@@ -56,9 +56,11 @@ RUN_STATUS_PAUSED=3
 #
 SWMMREULTSTYPE_FLOOD=0
 SWMMREULTSTYPE_CALIB=1
+SWMMREULTSTYPE_STAGE=2
 SWMMCHOICES= [
-     'Flood Volume',
-     'Calibration var.'
+     'Flood Volume as a cost',
+     'Calibrate a variable',
+     'Staged Calc. with Flood vol. as cost'
     ] 
 PLOTYTITLE=[
     'Cost',

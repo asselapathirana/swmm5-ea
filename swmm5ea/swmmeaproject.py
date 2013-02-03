@@ -256,6 +256,9 @@ class Project():
         self.parameters=parameters_class_()
         # now add the parameter to ensure compatibility with old version
         self.parameters.swmmouttype=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]# default
+        self.parameters.stage_size=1
+        self.parameters.discount_rate=1.0
+        self.parameters.stages=1
         try:
             import yaml
             dataMap = yaml.load(f)  
