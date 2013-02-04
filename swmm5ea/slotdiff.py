@@ -1,4 +1,5 @@
 import diff_match_patch as dmp
+import swmm_ea_controller
 
 class slotDiff():
     """ Routines to compare two files a, b where b is obtained by ONLY replacing some numeric values in a by
@@ -12,7 +13,8 @@ class slotDiff():
     def isjunk(self,string):
         "Return True if we don't care about this string"
         return string == ' '
-    def __init__(self, swmmfile, slotfile):
+    def __init__(self, swmmfile, slotfile, multiple=0):
+        self.multiple=multiple
         self.swmmfile=swmmfile
         self.slotfile=slotfile
         self.dmp=dmp.diff_match_patch()
@@ -20,10 +22,18 @@ class slotDiff():
 
     def testDiff(self, verbose=False):
         with open(self.swmmfile,"r") as f1, open(self.slotfile,"r") as f2:
-            before=f1.read()
-            after=f2.read()
+            before=f1.read().strip()
+            after=f2.read().strip()
             #dmp.diff_main(before,after)
-            return self.testDiffStr(after, before, verbose)
+            if(self.multiple):
+                l=swmm_ea_controller.extractSWMMmultiplefiles(after)
+                slist=[self.testDiffStr(x, before, verbose) for x in l]
+                if len(slist)!=self.multiple:
+                    print "Length mismatch in compound file!"
+                    return False
+                return reduce(lambda x, y: x and y, slist)
+            else:
+                return self.testDiffStr(after, before, verbose)
 
     def testDiffStr(self, after, before, verbose=False):
         k=self.dmp.diff_main(after,before)
@@ -72,5 +82,16 @@ class slotDiff():
         
 
 if __name__=="__main__":
-    sd=slotDiff("..\\examples\\storage_example\\StorageEx.inp","..\\examples\\storage_example\\StorageEx.inp_")
+    test=test=";;;;;;;;  STAGE %s  ;;;;;;;;  NOTE: Do not alter this line in anyway! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+    with open("examples\\storage_example\\StorageEx.inp_","r") as r:
+        slt=r.read()
+    
+    with open("tmp.txt","w") as w:
+        for i in range(5):
+            w.write(test % (i) )
+            w.write("\n")
+            w.write(slt)
+            w.write("\n")
+    
+    sd=slotDiff("examples\\storage_example\\StorageEx.inp","tmp.txt",5)
     print sd.testDiff()

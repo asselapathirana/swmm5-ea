@@ -81,16 +81,14 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         params["discount_rate"]=float(self.discount_rate.text())
         params["stages"]=self.stages.value()
         v=self.swmmp_1.currentIndex()
-        if v==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-            #SWMMCHOICES flood volume
-            params["swmmResultCodes"]=[3,0,10]
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]
-        else:
+        if v==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
             #SWMMCHOICES calibration
             params["swmmResultCodes"]=[0,0,0] # wel'll have to change this stage in the run. 
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_CALIB, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_CALIB]]
-            
-        
+        else:
+            #SWMMCHOICES 'Flood Volume as a cost', 'Staged Calc. with Flood vol. as cost'
+            params["swmmResultCodes"]=[3,0,10]
+        params["swmmouttype"]=[v, swmm_ea_controller.SWMMCHOICES[v]]            
+
         params["valuerange"]=map(lambda x: [float(x[1].text()),float(x[2].text())],self.value_widgets)
         params["num_cpus"]=self.Number_of_cpus.value()
         return params
@@ -116,6 +114,8 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
             elif params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
                 #SWMMCHOICES calibration
                 self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_CALIB)
+            elif params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+                self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_STAGE)
             else:
                 raise
         except:

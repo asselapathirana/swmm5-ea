@@ -199,11 +199,16 @@ class Project():
 
     def getSlottedData(self):
         sf=self.dirname+os.sep+(self.slotted_swmmfilename or "")
+        slot=True
         if not (self.slotted_swmmfilename and os.path.exists(sf)):
+            # then we read the original swmm file
+            slot=False
             sf=self.dirname+os.sep+self.swmmfilename
         f=open(sf)
         t=f.read()
         f.close()
+        if (not slot) and self.parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE: # we've read original swmm file and this analysis is multiple
+            return reduce(lambda x,y: x+y, (swmm_ea_controller.SWMMSTAGESEPERATOR % (i) + t for i in range(self.parameters.stages)))
         return t
 
     def load(self, dirname=None, swmmfilename=None):

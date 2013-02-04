@@ -58,18 +58,24 @@ def getFitness(fillers, linestring,parameters):
         except:
             os.mkdir(dir)    
 
-        cost = swmmCost(scaled, linestring, filename,parameters)
         #print "\tFlood : ", flood, sum(map(lambda fil: fil,scaled))
-        if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
+        if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD or parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE :
 	    costf=pyratemp.Template("@!"+parameters.cost_function+"!@")
 	    pp=parse_parameters(scale(fillers,parameters))
 	    cost1=float(costf(**(pp)))
 	    costf=pyratemp.Template("@!"+parameters.swmmout_cost_function+"!@")
-	    pp={"f": cost}
-	    cost2=float(costf(**(pp)))
+	    if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+		cost2=0.0
+		for (i,ls) in enumerate(swmm_ea_controller.extractSWMMmultiplefiles(linestring)):
+		    cost = swmmCost(scaled, ls, filename,parameters)
+		    pp={"f": cost}
+		    cost2+=float(costf(**(pp)))/(1+parameters.discount_rate)**(parameters.stage_size*i)    
+		cost2*=parameters.stage_size
+	    else:
+		cost2 = swmmCost(scaled, linestring, filename,parameters)
 	    fitness=cost1+cost2
 	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
-	    fitness=cost
+	    fitness=swmmCost(scaled, linestring, filename,parameters)
 	else:
 	    print "I don't know the calculation type!"
 	    raise	
@@ -131,6 +137,8 @@ def swmmRun(swmminputfile, rptfile, binfile,parameters):
 	    cost+=results[i]*sw.cvar.SWMM_ReportStep
 	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
 	    cost+=math.sqrt(math.pow(results[i]-parameters.calibdata[i],2))
+	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+	    cost+=results[i]*sw.cvar.SWMM_ReportStep
 	else:
 	    print "I don't know the calculation type! (", parameters.swmmouttype, ")."
 	    raise
@@ -228,14 +236,23 @@ class SwmmEA(QtCore.QThread):
         best=max(population)
         worst=min(population)
         parameters=args["parameters"]
-        swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".inp"
-        binfile =(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".bin"
-        rptfile =(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".rpt"
-        p=best.candidate[0:parameters.num_inputs] # this is essential when handling evolution strategy in inspyred (due to double internal length of the array)
-        swmmWrite(scale(p,parameters),linestring,swmmfile)
-        if self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_CALIB:	
+	p=best.candidate[0:parameters.num_inputs] # this is essential when handling evolution strategy in inspyred (due to double internal length of the array)
+	if self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+	    for (i,ls) in enumerate(swmm_ea_controller.extractSWMMmultiplefiles(linestring)):
+		swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i_stage%(x)03i" % {"#":num_generations,"x": i})+".inp"
+		swmmWrite(scale(p,parameters),ls,swmmfile)
+	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
+	    swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".inp"
+	    swmmWrite(scale(p,parameters),linestring,swmmfile)
+	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_CALIB:
+	    swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".inp"
+	    swmmWrite(scale(p,parameters),linestring,swmmfile)	    
 	    # if calibration write a small ini file with calibration data file name in it. 
 	    shutil.copy2(self.parameters.calINITEMPLATE, swmmfile[:-3]+"ini")
+	else: 
+	    print "I don't know this type of analysis: ", self.parameters.swmmouttype, " !!!"
+        
+        
         strb=map(lambda s: "{0:.3e}".format(s),scale(p,parameters))
         print '\nBest fitness %(fit).3e for values %(ind)s ' % {"fit": best.fitness,"ind": strb}
 	while(self.paused):

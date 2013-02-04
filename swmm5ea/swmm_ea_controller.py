@@ -8,6 +8,7 @@ import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
+import re
 #from guiqwt import QwtPlot
 
 
@@ -64,7 +65,8 @@ SWMMCHOICES= [
     ] 
 PLOTYTITLE=[
     'Cost',
-    'Error']
+    'Error',
+    'Net Present Cost']
 SWMMCALIBRATIONFILE=[# ORDER the following appear in swmm5 gui (belive me the order there is different!)
                      1, 8, 9, 10, 
                      #2,
@@ -103,11 +105,14 @@ SWMMVARTYPES=[ # refer to swmm5 interfacing guide. This should match with SWMMCA
     [1,0],[1,3],[1,5],
     #[1,6],
     [2,0],[2,2],[2,1] 
-    ]    
-
+    ]
 
 # make sure the indexes match the values above
 
+SWMMSTAGESEPERATOR=";;;;;;;;  STAGE %s  ;;;;;;;;  NOTE: Do not alter this line in anyway! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+SWMMSTAGEMINIMUMPAT=';;;;;;;;*.*;;;;;*'
+def extractSWMMmultiplefiles(string):
+    return [x for x in re.split(SWMMSTAGEMINIMUMPAT,string) if x.find('[TITLE]')>-1]
 
 
 class EmittingStream(QtCore.QObject):
@@ -341,9 +346,13 @@ class swmmeacontroller():
         
     def get_slotted_data(self):
         sf=self.project.swmmfilename+"_"
-        
-        if os.path.exists(self.project.dirname+os.sep+sf):
-            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,self.project.dirname+os.sep+sf)
+        sf_with_path=self.project.dirname+os.sep+sf
+        if(self.project.parameters.swmmouttype[0]==SWMMREULTSTYPE_STAGE):
+            multiple=self.project.parameters.stages
+        else:
+            multiple=False
+        if os.path.exists(sf_with_path):
+            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,sf_with_path,multiple)
             if(sd.testDiff()):
                 print sf, " looks like derived from ", self.project.swmmfilename, ". Reusing it!"
                 self.inp_diff_passed=True
