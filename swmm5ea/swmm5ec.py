@@ -62,6 +62,9 @@ def getFitness(fillers, linestring,parameters):
         if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD or parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE :
 	    costf=pyratemp.Template("@!"+parameters.cost_function+"!@")
 	    pp=parse_parameters(scale(fillers,parameters))
+	    pp['discount_rate']=parameters.discount_rate
+	    pp['stage_size']=parameters.stage_size
+	    pp['stages']=parameters.stages
 	    cost1=float(costf(**(pp)))
 	    costf=pyratemp.Template("@!"+parameters.swmmout_cost_function+"!@")
 	    if parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE:

@@ -56,8 +56,6 @@ class Project():
         self.slotted_swmmfilename=None
 
 
-
-
     def pause_optimization(self,state):
         self.swmm5ec.pause(state)
 
@@ -176,9 +174,6 @@ class Project():
         self.swmm5ec.setParams(parameters)
         self.swmm5ec.initialize()
         return True
-
-
-
 
 
     def write_slotted_swmm_file(self, full_fname, text):
