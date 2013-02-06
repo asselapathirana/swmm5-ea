@@ -8,13 +8,15 @@ import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
+import re
+from itertools import product
 #from guiqwt import QwtPlot
 
 
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.8.4.0"
+VERSION="0.9.0.0dev"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 PUBLISHER=u"Assela Pathirana"
@@ -38,14 +40,20 @@ CLASSIFY=[
         "Development Status :: 4 - Beta",
         "Natural Language :: English"
         ]
-LONGDISC="""\
-Optimizing Urban Drainage Networks 
-with EPA-SWMM 5.0 and Evolutionary Methods"
-
--------------------------------------
-
-Python 2.7 version. 
-"""
+#LONGDISC="""\
+#Optimizing Urban Drainage Networks 
+#with EPA-SWMM 5.0 and Evolutionary Methods"
+#
+#-------------------------------------
+#
+#Python 2.7 version. 
+#"""
+ss=os.sep+os.sep
+ex_=["storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration","stage_example"]
+exts_=["inp", "inp_", "yaml", "cal"]
+exts_.extend([x.upper() for x in exts_])
+examples_=list(product(ex_,exts_))
+LIST_OF_FILE_GLOBS=[ "examples"+ss+x[0]+ss+"*."+x[1] for x in examples_]
 
 
 RUN_STATUS_TOBEINITED=0
@@ -56,13 +64,16 @@ RUN_STATUS_PAUSED=3
 #
 SWMMREULTSTYPE_FLOOD=0
 SWMMREULTSTYPE_CALIB=1
+SWMMREULTSTYPE_STAGE=2
 SWMMCHOICES= [
-     'Flood Volume',
-     'Calibration var.'
+     'Flood Volume as a cost',
+     'Calibrate a variable',
+     'Staged Calc. with Flood vol. as cost'
     ] 
 PLOTYTITLE=[
     'Cost',
-    'Error']
+    'Error',
+    'Net Present Cost']
 SWMMCALIBRATIONFILE=[# ORDER the following appear in swmm5 gui (belive me the order there is different!)
                      1, 8, 9, 10, 
                      #2,
@@ -101,11 +112,14 @@ SWMMVARTYPES=[ # refer to swmm5 interfacing guide. This should match with SWMMCA
     [1,0],[1,3],[1,5],
     #[1,6],
     [2,0],[2,2],[2,1] 
-    ]    
-
+    ]
 
 # make sure the indexes match the values above
 
+SWMMSTAGESEPERATOR=";;;;;;;;  STAGE %s  ;;;;;;;;  NOTE: Do not alter this line in anyway! ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+SWMMSTAGEMINIMUMPAT=';;;;;;;;*.*;;;;;*'
+def extractSWMMmultiplefiles(string):
+    return [x for x in re.split(SWMMSTAGEMINIMUMPAT,string) if x.find('[TITLE]')>-1]
 
 
 class EmittingStream(QtCore.QObject):
@@ -339,9 +353,13 @@ class swmmeacontroller():
         
     def get_slotted_data(self):
         sf=self.project.swmmfilename+"_"
-        
-        if os.path.exists(self.project.dirname+os.sep+sf):
-            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,self.project.dirname+os.sep+sf)
+        sf_with_path=self.project.dirname+os.sep+sf
+        if(self.project.parameters.swmmouttype[0]==SWMMREULTSTYPE_STAGE):
+            multiple=self.project.parameters.stages
+        else:
+            multiple=False
+        if os.path.exists(sf_with_path):
+            sd=slotdiff.slotDiff(self.project.dirname+os.sep+self.project.swmmfilename,sf_with_path,multiple)
             if(sd.testDiff()):
                 print sf, " looks like derived from ", self.project.swmmfilename, ". Reusing it!"
                 self.inp_diff_passed=True

@@ -53,11 +53,17 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
 
     @QtCore.pyqtSignature("int")
     def on_swmmp_1_currentIndexChanged (self, index=0):
-        en=(index==swmm_ea_controller.SWMMREULTSTYPE_FLOOD)      
+        en1=(index==swmm_ea_controller.SWMMREULTSTYPE_FLOOD) 
+        en2=(index==swmm_ea_controller.SWMMREULTSTYPE_STAGE)
+        en=en1 or en2
         self.Cost_function_1.setEnabled(en)
         self.Cost_function_2.setEnabled(en)
         self.maximize.setEnabled(en)
         self.minimize_button.setEnabled(en)
+        en=en2
+        self.stage_size.setEnabled(en)
+        self.discount_rate.setEnabled(en)
+        self.stages.setEnabled(en)
             
         
     def getDataMap(self):
@@ -71,17 +77,18 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         params["max_evaluations"]=int(self.num_evaluations.text())
         params["cost_function"]=unicode(self.Cost_function_1.document().toPlainText())
         params["swmmout_cost_function"]=unicode(self.Cost_function_2.document().toPlainText())
+        params["stage_size"]=int(self.stage_size.text())
+        params["discount_rate"]=float(self.discount_rate.text())
+        params["stages"]=self.stages.value()
         v=self.swmmp_1.currentIndex()
-        if v==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-            #SWMMCHOICES flood volume
-            params["swmmResultCodes"]=[3,0,10]
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_FLOOD, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_FLOOD]]
-        else:
+        if v==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
             #SWMMCHOICES calibration
             params["swmmResultCodes"]=[0,0,0] # wel'll have to change this stage in the run. 
-            params["swmmouttype"]=[swmm_ea_controller.SWMMREULTSTYPE_CALIB, swmm_ea_controller.SWMMCHOICES[swmm_ea_controller.SWMMREULTSTYPE_CALIB]]
-            
-        
+        else:
+            #SWMMCHOICES 'Flood Volume as a cost', 'Staged Calc. with Flood vol. as cost'
+            params["swmmResultCodes"]=[3,0,10]
+        params["swmmouttype"]=[v, swmm_ea_controller.SWMMCHOICES[v]]            
+
         params["valuerange"]=map(lambda x: [float(x[1].text()),float(x[2].text())],self.value_widgets)
         params["num_cpus"]=self.Number_of_cpus.value()
         return params
@@ -97,9 +104,9 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         self.num_evaluations.setText(str(params["max_evaluations"]))        
         self.Cost_function_1.insertPlainText(QtCore.QString(params["cost_function"]))
         self.Cost_function_2.insertPlainText(QtCore.QString(params["swmmout_cost_function"]))
-        #self.swmmp_1.setValue(int(params["swmmResultCodes"][0]))
-        #self.swmmp_2.setValue(int(params["swmmResultCodes"][1]))
-        #self.swmmp_3.setValue(int(params["swmmResultCodes"][2]))
+        self.discount_rate.setValue(float(params["discount_rate"]))
+        self.stage_size.setValue(float(params["stage_size"]))
+        self.stages.setValue(int(params["stages"]))
         try:
             if params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
                 #SWMMCHOICES flood volume
@@ -107,6 +114,8 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
             elif params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
                 #SWMMCHOICES calibration
                 self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_CALIB)
+            elif params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+                self.swmmp_1.setCurrentIndex(swmm_ea_controller.SWMMREULTSTYPE_STAGE)
             else:
                 raise
         except:
