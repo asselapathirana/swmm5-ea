@@ -6,7 +6,7 @@ import swmmedit_dialog
 import swmm_ea_controller
 import parameters_dialog
 import sys
-import about_dialog_
+import about_dialog
 
 class MainWindow(QtGui.QMainWindow,
 mainwindow_.Ui_SWMM5EA):
@@ -219,7 +219,7 @@ mainwindow_.Ui_SWMM5EA):
     @QtCore.pyqtSignature("")
     def on_actionHelp_About_triggered(self,checed=None):
         self.about_dialog_window = QtGui.QDialog()
-        self.about_dialog_ui = about_dialog_.Ui_Dialog()
+        self.about_dialog_ui = about_dialog.Ui_Dialog()
         self.about_dialog_ui.setupUi(self.about_dialog_window)
         self.about_dialog_window.exec_()    
 
@@ -274,3 +274,4 @@ mainwindow_.Ui_SWMM5EA):
     #ui.show()
     #ex=app.exec_()
     #sys.exit(ex)
+    

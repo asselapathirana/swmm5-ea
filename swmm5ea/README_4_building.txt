@@ -3,9 +3,10 @@ Building:
 1. Use setup.py on top to build sdist and bdist_wininst
 python setup.py sdist
 python setup.py bdist_wininst
-2. Use setup.py in service to build standalone exe for windows
-python setup.py 
- then use innosetup with the generated script (install.iss) to build the exe. 
+2. Use setup.py in directory "./service" to build standalone exe for windows
+python setup.py (Note: no need tpo give additional option like bdist_wininst) 
+It will also run innnosetup and make the installer. 
+NOTE: data_files=[[dirname(x)[13:],[x]] for x in lst] line on service/setup.py is a precarious way of doing things. Fix this. 
 
 Debugging:
 * When debugging main entrypoint should be the main function in swmm_ea_controller.py

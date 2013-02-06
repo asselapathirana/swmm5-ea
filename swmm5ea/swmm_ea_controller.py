@@ -9,13 +9,14 @@ import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
 import re
+from itertools import product
 #from guiqwt import QwtPlot
 
 
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.8.4.0"
+VERSION="0.9.0.0dev"
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 PUBLISHER=u"Assela Pathirana"
@@ -39,14 +40,20 @@ CLASSIFY=[
         "Development Status :: 4 - Beta",
         "Natural Language :: English"
         ]
-LONGDISC="""\
-Optimizing Urban Drainage Networks 
-with EPA-SWMM 5.0 and Evolutionary Methods"
-
--------------------------------------
-
-Python 2.7 version. 
-"""
+#LONGDISC="""\
+#Optimizing Urban Drainage Networks 
+#with EPA-SWMM 5.0 and Evolutionary Methods"
+#
+#-------------------------------------
+#
+#Python 2.7 version. 
+#"""
+ss=os.sep+os.sep
+ex_=["storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration","stage_example"]
+exts_=["inp", "inp_", "yaml", "cal"]
+exts_.extend([x.upper() for x in exts_])
+examples_=list(product(ex_,exts_))
+LIST_OF_FILE_GLOBS=[ "examples"+ss+x[0]+ss+"*."+x[1] for x in examples_]
 
 
 RUN_STATUS_TOBEINITED=0

@@ -8,6 +8,10 @@ class slotDiff():
     when a number is replaced by a slot whose first element is that number, test fails!
     e.g. 0.01 => @!0.01*v1!@ fails!
     still: .4 => @!.4*v1!@ does not fail. 
+
+    When the optional parameter multiple is non False (e.g. >0), then, the behavior is slightly different:
+    In addition to above statements (which will work), 
+    0.4 => .45 will NOT lead to failure (e.g. single numbers can change value.)
     """
     
     def isjunk(self,string):
@@ -29,13 +33,13 @@ class slotDiff():
                 l=swmm_ea_controller.extractSWMMmultiplefiles(after)
                 slist=[self.testDiffStr(x, before, verbose) for x in l]
                 if len(slist)!=self.multiple:
-                    print "Length mismatch in compound file!"
+                    print "Mismatch of number of input files in the compound file: %s!" % (self.slotfile)
                     return False
                 return reduce(lambda x, y: x and y, slist)
             else:
-                return self.testDiffStr(after, before, verbose)
+                return self.testDiffStr(after, before,  verbose=verbose)
 
-    def testDiffStr(self, after, before, verbose=False):
+    def testDiffStr(self, after, before,  verbose=False):
         k=self.dmp.diff_main(after,before)
         self.dmp.diff_cleanupSemantic(k)
         k1=[x[1].strip().split() for x in k if x[0]==1]
@@ -50,21 +54,31 @@ class slotDiff():
             k1+=[None]*(len(k2)-len(k1))
             k2+=[None]*(len(k1)-len(k2))
         if (verbose):
-            print "\n Differences:\n------------------"
-            for i,j in zip(k1,k2):
-                print i , "=>", j
-            print"------------------"
+            self.print_diff(k2, k1)
         if failed:
             return False          
         #all k1 should be numbers
         if len([x for x in k1 if not self.isNumber(x)])>0:
             return False
-        #all k2 should start and end with !@, !@ respectively. 
-        if len([x for x in k2 if not self.isSlot(x)])>0:
-            return False
+        #all k2 should start and end with !@, !@ respectively. or
+        # they could be numbers, in case of multiple, it could be numbers. 
+        if len([x for x in k2 if not self.isSlot(x)])>0 :
+            if not self.multiple:
+                self.print_diff(k2, k1)
+                return False
+            else: # multiple 
+                if len([x for x in k2 if not (self.isNumber(x) or self.isSlot(x))])>0: 
+                    self.print_diff(k2, k1)
+                    return False
         
         # now its OK
         return True
+
+    def print_diff(self, k2, k1):
+        print "\n Differences:\n------------------"
+        for i,j in zip(k1,k2):
+            print i , "=>", j
+        print"------------------"
             
             
     def isSlot(self,val):

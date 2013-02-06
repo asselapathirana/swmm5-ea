@@ -8,9 +8,8 @@ hg push
 How to distribute
 
 * Checklist
-(a) Check the versions in swmm_ea_controller.py and swmm/setup.py
-(b) In root level setup files check if EXAMPLES and EXTS variables are up to date (e.g. when you add new examples)
-(c) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
+(a) Check the version in swmm_ea_controller.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
+(b) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
 
 
 1. Build the stand-alone and windows binary versions
