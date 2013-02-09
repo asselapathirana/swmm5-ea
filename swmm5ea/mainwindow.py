@@ -224,11 +224,12 @@ mainwindow_.Ui_SWMM5EA):
         self.about_dialog_window.exec_()    
 
 
-        #actionHelp_Users_Guide
+    #actionHelp_Users_Guide
     @QtCore.pyqtSignature("")
     def on_actionHelp_Users_Guide_triggered(self,checed=None):
-        reply = QtGui.QMessageBox.information(self, "Help","Please refer to http://assela.pathirana.net for help using this application.",  
-                                              QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+        #reply = QtGui.QMessageBox.information(self, "Help","Please refer to http://assela.pathirana.net for help using this application.",  
+        #                                      QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+        self.controller.showHelp()
 
 
     def normalOutputWritten(self, text):

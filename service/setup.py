@@ -21,8 +21,8 @@ from os.path import dirname, basename
 
 def create_executable():
     """Build executable using ``guidata.disthelpers``"""
-    ss=os.sep+os.sep
-    lst=[glob(".."+ss+"swmm5ea"+ss+x) for x in sc.LIST_OF_FILE_GLOBS]
+    os.path.join("..","swmm5ea")
+    lst=[glob(head) for x in sc.LIST_OF_FILE_GLOBS]
     lst=[item for sublist in lst for item in sublist]
     data_files=[[dirname(x)[13:],[x]] for x in lst]
     

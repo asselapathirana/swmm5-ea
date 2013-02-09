@@ -17,6 +17,7 @@ from itertools import product
 
 NAME=u"SWMM5_EA" # do not have spaces !!
 VERSION="0.9.0.0dev"
+VERSION2=VERSION[:[m.start() for m in re.finditer(r"\.",VERSION)][1]]
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 PUBLISHER=u"Assela Pathirana"
@@ -48,13 +49,12 @@ CLASSIFY=[
 #
 #Python 2.7 version. 
 #"""
-ss=os.sep+os.sep
+ss=os.sep
 ex_=["storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration","stage_example"]
 exts_=["inp", "inp_", "yaml", "cal"]
 exts_.extend([x.upper() for x in exts_])
 examples_=list(product(ex_,exts_))
 LIST_OF_FILE_GLOBS=[ "examples"+ss+x[0]+ss+"*."+x[1] for x in examples_]
-
 
 RUN_STATUS_TOBEINITED=0
 RUN_STATUS_INITED=1
@@ -164,6 +164,15 @@ class swmmeacontroller():
                     self.initialize_optimization()                   
             
         self.ups()
+        
+    def showHelp(self):
+        loc=os.path.abspath(
+            os.path.join(os.path.dirname(__file__),"..","doc","_build","html","index.html"))
+        sys.stdout.write("opening help..")
+        if (not QtGui.QDesktopServices.openUrl(QtCore.QUrl("file:///"+loc))):
+            print "Failed to open help!"
+            
+        print("... done.")
         
         
     def QSettings_init(self):
