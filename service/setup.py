@@ -21,11 +21,20 @@ from os.path import dirname, basename
 
 def create_executable():
     """Build executable using ``guidata.disthelpers``"""
-    os.path.join("..","swmm5ea")
-    lst=[glob(head) for x in sc.LIST_OF_FILE_GLOBS]
-    lst=[item for sublist in lst for item in sublist]
-    data_files=[[dirname(x)[13:],[x]] for x in lst]
+    head=os.path.join("..","swmm5ea")
+    #lst=[glob(os.path.join(head,x)) for x in sc.LIST_OF_FILE_GLOBS]
+    #lst=[item for sublist in lst for item in sublist]
+    #data_files=[[dirname(x)[13:],[x]] for x in lst]
     
+    cwd=os.path.abspath(os.path.join(os.getcwd(),"..","swmm5ea"))
+    data_files=[[
+        os.path.dirname(x[len(cwd)+1:]),
+        [os.path.join("..","swmm5ea",x[len(cwd)+1:])]
+        ] for x in sc.LIST_OF_FILE_GLOBS ]  
+    
+    for i in data_files:
+        print i
+    #raw_input()    
     dist = Distribution()
     dist.setup( name=sc.NAME, version=sc.VERSION,
                description=sc.DESCRIPTION,

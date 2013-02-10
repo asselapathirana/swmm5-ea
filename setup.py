@@ -7,7 +7,10 @@ import swmm_ea_controller as sc
 with open("README.txt","r") as f:
     README=f.read()
 
-package_data=sc.LIST_OF_FILE_GLOBS
+cwd=os.path.join(os.getcwd(),"swmm5ea")
+package_data=[x[len(cwd)+1:] for x in sc.LIST_OF_FILE_GLOBS ]
+
+
 #package_data.append("*.pyw")
 LONGDISC="""%(rm)s\n""" % { "rm": README}
 setup(

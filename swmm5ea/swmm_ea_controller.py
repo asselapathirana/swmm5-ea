@@ -4,11 +4,13 @@ import guiqwt
 #guiqwt
 import guiqwt.plot
 
+
 import mainwindow
 import swmmeaproject
 from guiqwt.builder import make
 import slotdiff
-import re
+import re, fnmatch
+from glob import glob
 from itertools import product
 #from guiqwt import QwtPlot
 
@@ -49,12 +51,16 @@ CLASSIFY=[
 #
 #Python 2.7 version. 
 #"""
-ss=os.sep
+head=os.path.abspath(os.path.join(os.path.dirname(__file__)))
 ex_=["storage_example", "simple_reservoir_and_pipe_example", "watershed_calibration","stage_example"]
 exts_=["inp", "inp_", "yaml", "cal"]
 exts_.extend([x.upper() for x in exts_])
 examples_=list(product(ex_,exts_))
-LIST_OF_FILE_GLOBS=[ "examples"+ss+x[0]+ss+"*."+x[1] for x in examples_]
+lst=[ glob(os.path.join(head,"examples",x[0],"*."+x[1])) for x in examples_]
+LIST_OF_FILE_GLOBS=[item for sublist in lst for item in sublist]
+for root, dirnames, filenames in os.walk(os.path.join(head,"doc","_build")):
+  for filename in fnmatch.filter(filenames, '*'):
+      LIST_OF_FILE_GLOBS.append(os.path.join(root, filename))
 
 RUN_STATUS_TOBEINITED=0
 RUN_STATUS_INITED=1
