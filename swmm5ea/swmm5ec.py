@@ -72,8 +72,12 @@ def getFitness(fillers, linestring,parameters):
 		for (i,ls) in enumerate(swmm_ea_controller.extractSWMMmultiplefiles(linestring)):
 		    cost = swmmCost(scaled, ls, filename,parameters)
 		    pp={"f": cost}
-		    cost2+=float(costf(**(pp)))/(1+parameters.discount_rate)**(parameters.stage_size*i)    
-		cost2*=parameters.stage_size
+		    t1=float(costf(**(pp)))*(1-(1+parameters.discount_rate)**(-1*parameters.stage_size))/parameters.discount_rate
+		    # t1 is the NPV at the start of the ith stage. (http://www.investopedia.com/articles/03/101503.asp#axzz2KWaBIiKB)
+		    # now bring it to present value. 
+		    cost2+=t1/(1+parameters.discount_rate)**(i*parameters.stage_size)
+		    #/(1+parameters.discount_rate)**(parameters.stage_size*i)    
+		#cost2*=parameters.stage_size
 	    else:
 		cost2 = swmmCost(scaled, linestring, filename,parameters)
 	    fitness=cost1+cost2

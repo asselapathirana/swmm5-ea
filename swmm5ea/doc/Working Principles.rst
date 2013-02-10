@@ -451,7 +451,7 @@ This file has extension *inp* (e.g. ``StorageEx.inp``). The format of the file i
 
 How SWMM5-EA exploits the input file
 ------------------------------------
-Problems of metaheuristics[1]_ involve solving a problems with various input parameters. For example a problem 
+Problems of metaheuristics [#]_ involve solving a problems with various input parameters. For example a problem 
 of calculating optimal sizing of a number of detention storages involve running SWMM 5.0 model with different values for 
 detention storage sizes. :doc:`Example 1<Simple Optimization>` is such a problem. How SWMM5-EA facilitates this process of 
 running SWMM with different values for a set of variables is by using a '*template*' system. SWMM5-EA marks a number of locations in the input file with special ``space-holders`` (We use symbols like ``@!v1!@``). For example the [STORAGE] section of our swmm input file: 
@@ -498,7 +498,7 @@ Then the optimization engine will fill these place-holders with relevent values 
 
 
 
-.. [5] Metaheuristic methods optimizes a problem by iteratively trying to improve a 
+.. [#] Metaheuristic methods optimizes a problem by iteratively trying to improve a 
    candidate solution with regard to a given measure of quality. The Evolutionary computation method used 
    in SWMM5-EA is a metaheuristic method. 
 
