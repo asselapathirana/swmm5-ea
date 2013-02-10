@@ -97,6 +97,7 @@ def create_setupscript():
     Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
     Name: "{group}\{cm:ProgramOnTheWeb,{#MyAppName}}"; Filename: "{#MyAppURL}"
     Name: "{group}\{#MyAppName}-Examples"; Filename: "{app}\examples"
+    Name: "{group}\{#MyAppName}-Users' Guide"; Filename: "{app}\doc\_build\html\index.html"
     Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
     Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
     Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
