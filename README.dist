@@ -23,11 +23,7 @@ go to service; python setup.py (this automatically run install.iss with innosetu
 python setup.py register sdist upload --sign
 python setup.py register bdist_wininst upload --sign
 (source and windows installer packages. Can be done both in windows or POSIX)
-3. python setup.py register
-(this will add the proper meta data to the pypi 
--- don't know why by the command in (2) does not do this properly!)
-4. Now go to swmm directory and do steps (2) and (3). 
-5. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
+3. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
 cd to service
 ./upload2google.bash Output/SWMM5_EA-x.y.z.k.exe
 (If the server says "Forbidden (403)" that might mean there's already a file under that name. Confusing)

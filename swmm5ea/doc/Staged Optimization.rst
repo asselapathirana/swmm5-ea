@@ -51,7 +51,7 @@ The SWMM5-EA system will calculate flood cost at each year using this user-provi
 bring it to the present value and sums it all to calculate the net present cost of flooding. 
 
 However, in this example (similar to :ref:`Example 1<simple_example_label>`,) we do no consider flood as a real cost 
-but as a penalty. 
+but as a penalty.
    
 .. figure:: figures/stage_converge.png
    :alt: After 100 generations.    
