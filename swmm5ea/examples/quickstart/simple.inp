@@ -1,0 +1,101 @@
+[TITLE]
+
+[OPTIONS]
+FLOW_UNITS           CMS
+INFILTRATION         HORTON
+FLOW_ROUTING         DYNWAVE
+START_DATE           02/11/2013
+START_TIME           00:00:00
+REPORT_START_DATE    02/11/2013
+REPORT_START_TIME    00:00:00
+END_DATE             02/11/2013
+END_TIME             03:00:00
+SWEEP_START          01/01
+SWEEP_END            12/31
+DRY_DAYS             0
+REPORT_STEP          00:15:00
+WET_STEP             00:05:00
+DRY_STEP             01:00:00
+ROUTING_STEP         0:00:10 
+ALLOW_PONDING        NO
+INERTIAL_DAMPING     PARTIAL
+VARIABLE_STEP        0.75
+LENGTHENING_STEP     0
+MIN_SURFAREA         0
+NORMAL_FLOW_LIMITED  BOTH
+SKIP_STEADY_STATE    NO
+FORCE_MAIN_EQUATION  H-W
+LINK_OFFSETS         DEPTH
+MIN_SLOPE            0
+
+[EVAPORATION]
+;;Type       Parameters
+;;---------- ----------
+CONSTANT     0.0
+DRY_ONLY     NO
+
+[JUNCTIONS]
+;;               Invert     Max.       Init.      Surcharge  Ponded    
+;;Name           Elev.      Depth      Depth      Depth      Area      
+;;-------------- ---------- ---------- ---------- ---------- ----------
+1                2          0          0          0          0         
+2                1          0          0          0          0         
+4                2          0          0          0          0         
+
+[OUTFALLS]
+;;               Invert     Outfall    Stage/Table      Tide
+;;Name           Elev.      Type       Time Series      Gate
+;;-------------- ---------- ---------- ---------------- ----
+3                0          FREE                        NO
+
+[CONDUITS]
+;;               Inlet            Outlet                      Manning    Inlet      Outlet     Init.      Max.      
+;;Name           Node             Node             Length     N          Offset     Offset     Flow       Flow      
+;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
+C1               1                2                400        0.01       0          0          0          0         
+C3               2                3                400        0.01       0          0          0          0         
+C2               4                2                400        0.01       0          0          0          0         
+
+[XSECTIONS]
+;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels   
+;;-------------- ------------ ---------------- ---------- ---------- ---------- ----------
+C1               CIRCULAR     1                0          0          0          1                    
+C3               CIRCULAR     1                0          0          0          1                    
+C2               CIRCULAR     1                0          0          0          1                    
+
+[LOSSES]
+;;Link           Inlet      Outlet     Average    Flap Gate 
+;;-------------- ---------- ---------- ---------- ----------
+
+[INFLOWS]
+;;                                                 Param    Units    Scale    Baseline Baseline
+;;Node           Parameter        Time Series      Type     Factor   Factor   Value    Pattern
+;;-------------- ---------------- ---------------- -------- -------- -------- -------- --------
+1                FLOW             ""               FLOW     1.0      1.0      .25     
+4                FLOW             ""               FLOW     1.0      1.0      .25     
+
+[REPORT]
+INPUT      NO
+CONTROLS   NO
+SUBCATCHMENTS ALL
+NODES ALL
+LINKS ALL
+
+[TAGS]
+
+[MAP]
+DIMENSIONS 0.000 0.000 10000.000 10000.000
+Units      None
+
+[COORDINATES]
+;;Node           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+1                1790.890           5900.621          
+2                3550.725           4451.346          
+4                3695.652           6563.147          
+3                6925.466           2587.992          
+
+[VERTICES]
+;;Link           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+

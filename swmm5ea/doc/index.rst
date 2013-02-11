@@ -10,8 +10,9 @@ Contents:
 
 .. toctree::
    :maxdepth: 3
-
+   
    Introduction
+   Quick Start  
    Working Principles
    SWMM5-EA User Interface
    Simple Optimization

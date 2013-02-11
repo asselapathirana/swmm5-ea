@@ -82,7 +82,7 @@
         <property name="maximumSize">
          <size>
           <width>256</width>
-          <height>25</height>
+          <height>50</height>
          </size>
         </property>
        </widget>
@@ -108,7 +108,7 @@
            <x>0</x>
            <y>0</y>
            <width>264</width>
-           <height>289</height>
+           <height>264</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_7">

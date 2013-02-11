@@ -324,7 +324,7 @@
      <normaloff>:/res/res/run.png</normaloff>:/res/res/run.png</iconset>
    </property>
    <property name="text">
-    <string>Initialize_model</string>
+    <string>Initialize the optimization</string>
    </property>
    <property name="toolTip">
     <string>Initialize the optimization</string>
