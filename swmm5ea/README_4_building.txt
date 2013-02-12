@@ -1,5 +1,6 @@
 Building:
 --------
+0. Use make html to build docoumentation from swmm5ea/doc directory. 
 1. Use setup.py on top to build sdist and bdist_wininst
 python setup.py sdist
 python setup.py bdist_wininst
