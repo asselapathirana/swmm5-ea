@@ -17,7 +17,7 @@ that we use for this walk-through. It consists of three conduits
 	 
   
 
-The two upstream nodes have a (constant) inflow of :math:`m^3/s`. 
+The two upstream nodes have a (constant) inflow of 0.25 :math:`m^3/s`. 
 
 Optimization problem
 --------------------
@@ -25,7 +25,7 @@ The objective is to find the least cost design, that does not cause flooding in 
 
 .. math::
 
-        c=1000*(D**0.8)
+        c=1000 (D^{0.8})
 
 In drainage system design it is customary to have downstream conduits at least as large as any of the upstream nodes. So, in this example we have to maintain the following constraint: 
 
@@ -42,7 +42,7 @@ Steps
 
  #. Create a new project (Project > New Project)
  #. Save the Project in some directory ( Project > Save As, In the dialog select an empty direcotory)
- #. Load the SWMM network file to this project (File > Load SWMM file, Navigate to the simple sub-directory in examples directory (in windows this is typically ``<program files>\\SWMM5-EA\\examples\\simple``) and select ``simple.inp`` file. SWMM5-EA will copy the file to your project directory and load it.)
+ #. Load the SWMM network file to this project (File > Load SWMM file, Navigate to the sub-directory named ``simple`` in examples directory (in windows this is typically ``<program files>\\SWMM5-EA\\examples\\simple``) and select ``simple.inp`` file. SWMM5-EA will copy the file to your project directory and load it.)
  #. Edit the project parameters ( Project > Edit ) and make sure the values in the dialog as same as the ones shown in the figure below. Click OK.
  #. Open the SWMM5 file and insert the place holders (File> Insert Slots). The value of Geometry 1 (Diameter of conduit according to SWMM convention) is 1 m for each of the three conduits :math:`C1\mbox{,}C2\mbox{ and }C3`. Replace these values with :math:`@!v1!@\mbox{,}@!v2!@\mbox{ and } @!max(v1,v2)+v3!@`. The first two are simple place holders allowing SWMM5-EA to change those values. But the third involves some trickery. By specifying :math:`@!max(v1,v2)+v3!@`, we ensure that the diameter of the conduit ``C3`` is always larger than the larger of those of two conduits ``C1`` and ``C2``. See Figure below. Click OK.
  #. Now Initialize the optimization (``Optimization>Initialize the optimization``). Check the ``Output`` and ``Errors and Warnings`` panes for any signs of trouble. If no errors warnings..
