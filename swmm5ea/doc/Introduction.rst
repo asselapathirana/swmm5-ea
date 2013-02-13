@@ -2,6 +2,10 @@ Introduction to SWMM5-EA
 ========================
 `SWMM5-EA <https://code.google.com/p/swmm5-ea/>`_ is GUI based program to demonstrate the use of evolutionary algorithms to optimize drainage networks. It suppports drainage/sewerage networks modelled in `EPA-SWMM 5.0 <http://www.epa.gov/nrmrl/wswrd/wq/models/swmm/>`_ system, based on  "`SWMM5 package: Python bindings for EPA-SWMM 5.0 engine <http://pypi.python.org/pypi/SWMM5/>`_". 
 
+Note
+----
+This documentation is NOT a substitute for a book/course on evolutionary methods or papers describing case studies on their applications in the urban drainage sector. 
+
 What It is
 ----------
 SWMM5-EA was written for education, not for research. Therefore it has 
