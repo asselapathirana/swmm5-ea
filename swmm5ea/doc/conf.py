@@ -5,7 +5,7 @@ import os
 #sys.path.append(".."+os.sep+os.sep+"service")
 sys.path.append("..")
 
-import swmm_ea_controller as sc
+import metadata as sc
 
 # -*- coding: utf-8 -*-
 #

@@ -8,7 +8,7 @@ hg push
 How to distribute
 
 * Checklist
-(a) Check the version in swmm_ea_controller.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
+(a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
 (b) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
 
 0. Use make html to build docoumentation from swmm5ea/doc directory. 
