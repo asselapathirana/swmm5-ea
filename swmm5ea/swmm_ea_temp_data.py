@@ -13,12 +13,12 @@ class data():
     
     ## cost_functivon specifies how the cost should be calculated for the network. Use same variables as
     ## used for template input file (v1..vk). 
-    cost_function : "v1*1000+v2*1000+v3*1000+v4*1000+v5*1000"
+    cost_function : "1000*(v1**.8+v2**.8+v3**.8+v4**.8+v5**.8)"
     # swmmout_cost_function is the function used to calculate the cost component use f to denote swmm output
-    swmmout_cost_function : "f**2.*.1"
+    swmmout_cost_function : "1.E12*f"
     pop_size: 12
     num_selected : 12
-    num_elites  : 2
+    num_elites  : 1
     maximize : False
     max_evaluations : 60
     crossover_rate : .9

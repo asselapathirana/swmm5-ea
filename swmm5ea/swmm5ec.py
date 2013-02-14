@@ -320,7 +320,13 @@ class SwmmEA(QtCore.QThread):
     def setParams(self,parameters=None,display=None, prng=None):
         self.parameters=parameters
         self.display=display
-        self.prng=prng
+        if prng:
+	    self.prng=prng
+	elif hasattr(parameters,"seed"):
+	    print "Using %i as seed" % (parameters.seed)
+	    self.prng=Random(parameters.seed)
+	else:
+	    self.prng=None
 	
     def initialize(self):
 	# check the simulation type. If it is a one of calibration, 
@@ -342,7 +348,7 @@ class SwmmEA(QtCore.QThread):
         if prng is None:
 	    seed = randint(0, sys.maxint)
 	    print "Using seed: ", seed, " to initialize random number generator."
-            prng = Random(seed)
+            prng = Random(seed) 
 	
 
         @inspyred.ec.generators.strategize    

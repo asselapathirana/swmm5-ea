@@ -253,6 +253,7 @@ class swmmeacontroller():
         self.ups()
     def LoadProject(self, yamlfile):       
         self.project=swmmeaproject.Project(dirname=os.path.dirname(yamlfile))
+        self.get_slotted_data()
         self.ups()
         
     def get_slotted_data(self):
