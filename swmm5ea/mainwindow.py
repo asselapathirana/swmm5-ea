@@ -200,7 +200,7 @@ mainwindow_.Ui_SWMM5EA):
         #                                         "Save project as", ".", "*")
         if dlg.exec_():
             if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
-                pass #self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
+                self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
 
 
     #action_SaveProject
