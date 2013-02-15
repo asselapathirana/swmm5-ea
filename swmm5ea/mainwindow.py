@@ -184,14 +184,23 @@ mainwindow_.Ui_SWMM5EA):
     #actionSave_As
     @QtCore.pyqtSignature("")
     def on_actionSave_As_triggered(self,checed=None):
-        dlg=QtGui.QFileDialog(self);
-        dlg.setFileMode(QtGui.QFileDialog.Directory)
-        dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
+        dlg=QtGui.QFileDialog(self,caption="New directory");
+        dlg.setFileMode(QtGui.QFileDialog.AnyFile)
+        dlg.setOption(QtGui.QFileDialog.ShowDirsOnly)
+        dlg.setOption(QtGui.QFileDialog.DontUseNativeDialog)
+        dlg.setNameFilter("Directory name")
+        dlg.setLabelText(QtGui.QFileDialog.FileName,"Directory")
+        dlg.setLabelText(QtGui.QFileDialog.Accept,"Create")
+        dlg.setLabelText(QtGui.QFileDialog.Reject,"Cancel")
+        dlg.setLabelText(QtGui.QFileDialog.FileType,"")
+        dlg.setLabelText(QtGui.QFileDialog.LookIn,"Project Directory")
+        
+        #dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
         #newdir=QtGui.QFileDialog.getSaveFileName(self,
         #                                         "Save project as", ".", "*")
         if dlg.exec_():
             if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
-                self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
+                pass #self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
 
 
     #action_SaveProject
