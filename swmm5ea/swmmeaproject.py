@@ -189,6 +189,7 @@ class Project():
             self.read_in_swmm_file()
             return True
         except: 
+            print "swmm file: %s can not be found!" % (self.swmmfilename)
             self.setSwmmfile(None)
             return False
 
@@ -224,15 +225,20 @@ class Project():
         
         f.close() 
         if not swmmfilename:
-            import glob
-            try:
-                self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
-            except:
+            # now check in parameters. 
+            if hasattr(self.parameters,"swmmfilename"):
+                print "Reading in swmmfilename from params.yaml as %s. " % (self.parameters.swmmfilename)
+                self.setswmmfile(self.parameters.swmmfilename)
+            else:
+                import glob
                 try:
-                    self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.INP')[0]))
+                    self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.inp')[0]))
                 except:
-                    print "problem: no swmm files in the directory."
-                    return self.LOAD_NOSWMMFILE
+                    try:
+                        self.setSwmmfile(os.path.basename(glob.glob(dirname+os.sep+'*.INP')[0]))
+                    except:
+                        print "problem: no swmm files in the directory."
+                        return self.LOAD_NOSWMMFILE
         else:
             self.setSwmmfile(swmmfilename)
         self.read_in_swmm_file()
@@ -305,6 +311,8 @@ class Project():
         f=open(self.dirname+os.sep+self.paramfilename,'w')
         import yaml
         f.write("#Written programmetically!\n")
+        print "Adding name of swmmfile, %s to parameters" % (self.swmmfilename)
+        self.parameters.swmmfilename=self.swmmfilename
         d=yaml.dump(self.cleanup_and_make_to_dict(self.parameters),f)
         f.close()
 

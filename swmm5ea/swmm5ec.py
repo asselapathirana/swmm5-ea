@@ -79,7 +79,9 @@ def getFitness(fillers, linestring,parameters):
 		    #/(1+parameters.discount_rate)**(parameters.stage_size*i)    
 		#cost2*=parameters.stage_size
 	    else:
-		cost2 = swmmCost(scaled, linestring, filename,parameters)
+		cost = swmmCost(scaled, linestring, filename,parameters)
+		pp={"f": cost}
+		cost2=float(costf(**(pp)))
 	    fitness=cost1+cost2
 	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
 	    fitness=swmmCost(scaled, linestring, filename,parameters)
