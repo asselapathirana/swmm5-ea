@@ -184,23 +184,29 @@ mainwindow_.Ui_SWMM5EA):
     #actionSave_As
     @QtCore.pyqtSignature("")
     def on_actionSave_As_triggered(self,checed=None):
-        dlg=QtGui.QFileDialog(self,caption="New directory");
-        dlg.setFileMode(QtGui.QFileDialog.AnyFile)
-        dlg.setOption(QtGui.QFileDialog.ShowDirsOnly)
-        dlg.setOption(QtGui.QFileDialog.DontUseNativeDialog)
-        dlg.setNameFilter("Directory name")
-        dlg.setLabelText(QtGui.QFileDialog.FileName,"Directory")
-        dlg.setLabelText(QtGui.QFileDialog.Accept,"Create")
-        dlg.setLabelText(QtGui.QFileDialog.Reject,"Cancel")
-        dlg.setLabelText(QtGui.QFileDialog.FileType,"")
-        dlg.setLabelText(QtGui.QFileDialog.LookIn,"Project Directory")
+
+        fl=QtGui.QFileDialog.getSaveFileName(self, "New Project Direcoty", options = QtGui.QFileDialog.ShowDirsOnly, filter="Directory")
+        if str:
+            if(self.controller.saveproject(str(self.qt_fix_path(fl)) )):
+                self.controller.settings.setValue("lastprojectloc",fl)            
+        return 
+        #dlg=QtGui.QFileDialog(self,caption="New directory");
+        #dlg.setFileMode(QtGui.QFileDialog.AnyFile)
+        #dlg.setOption(QtGui.QFileDialog.ShowDirsOnly)
+        #dlg.setOption(QtGui.QFileDialog.DontUseNativeDialog)
+        #dlg.setNameFilter("Directory name")
+        #dlg.setLabelText(QtGui.QFileDialog.FileName,"Directory")
+        #dlg.setLabelText(QtGui.QFileDialog.Accept,"Create")
+        #dlg.setLabelText(QtGui.QFileDialog.Reject,"Cancel")
+        #dlg.setLabelText(QtGui.QFileDialog.FileType,"")
+        #dlg.setLabelText(QtGui.QFileDialog.LookIn,"Project Directory")
         
-        #dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
-        #newdir=QtGui.QFileDialog.getSaveFileName(self,
-        #                                         "Save project as", ".", "*")
-        if dlg.exec_():
-            if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
-                self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
+        ##dlg.selectFile(self.controller.settings.value("lastprojectloc").toString())
+        ##newdir=QtGui.QFileDialog.getSaveFileName(self,
+        ##                                         "Save project as", ".", "*")
+        #if dlg.exec_():
+            #if(self.controller.saveproject(str(self.qt_fix_path(dlg.selectedFiles()[0])) )):
+                #self.controller.settings.setValue("lastprojectloc",dlg.selectedFiles()[0])
 
 
     #action_SaveProject
