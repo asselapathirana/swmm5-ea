@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SWMM5EA</class>
+ <widget class="QMainWindow" name="SWMM5EA">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>941</width>
+    <height>713</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>SWMM5 EA</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>941</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;Project</string>
+    </property>
+    <addaction name="action_NewProject"/>
+    <addaction name="action_OpenProject"/>
+    <addaction name="separator"/>
+    <addaction name="action_SaveProject"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="action_EditProject"/>
+   </widget>
+   <widget class="QMenu" name="menu_File_2">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Load_SWMM_File"/>
+    <addaction name="separator"/>
+    <addaction name="action_Insert_Slots"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuOptimization">
+    <property name="title">
+     <string>Optimization</string>
+    </property>
+    <addaction name="actionInitialize_model"/>
+    <addaction name="actionRun_Optimization"/>
+    <addaction name="actionPause_Optimization"/>
+    <addaction name="actionStop_Optimization"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelp_Users_Guide"/>
+    <addaction name="actionHelp_About"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="action_Zoom_Extent"/>
+   </widget>
+   <addaction name="menu_File_2"/>
+   <addaction name="menu_File"/>
+   <addaction name="menuOptimization"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="Main_toolbar">
+   <property name="windowTitle">
+    <string>Main toolbar</string>
+   </property>
+   <property name="movable">
+    <bool>true</bool>
+   </property>
+   <property name="floatable">
+    <bool>true</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_NewProject"/>
+   <addaction name="action_OpenProject"/>
+   <addaction name="action_EditProject"/>
+   <addaction name="action_SaveProject"/>
+   <addaction name="actionSave_As"/>
+   <addaction name="separator"/>
+   <addaction name="action_Load_SWMM_File"/>
+   <addaction name="action_Insert_Slots"/>
+   <addaction name="separator"/>
+   <addaction name="actionInitialize_model"/>
+   <addaction name="actionRun_Optimization"/>
+   <addaction name="actionPause_Optimization"/>
+   <addaction name="actionStop_Optimization"/>
+   <addaction name="action_Zoom_Extent"/>
+   <addaction name="separator"/>
+   <addaction name="actionHelp_Users_Guide"/>
+   <addaction name="actionHelp_About"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="curve_window">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+     <horstretch>2</horstretch>
+     <verstretch>2</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>300</width>
+     <height>400</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_7">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="textEdit_tab">
+        <attribute name="title">
+         <string>Output</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QTextEdit" name="textEdit"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="textEdit_2_tab">
+        <attribute name="title">
+         <string>Errors and Warnings</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="0" column="0">
+          <widget class="QTextEdit" name="textEdit_2"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_Insert_Slots">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/spreadsheet.png</normaloff>:/res/res/spreadsheet.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Insert Slots</string>
+   </property>
+  </action>
+  <action name="action_Load_SWMM_File">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/document_open.png</normaloff>:/res/res/document_open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Load SWMM File</string>
+   </property>
+  </action>
+  <action name="action_EditProject">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/edit.png</normaloff>:/res/res/edit.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Edit</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Project</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/document_save_as.png</normaloff>:/res/res/document_save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save &amp;As</string>
+   </property>
+  </action>
+  <action name="action_SaveProject">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/document_save.png</normaloff>:/res/res/document_save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save Project</string>
+   </property>
+  </action>
+  <action name="action_NewProject">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/document_new.png</normaloff>:/res/res/document_new.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New Project</string>
+   </property>
+  </action>
+  <action name="action_OpenProject">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/project_open.png</normaloff>:/res/res/project_open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Open a saved project</string>
+   </property>
+  </action>
+  <action name="actionRun_Optimization">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/media_playback_start.png</normaloff>:/res/res/media_playback_start.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run Optimization</string>
+   </property>
+   <property name="toolTip">
+    <string>Start optimization run</string>
+   </property>
+  </action>
+  <action name="actionPause_Optimization">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/media_playback_pause.png</normaloff>:/res/res/media_playback_pause.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause Optimization</string>
+   </property>
+   <property name="toolTip">
+    <string>Pause at the end of this generation</string>
+   </property>
+  </action>
+  <action name="actionStop_Optimization">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/player_stop.png</normaloff>:/res/res/player_stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop Optimization</string>
+   </property>
+   <property name="toolTip">
+    <string>Completely stop the Optimization</string>
+   </property>
+  </action>
+  <action name="actionHelp_About">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/help_about.png</normaloff>:/res/res/help_about.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionHelp_Users_Guide">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/help_contents.png</normaloff>:/res/res/help_contents.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Users' Guide</string>
+   </property>
+   <property name="toolTip">
+    <string>Users' Guide</string>
+   </property>
+  </action>
+  <action name="actionInitialize_model">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/run.png</normaloff>:/res/res/run.png</iconset>
+   </property>
+   <property name="text">
+    <string>Initialize the optimization</string>
+   </property>
+   <property name="toolTip">
+    <string>Initialize the optimization</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/application_exit.png</normaloff>:/res/res/application_exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="toolTip">
+    <string>Exit SWMM5 EA</string>
+   </property>
+  </action>
+  <action name="action_Zoom_Extent">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/res/zoom_fit_best.png</normaloff>:/res/res/zoom_fit_best.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Zoom Extent</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom the graph to the data extent</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

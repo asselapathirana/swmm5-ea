@@ -1,0 +1,30 @@
+#Written programmetically!
+!!python/object:swmmeaproject.parameters_class_
+calfile: ''
+calid: [0, E1]
+caltype:
+- 0
+- [0, 3]
+- Subcatchment Runoff
+cost_function: !!python/unicode 'v1**1.5*v2*100+v3*v4*2000000'
+crossover_rate: 0.8
+gnuplot: gnuplot/pgnuplot.exe
+gnuplotdata: data.dat
+gnuplotscript: plotfile.plt
+max_evaluations: 2400
+maximize: false
+mutation_rate: 0.2
+num_cpus: 4
+num_crossover_points: 2
+num_elites: 1
+num_inputs: 4
+num_selected: 12
+pop_size: 12
+swmmResultCodes: [3, 0, 10]
+swmmout_cost_function: !!python/unicode 'f**2.*.01'
+swmmouttype: [0, Flood Volume]
+valuerange:
+- [0.1, 1.5]
+- [1.0, 200000.0]
+- [0.05, 0.8]
+- [0.3, 3.0]

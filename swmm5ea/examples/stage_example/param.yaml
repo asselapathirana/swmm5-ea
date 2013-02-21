@@ -1,0 +1,41 @@
+#Written programmetically!
+calfile: ''
+calid: [0, A2]
+caltype:
+- 0
+- [0, 3]
+- Subcatchment Runoff
+cost_function: !!python/unicode '1000*(v1**.8+v2**.8+v3**.8+v4**.8+v5**.8)+1000*(v6**.8+v7**.8+v8**.8+v9**.8+v10**.8)/(1+discount_rate/100)**(1*stage_size)+1000*(v11**.8+v12**.8+v13**.8+v14**.8+v15**.8)/(1+discount_rate/100)**(2*stage_size)'
+crossover_rate: 0.9
+discount_rate: 5.0
+max_evaluations: 1200
+maximize: false
+mutation_rate: 0.2
+num_cpus: 4
+num_crossover_points: 2
+num_elites: 2
+num_inputs: 15
+num_selected: 12
+pop_size: 12
+stage_size: 10
+stages: 3
+swmmResultCodes: [3, 0, 10]
+swmmout_cost_function: !!python/unicode '1.E12*f'
+swmmouttype: [2, Staged Calc. with Flood vol. as cost]
+valuerange:
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+- [0.0, 20000.0]
+zoomextent: false
