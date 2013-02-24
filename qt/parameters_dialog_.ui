@@ -233,7 +233,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="2">
         <widget class="QSpinBox" name="num_inputs">
          <property name="minimum">
           <number>1</number>
@@ -243,7 +243,7 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="15" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Number of &amp;Elites</string>
@@ -253,7 +253,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="14" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>&amp;Population Size</string>
@@ -263,20 +263,20 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="14" column="2">
         <widget class="QSpinBox" name="pop_size"/>
        </item>
-       <item row="7" column="1">
+       <item row="15" column="2">
         <widget class="QSpinBox" name="num_elites"/>
        </item>
-       <item row="5" column="0" colspan="2">
+       <item row="10" column="0" colspan="3">
         <widget class="Line" name="line_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="9" column="0">
+       <item row="17" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
           <string>&amp;Crossover Rate</string>
@@ -286,7 +286,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="1" column="2">
         <widget class="QRadioButton" name="minimize_button">
          <property name="text">
           <string>Minimize</string>
@@ -296,14 +296,14 @@
          </property>
         </widget>
        </item>
-       <item row="22" column="0" colspan="2">
+       <item row="30" column="0" colspan="3">
         <widget class="Line" name="line_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="21" column="1">
+       <item row="29" column="2">
         <widget class="QDoubleSpinBox" name="discount_rate">
          <property name="suffix">
           <string/>
@@ -316,7 +316,7 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="1">
+       <item row="21" column="2">
         <widget class="QLineEdit" name="num_evaluations">
          <property name="text">
           <string>100</string>
@@ -326,7 +326,7 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="18" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string>M&amp;utation Rate</string>
@@ -336,14 +336,14 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="0" colspan="2">
+       <item row="22" column="0" colspan="3">
         <widget class="Line" name="line_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="20" column="1">
+       <item row="28" column="2">
         <widget class="QSpinBox" name="stage_size">
          <property name="minimum">
           <number>1</number>
@@ -353,7 +353,7 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="17" column="2">
         <widget class="QDoubleSpinBox" name="Crossover_rate">
          <property name="decimals">
           <number>3</number>
@@ -369,14 +369,14 @@
          </property>
         </widget>
        </item>
-       <item row="16" column="0" colspan="2">
+       <item row="24" column="0" colspan="3">
         <widget class="Line" name="line_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="10" column="1">
+       <item row="18" column="2">
         <widget class="QDoubleSpinBox" name="mutation_rate">
          <property name="decimals">
           <number>3</number>
@@ -392,7 +392,7 @@
          </property>
         </widget>
        </item>
-       <item row="20" column="0">
+       <item row="28" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
           <string>&amp;Stage Size (years)</string>
@@ -402,7 +402,7 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="0">
+       <item row="21" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>Number of &amp;Evaluations</string>
@@ -412,7 +412,7 @@
          </property>
         </widget>
        </item>
-       <item row="15" column="0">
+       <item row="23" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Number of C&amp;PUs</string>
@@ -422,14 +422,14 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="0" colspan="2">
+       <item row="19" column="0" colspan="3">
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="15" column="1">
+       <item row="23" column="2">
         <widget class="QSpinBox" name="Number_of_cpus">
          <property name="minimum">
           <number>1</number>
@@ -439,7 +439,7 @@
          </property>
         </widget>
        </item>
-       <item row="21" column="0">
+       <item row="29" column="0">
         <widget class="QLabel" name="label_13">
          <property name="text">
           <string>&amp;Discount rate (%)</string>
@@ -449,7 +449,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>&amp;Analysis Type</string>
@@ -459,7 +459,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="5" column="2">
         <widget class="QComboBox" name="swmmp_1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -475,7 +475,7 @@
          </property>
         </widget>
        </item>
-       <item row="19" column="0">
+       <item row="27" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
           <string>&amp;Number of Stages</string>
@@ -485,13 +485,20 @@
          </property>
         </widget>
        </item>
-       <item row="19" column="1">
+       <item row="27" column="2">
         <widget class="QSpinBox" name="stages">
          <property name="minimum">
           <number>1</number>
          </property>
          <property name="maximum">
           <number>128</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QCheckBox" name="multiObjective">
+         <property name="text">
+          <string>M&amp;ulti-Objective</string>
          </property>
         </widget>
        </item>

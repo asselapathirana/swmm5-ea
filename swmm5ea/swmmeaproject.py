@@ -4,12 +4,22 @@ import os
 from  distutils.dir_util import copy_tree
 import sys
 import StringIO
-import swmm5ec
 import guiqwt
 import swmmout
 import swmm5.swmm5 as sw
 import swmm_ea_controller
 from PyQt4 import QtCore
+
+fi=os.path.dirname(os.path.abspath(__file__))
+cdir=os.path.abspath(os.path.join(fi,"..","customcode"))
+if os.path.exists(cdir):
+    if os.path.exists(os.path.join(cdir,"swmm5ec_custom.py")):
+        sys.path.append(cdir)
+        exec('import %s as swmm5ec' % "swmm5ec_custom")
+    else:
+        import swmm5ec
+else:
+    import swmm5ec
 
 
 
@@ -157,6 +167,8 @@ class Project():
         print "List of parameters:"
         print self.parameters
         print "*****************************************************************"
+        print "(Advanced message) Using swmm5ec : %s" % swmm5ec.__file__
+        print "*****************************************************************"
         parameters=self.parameters
         parameters.bestlist=[]
         for i in range(parameters.pop_size+1):
@@ -265,6 +277,7 @@ class Project():
         self.parameters.stage_size=1
         self.parameters.discount_rate=1.0
         self.parameters.stages=1
+        self.parameters.multiObjective=False
         try:
             import yaml
             dataMap = yaml.load(f)  

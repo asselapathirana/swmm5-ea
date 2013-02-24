@@ -35,7 +35,8 @@ proj.directory-list = [{'dirloc': loc('../examples'),
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]
-proj.file-list = [loc('../prep.py'),
+proj.file-list = [loc('t.py'),
+                  loc('../prep.py'),
                   loc('../README.dist'),
                   loc('../README.txt'),
                   loc('../service/action_slots.bash'),
@@ -43,4 +44,4 @@ proj.file-list = [loc('../prep.py'),
                   loc('../swmm5ea/README.virtualenv'),
                   loc('../swmm5ea/README_4_building.txt')]
 proj.file-type = 'shared'
-proj.main-file = loc('../swmm5ea/swmm_ea_controller.py')
+proj.main-file = loc('../service/setup.py')
