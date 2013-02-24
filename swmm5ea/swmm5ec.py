@@ -82,13 +82,15 @@ def getFitness(fillers, linestring,parameters):
 		cost = swmmCost(scaled, linestring, filename,parameters)
 		pp={"f": cost}
 		cost2=float(costf(**(pp)))
-	    fitness=cost1+cost2
+	    if parameters.multiObjective:
+		fitness=inspyred.ec.emo.Pareto([cost1,cost2])
+	    else:
+		fitness=cost1+cost2
 	elif parameters.swmmouttype[0]==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
 	    fitness=swmmCost(scaled, linestring, filename,parameters)
 	else:
 	    print "I don't know the calculation type!"
 	    raise	
-
         
     except:
         
@@ -240,35 +242,43 @@ class SwmmEA(QtCore.QThread):
 	    return False
     
     def swmm_best_observer(self,population, num_generations, num_evaluations, args):
-        
-        linestring=args.get('parameters','foo').linestring
-        best=max(population)
-        worst=min(population)
         parameters=args["parameters"]
-	p=best.candidate[0:parameters.num_inputs] # this is essential when handling evolution strategy in inspyred (due to double internal length of the array)
-	if self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_STAGE:
-	    for (i,ls) in enumerate(swmm_ea_controller.extractSWMMmultiplefiles(linestring)):
-		swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i_stage%(x)03i" % {"#":num_generations,"x": i})+".inp"
-		swmmWrite(scale(p,parameters),ls,swmmfile)
-	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
-	    swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".inp"
-	    swmmWrite(scale(p,parameters),linestring,swmmfile)
-	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_CALIB:
-	    swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+"Best_of_gen_%(#)03i" % {"#":num_generations})+".inp"
-	    swmmWrite(scale(p,parameters),linestring,swmmfile)	    
-	    # if calibration write a small ini file with calibration data file name in it. 
-	    shutil.copy2(self.parameters.calINITEMPLATE, swmmfile[:-3]+"ini")
-	else: 
-	    print "I don't know this type of analysis: ", self.parameters.swmmouttype, " !!!"
-        
-        
-        strb=map(lambda s: "{0:.3e}".format(s),scale(p,parameters))
-        print '\nBest fitness %(fit).3e for values %(ind)s ' % {"fit": best.fitness,"ind": strb}
+	if parameters.multiObjective:
+	    print "MOO - Generation: %i " %(num_generations)
+	    for i,p in enumerate(sorted(population,key=lambda p: p.fitness[0])):
+		self.write_swmm_for_saving("Latest_gen_individual_no-%(#)003i", i, args, p.candidate)
+	else:
+	    best=max(population)
+	    worst=min(population)
+
+	    p=best.candidate[0:parameters.num_inputs] # this is essential when handling evolution strategy in inspyred (due to double internal length of the array)
+	    self.write_swmm_for_saving("Best_of_gen_%(#)03i", num_generations, args, p)
+	    strb=map(lambda s: "{0:.3e}".format(s),scale(p,parameters))
+	    print '\nBest fitness %(fit).3e for values %(ind)s ' % {"fit": best.fitness,"ind": strb}
+
 	while(self.paused):
 	    QtCore.QThread.msleep(1000)
 	    if not  self.paused_finally:
 		self.paused_finally=True
 		self.message("..and paused.")
+
+    def write_swmm_for_saving(self, name, number, args, p):
+	parameters=args["parameters"]
+	linestring=args.get('parameters',None).linestring
+	if self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_STAGE:
+		for (i,ls) in enumerate(swmm_ea_controller.extractSWMMmultiplefiles(linestring)):
+		    swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+(name+"_stage%(x)03i") % {"#":number,"x": i})+".inp"
+		    swmmWrite(scale(p,parameters),ls,swmmfile)
+	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
+		swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+name % {"#":number})+".inp"
+		swmmWrite(scale(p,parameters),linestring,swmmfile)
+	elif self.parameters.swmmouttype[0]== swmm_ea_controller.SWMMREULTSTYPE_CALIB:
+		swmmfile=(parameters.projectdirectory+os.sep+parameters.resultsdirectory+os.sep+name % {"#":number})+".inp"
+		swmmWrite(scale(p,parameters),linestring,swmmfile)	    
+		# if calibration write a small ini file with calibration data file name in it. 
+		shutil.copy2(self.parameters.calINITEMPLATE, swmmfile[:-3]+"ini")
+	else: 
+		print "I don't know this type of analysis: ", self.parameters.swmmouttype, " !!!"
 
     def observer_function(self,population, num_generations, num_evaluations, args):
         import time
@@ -285,7 +295,7 @@ class SwmmEA(QtCore.QThread):
             # otherwise this thread will starve the gui thread. However, when multiprocessing, python multiprocessing module will take care of this?
             self.msleep(500)
         
-      
+
     def stop(self):
 	with QtCore.QMutexLocker(self.mutex):
 	    self.stopped    = True
@@ -338,78 +348,138 @@ class SwmmEA(QtCore.QThread):
         self.runOptimization()
 
     def runOptimization(self):
-        parameters=self.parameters
-        prng=self.prng
-        display=self.display
-        if parameters is None: 
-            print "problem jim!"
-            return None
-        import pyratemp, os
-        parameters.linestring=SwmmTemplate(parameters.projectdirectory+os.sep+parameters.datadirectory+os.sep+parameters.templatefile)
+	parameters=self.parameters
+	prng=self.prng
+	display=self.display
+	if parameters is None: 
+	    print "problem jim!"
+	    return None
+	import pyratemp, os
+	parameters.linestring=SwmmTemplate(parameters.projectdirectory+os.sep+parameters.datadirectory+os.sep+parameters.templatefile)
 
-        if prng is None:
+	if prng is None:
 	    seed = randint(0, sys.maxint)
 	    print "Using seed: ", seed, " to initialize random number generator."
-            prng = Random(seed) 
+	    prng = Random(seed) 
+	
+	if (parameters.multiObjective):
+	    print "Initiating NSGA2 for multi-objective optimization"	    
+	    return self.runOptimization_MOO(parameters,prng)
+	else:
+	    print "Initiating ES for single-objective optimization"	
+	    return self.runOptimization_SOO(parameters,prng)
+
+	
+    def runOptimization_SOO(self, parameters, prng):
+
+
+	@inspyred.ec.generators.strategize    
+	def generatorf(random, args):
+	    bounds=args.get('bounds',[-1,1])
+	    size = args.get('num_inputs', 10)
+	    return [random.uniform(bounds[0],bounds[1]) for i in range(size)] 
 	
 
-        @inspyred.ec.generators.strategize    
-        def generatorf(random, args):
-            bounds=args.get('bounds',[-1,1])
-            size = args.get('num_inputs', 10)
-            return [random.uniform(bounds[0],bounds[1]) for i in range(size)] 
+	self.log(parameters.projectdirectory+os.sep+'swmm_ea.log')
+	self.my_ec = inspyred.ec.EvolutionaryComputation(prng)
+	self.my_ec.selector = inspyred.ec.selectors.tournament_selection
+	
 
-        self.log(parameters.projectdirectory+os.sep+'swmm_ea.log')
-        my_ec = inspyred.ec.EvolutionaryComputation(prng)
-        my_ec.generator=generatorf
-        my_ec.selector = inspyred.ec.selectors.tournament_selection
-        #my_ec.selector=inspyred.ec.selectors.rank_selection
-        my_ec.variator = [inspyred.ec.variators.arithmetic_crossover, inspyred.ec.variators.gaussian_mutation]
-        my_ec.replacer = inspyred.ec.replacers.generational_replacement
-        my_ec.observer = [self.observer_function,inspyred.ec.observers.file_observer, self.swmm_best_observer]
-        my_ec.terminator = [inspyred.ec.terminators.evaluation_termination, 
-                            inspyred.ec.terminators.diversity_termination,
+	self.my_ec.variator = [inspyred.ec.variators.arithmetic_crossover, inspyred.ec.variators.gaussian_mutation]
+	self.my_ec.replacer = inspyred.ec.replacers.generational_replacement
+	self.my_ec.observer = [self.observer_function,inspyred.ec.observers.file_observer, self.swmm_best_observer]
+	self.my_ec.terminator = [inspyred.ec.terminators.evaluation_termination, 
+	                    inspyred.ec.terminators.diversity_termination,
 	                    self.stopterminator]
 
-        staf=open(parameters.projectdirectory+os.sep+u"stats.csv","w")
-        indf=open(parameters.projectdirectory+os.sep+u"indis.csv","w")
-        # parallel processing would not work if you pass these to the evolve method (see the log file, serializing these fail!)
+	staf=open(parameters.projectdirectory+os.sep+u"stats.csv","w")
+	indf=open(parameters.projectdirectory+os.sep+u"indis.csv","w")
+	# parallel processing would not work if you pass these to the evolve method (see the log file, serializing these fail!)
 
-        #linestring = SwmmTemplate()
+	#linestring = SwmmTemplate()
 
 
 
-        mp=False
+	mp=False
 	if parameters.num_cpus > 1: 
 	    print "Setting parallel processing because num_cpus =", parameters.num_cpus
 	    mp=True
-        final_pop = my_ec.evolve(generator=generatorf, 
-                                 parameters=parameters,
-                                 evaluator=mp 
-                                 and inspyred.ec.evaluators.parallel_evaluation_mp
-                                 or evaluatorf,
-                                 mp_evaluator=evaluatorf, 
-                                 mp_nprocs=parameters.num_cpus, # inspyred doc is wrong. 
-                                 pop_size=parameters.pop_size, 
-                                 statistics_file=staf,
-                                 individuals_file=indf,
 
-                                 bounder=inspyred.ec.Bounder(-1,1),
-                                 bounds=[-1,1],
-                                 maximize=parameters.maximize,
-                                 max_evaluations=parameters.max_evaluations, 
-                                 crossover_rate=parameters.crossover_rate,
-                                 num_crossover_points=parameters.num_crossover_points,
-                                 mutation_rate=parameters.mutation_rate,
-                                 #individuals_file=indf,
-                                 #statistics_file=staf,
-                                 num_inputs=parameters.num_inputs,
-                                 num_selected=parameters.num_selected,
-                                 num_elites =parameters.num_elites
-                                 )
+	final_pop = self.my_ec.evolve(generator=generatorf, 
+                             parameters=parameters,
+                             evaluator=mp 
+                             and inspyred.ec.evaluators.parallel_evaluation_mp
+                             or evaluatorf,
+                             mp_evaluator=evaluatorf, 
+                             mp_nprocs=parameters.num_cpus, # inspyred doc is wrong. 
+                             pop_size=parameters.pop_size, 
+                             statistics_file=staf,
+                             individuals_file=indf,
+
+                             bounder=inspyred.ec.Bounder(-1,1),
+                             bounds=[-1,1],
+                             maximize=parameters.maximize,
+                             max_evaluations=parameters.max_evaluations, 
+                             crossover_rate=parameters.crossover_rate,
+                             num_crossover_points=parameters.num_crossover_points,
+                             mutation_rate=parameters.mutation_rate,
+                             #individuals_file=indf,
+                             #statistics_file=staf,
+                             num_inputs=parameters.num_inputs,
+                             num_selected=parameters.pop_size,
+                             num_elites =parameters.num_elites
+                             )
 
 	self.stopped    = True
-        return my_ec
+	return self.my_ec
+
+    def runOptimization_MOO(self, parameters,prng):
+	
+ 
+	def generatorf(random, args):
+	    bounds=args.get('bounds',[-1,1])
+	    size = args.get('num_inputs', 10)
+	    return [random.uniform(bounds[0],bounds[1]) for i in range(size)] 
+	""" following function is for testing"""
+	def generatorK(random, args):
+	      return [random.uniform(-5.0, 5.0) for _ in range(self.parameters.num_inputs)]	
+
+	self.log(parameters.projectdirectory+os.sep+'swmm_ea.log')
+	self.my_ec=inspyred.ec.emo.NSGA2(prng)
+	self.my_ec.variator = [inspyred.ec.variators.blend_crossover, inspyred.ec.variators.gaussian_mutation]
+	self.my_ec.observer = [self.observer_function,inspyred.ec.observers.file_observer, self.swmm_best_observer]
+	self.my_ec.terminator = [inspyred.ec.terminators.evaluation_termination, 
+	                    inspyred.ec.terminators.diversity_termination,
+	                    self.stopterminator]
+
+	staf=open(parameters.projectdirectory+os.sep+u"stats.csv","w")
+	indf=open(parameters.projectdirectory+os.sep+u"indis.csv","w")
+	# parallel processing would not work if you pass these to the evolve method (see the log file, serializing these fail!)
+	mp=False
+	if parameters.num_cpus > 1: 
+	    print "Setting parallel processing because num_cpus =", parameters.num_cpus
+	    mp=True
+	final_pop = self.my_ec.evolve(generator=generatorf, #K, #generatorf, 
+	                         parameters=parameters,
+	                         evaluator=mp 
+	                         and inspyred.ec.evaluators.parallel_evaluation_mp
+	                         or evaluatorf,#K, #evaluatorf,
+	                         mp_evaluator=evaluatorf,#K, #evaluatorf, 
+	                         mp_nprocs=parameters.num_cpus, # inspyred doc is wrong. 
+	                         pop_size=parameters.pop_size, 
+	                         statistics_file=staf,
+	                         individuals_file=indf,
+	                         bounder=inspyred.ec.Bounder(-1,1),
+	                         bounds=[-1,1],
+	                         maximize=parameters.maximize,
+	                         max_evaluations=parameters.max_evaluations, 
+	                         num_inputs=parameters.num_inputs, 
+	                         crossover_rate=parameters.crossover_rate,
+	                         num_crossover_points=parameters.num_crossover_points,
+	                         mutation_rate=parameters.mutation_rate,	                         
+	                         )
+	self.stopped    = True
+	return self.my_ec
 
 
   
@@ -482,6 +552,16 @@ def main_function():
     swmmea.setParams(parameters=parameters, display=True)
     swmmea.start()
     app.exec_()
+    
+    
+"""Following functions are for testing"""
+def evaluatorK(candidates, args):
+    fitness = []
+    for c in candidates:
+	f1 = sum([-10 * math.exp(-0.2 * math.sqrt(c[i]**2 + c[i+1]**2)) for i in range(len(c) - 1)])
+	f2 = sum([math.pow(abs(x), 0.8) + 5 * math.sin(x)**3 for x in c])
+	fitness.append(inspyred.ec.emo.Pareto([f1, f2]))
+    return fitness    
 
 if __name__ == '__main__':
     main_function()

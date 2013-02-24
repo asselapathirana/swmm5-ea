@@ -80,6 +80,7 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         params["stage_size"]=int(self.stage_size.text())
         params["discount_rate"]=float(self.discount_rate.text())
         params["stages"]=self.stages.value()
+        params["multiObjective"]=self.multiObjective.isChecked()
         v=self.swmmp_1.currentIndex()
         if v==swmm_ea_controller.SWMMREULTSTYPE_CALIB:
             #SWMMCHOICES calibration
@@ -107,6 +108,7 @@ class Ui_parameters_dialog(QtGui.QDialog,parameters_dialog_.Ui_Dialog):
         self.discount_rate.setValue(float(params["discount_rate"]))
         self.stage_size.setValue(float(params["stage_size"]))
         self.stages.setValue(int(params["stages"]))
+        self.multiObjective.setChecked(params["multiObjective"])
         try:
             if params["swmmouttype"][0]==swmm_ea_controller.SWMMREULTSTYPE_FLOOD:
                 #SWMMCHOICES flood volume

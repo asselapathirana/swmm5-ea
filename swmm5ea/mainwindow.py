@@ -36,8 +36,8 @@ mainwindow_.Ui_SWMM5EA):
 
 
 
-    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", zoomextent=False):
-        self.curve.plot.set_titles(None,None,ytitle)
+    def updateStatus(self,project=None, swmmfile=None, slottedfile=None, run_status=0, ytitle="Cost", xtitle=None, plottitle=None,zoomextent=False):
+        self.curve.plot.set_titles(plottitle,xtitle,ytitle)
         #print run_status
         self.status1.setText("Project:"+(project or ""))
         #print "here", self

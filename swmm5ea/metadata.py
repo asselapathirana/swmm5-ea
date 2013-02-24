@@ -5,7 +5,7 @@ from glob import glob
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="0.9.3.2"
+VERSION="1.1.1.0dev"
 VERSION2=VERSION[:[m.start() for m in re.finditer(r"\.",VERSION)][1]]
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
@@ -44,6 +44,7 @@ exts_=["inp", "inp_", "yaml", "cal"]
 exts_.extend([x.upper() for x in exts_])
 examples_=list(product(ex_,exts_))
 lst=[ glob(os.path.join(head,"examples",x[0],"*."+x[1])) for x in examples_]
+lst.append([os.path.join(os.path.abspath(head),"customcode","README.txt")])
 LIST_OF_FILE_GLOBS=[item for sublist in lst for item in sublist]
 for root, dirnames, filenames in os.walk(os.path.join(head,"doc","_build")):
   for filename in fnmatch.filter(filenames, '*'):
@@ -66,7 +67,15 @@ SWMMCHOICES= [
 PLOTYTITLE=[
     'Cost',
     'Error',
-    'Net Present Cost']
+    'Net Present Cost'] 
+SOOTITLES=[ #X and Plot itles for single objective cases
+    'Generation Number',
+    'Convergence Plot'] # Y title from PLOTYTITLE depending on type of SOO 
+
+MOOTITLES=[
+  "Cost 1",
+  "Cost 2",
+  "Pareto Front"]
 SWMMCALIBRATIONFILE=[# ORDER the following appear in swmm5 gui (belive me the order there is different!)
                      1, 8, 9, 10, 
                      #2,
