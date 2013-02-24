@@ -20,7 +20,7 @@ go to service; python setup.py (this automatically run install.iss with innosetu
 
 ** Do the following within cygwin system with gpg key ** 
 2. go to swmm5-ea root (this directory)
-python setup.py register sdist upload bdist_wininst --sign
+python setup.py register sdist  bdist_wininst upload --sign
 (source and windows installer packages. Can be done both in windows or POSIX)
 3. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
 cd to service

@@ -264,7 +264,11 @@
         </widget>
        </item>
        <item row="14" column="2">
-        <widget class="QSpinBox" name="pop_size"/>
+        <widget class="QSpinBox" name="pop_size">
+         <property name="maximum">
+          <number>9999</number>
+         </property>
+        </widget>
        </item>
        <item row="15" column="2">
         <widget class="QSpinBox" name="num_elites"/>
@@ -435,7 +439,7 @@
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>128</number>
+          <number>1024</number>
          </property>
         </widget>
        </item>
