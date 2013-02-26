@@ -31,7 +31,7 @@ EPA has recently extended SWMM 5 to explicitly model the hydrologic performance 
   
  SWMM 5.0 has its own, easy to use graphical user interface (Shown below)
  
- .. figure:: figures/epaswmm5.0.PNG
+ .. figure:: figures/epaswmm5.0.png
    :alt: EPA SWMM 5.0 Desktop 
    :align: center
    :scale: 90%
@@ -485,7 +485,7 @@ is templated like:
 		
 This is done by user by simply blocking the number that need to be a place-holder and pressing a button (See figure below)
 
- .. figure:: figures/slotting-input-file.PNG
+ .. figure:: figures/slotting-input-file.png
    :alt: How to create place-holders in a SWMM input file. 
    :align: center
    :scale: 50%
