@@ -12,8 +12,13 @@ from PyQt4 import QtCore
 
 fi=os.path.dirname(os.path.abspath(__file__))
 cdir=os.path.abspath(os.path.join(fi,"..","customcode"))
-if os.path.exists(cdir):
+cdir2=os.path.abspath(os.path.join(fi,"..","swmm5ea","customcode"))
+if os.path.exists(cdir) or os.path.exists(cdir2):
     if os.path.exists(os.path.join(cdir,"swmm5ec_custom.py")):
+        sys.path.append(cdir)
+        exec('import %s as swmm5ec' % "swmm5ec_custom")
+    elif os.path.exists(os.path.join(cdir2,"swmm5ec_custom.py")):
+        cdir=cdir2
         sys.path.append(cdir)
         exec('import %s as swmm5ec' % "swmm5ec_custom")
     else:

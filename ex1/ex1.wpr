@@ -44,4 +44,4 @@ proj.file-list = [loc('t.py'),
                   loc('../swmm5ea/README.virtualenv'),
                   loc('../swmm5ea/README_4_building.txt')]
 proj.file-type = 'shared'
-proj.main-file = loc('../service/setup.py')
+proj.main-file = loc('../swmm5ea/swmm_ea_controller.py')

@@ -23,7 +23,9 @@ import swmmout
 import swmm_ea_controller
 from PyQt4 import QtCore, QtGui
 
-from swmm5 import swmm5 as sw
+from swmm5 import swmm5 as sw #old
+from swmm5.swmm5tools import SWMM5Simulation #new # leave this both here until fully migrated to new swmm5 interface. 
+ 
 
 
 class dumb(object):
