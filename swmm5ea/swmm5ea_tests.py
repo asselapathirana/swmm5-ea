@@ -1,7 +1,7 @@
 import unittest
 import swmm5ec as sec
 import swmm_ea_controller as con
-import swmm5 as sw
+from swmm5 import swmm5 as sw
 import swmmeaproject as sp
 import shutil
 import slotdiff

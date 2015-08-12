@@ -20,6 +20,7 @@ SWMM5 EA has following dependancies.
 * sip>=4.11.2 
 * swmm5>=0.3
 * diff_match_patch>=20121119
+* pyaml
 
 Installation: 
 -------------

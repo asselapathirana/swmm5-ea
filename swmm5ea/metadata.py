@@ -5,7 +5,7 @@ from glob import glob
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="1.1.1.0dev"
+VERSION="5.1.0.1dev"
 VERSION2=VERSION[:[m.start() for m in re.finditer(r"\.",VERSION)][1]]
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"

@@ -1,3 +1,18 @@
+As of 12/Aug/2015 inspyred has a new observer that use email package. need to edit ec/observers.py and remove the class that uses this and the import
+in order to get windows installer to be built (cx_freeze does not like freezing email module it seems)
+
+#import email
+import inspyred
+import math
+import os
+#import smtplib
+import time
+
+like above.
+---
+
+running from python prompt (or ide): call swmm_ea_controller.py
+
 Creating a new version and distribute
 a) Change the version details in swmm5ea/swmm_ea_controller.py
 b) Change the version details in swmm/swmm/setup.py
@@ -12,6 +27,7 @@ How to distribute
 (b) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
 
 0. Use make html to build docoumentation from swmm5ea/doc directory. 
+0.1 try the program on ide : call swmm_ea_controller.py
 1. Build the stand-alone and windows binary versions
 python setup.py bdist_wininst
 go to service; python setup.py (this automatically run install.iss with innosetup  too)

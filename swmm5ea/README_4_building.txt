@@ -5,7 +5,7 @@ Building:
 python setup.py sdist
 python setup.py bdist_wininst
 2. Use setup.py in directory "./service" to build standalone exe for windows
-python setup.py (Note: no need tpo give additional option like bdist_wininst) 
+python setup.py (Note: no need to give additional option like bdist_wininst) 
 It will also run innnosetup and make the installer. 
 NOTE: data_files=[[dirname(x)[13:],[x]] for x in lst] line on service/setup.py is a precarious way of doing things. Fix this. 
 

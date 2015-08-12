@@ -2,7 +2,7 @@
 import subprocess, os
 import PyQt4
 PYUIC="python "+os.path.dirname(PyQt4.__file__)+os.sep+os.sep+"uic"+os.sep+os.sep+"pyuic.py"
-PYRCC=os.path.dirname(PyQt4.__file__)+os.sep+os.sep+"bin"+os.sep+os.sep+"pyrcc4"
+PYRCC=os.path.dirname(PyQt4.__file__)+os.sep+os.sep+"pyrcc4" #+"bin"+os.sep+os.sep
 if os.name=='posix':
    PYUIC='pyuic4'
    PYRCC='pyrcc4'
@@ -23,8 +23,6 @@ if __name__=="__main__":
  _ui2py("swmmedit_dialog_")
  _ui2py("about_dialog_")
  
- # forget files listed in .hgignore
- _call('hg forget "set:hgignore() and not ignored()" ')
 
 
 
