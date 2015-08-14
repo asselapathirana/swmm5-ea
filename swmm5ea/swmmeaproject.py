@@ -1,14 +1,19 @@
 import tempfile
+import datetime
 import swmm_ea_temp_data
 import os
 from  distutils.dir_util import copy_tree
 import sys
 import StringIO
 import guiqwt
-import swmmout
-import swmm5.swmm5 as sw
+#import swmm5.swmm5 as sw
+from swmm5.swmm5tools import SWMM5Simulation
 import swmm_ea_controller
 from PyQt4 import QtCore
+
+
+
+
 
 fi=os.path.dirname(os.path.abspath(__file__))
 cdir=os.path.abspath(os.path.join(fi,"..","customcode"))
@@ -51,8 +56,9 @@ class Project():
 
     def __init__(self, dirname=None, swmmfilename=None):
         self.setSwmmfile(None)
-        self.ids=None
-        self.times=None
+        self.ids={}
+        #self.times=None
+        self.NPeriods=None
         if dirname:
             self.dirname=dirname
             self.load(dirname,swmmfilename)
@@ -88,35 +94,40 @@ class Project():
         
     def setSwmmfile(self, swmmfile=None):
         self.swmmfilename=swmmfile
-        self.ids=[] # reset the ids now next time the swmm file has to be run and ides extracted. 
+        self.ids={} # reset the ids now next time the swmm file has to be run and ides extracted. 
     
          
     def get_swmm_ids_times(self):
         # first run swmm
         sp=self.dirname+os.sep+self.swmmfilename
-        binfile=sp[:-3]+"bin"
-        rptfile=sp[:-3]+"rpt"  
+        #binfile=sp[:-3]+"bin"
+        #rptfile=sp[:-3]+"rpt"  
         print "Attempting to run swmm ..."    
-        t=ThreadRun(sw.RunSwmmDll,sp,rptfile,binfile)  
+        t=ThreadRun(SWMM5Simulation,sp)  
         t.start()
         t.join()
-        ret=t.ret
-        if(ret>0):
-            print ret, "Error!" #sw.ENgeterror(e,25) 
-            return None
+        st=t.ret
+        #if(ret>0):
+        #    print ret, "Error!" #sw.ENgeterror(e,25) 
+        #    return None
     
         print "Success"
-        f = swmmout.open(binfile)
+        print ("Running swmm version %s" % st.SWMM5_Version() )
+        #f = swmmout.open(binfile)
         
-        types=['subcatchments', 'nodes', 'links', 'system']
-        ids={}
-        times=[]
-        for item in types:
-            v=f.get_values(item)
-            ids[item]=map( lambda x: x[0], v[0][1:])
-            times=map( lambda x: x[0],v)
-        self.ids=ids
-        self.times=times
+        #types=['subcatchments', 'nodes', 'links', 'system']
+        #ids={}
+        #times=[]
+        #for i in [1,2,3,4]:
+        #    ids[types[i]]=map( lambda x: x[0], v[0][1:])
+        #    times=map( lambda x: x[0],v)
+        self.ids['subcatchments']=st.Subcatch()
+        self.ids['nodes']= st.Node()
+        self.ids['links']=st.Link()
+        self.ids['system']=st.Sys()
+        self.NPeriods=st.SWMM_Nperiods
+        self.StartDate=st.SWMM_StartDate
+        self.ReportStep=st.SWMM_ReportStep
         
     def readCalibFile(self):
         try: 
@@ -132,8 +143,8 @@ class Project():
             id_=lines[0]
             type_=lines[1]
             lines=map(lambda x: float(x), lines[2:])
-            if not len(lines)== len(self.times):
-                print "problem: the length of data in the file, ", len(lines), " is different from expected: ", len(self.times)
+            if not len(lines)== self.NPeriods:
+                print "problem: the length of data in the file, ", len(lines), " is different from expected: ", self.NPeriods
                 raise
             
             
@@ -141,9 +152,15 @@ class Project():
             print "Problem reading calibration file: ", self.parameters.calfile
             return None
         # now write a calibration file for swmm
+        
+        times=[]
+        for i in range(self.NPeriods):
+            delta = datetime.timedelta(days=self.StartDate, seconds=i*self.ReportStep)
+            times.append(datetime.datetime(1899, 12, 30) + delta,)
+        
         datf=self.parameters.calfile+".DAT"
         try:
-            l=[self.times,lines]
+            l=[times,lines]
             data=map(list,zip(*l))
 
             with open(datf,'w') as f:

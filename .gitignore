@@ -1,4 +1,5 @@
-syntax: glob
+#innosetup generates script
+*.iss
 #python??.???
 python??.???
 # convention: all the files like foo_.py (last character before .py is _) are created by ui files

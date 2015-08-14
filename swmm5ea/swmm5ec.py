@@ -19,7 +19,7 @@ import math
 import sys
 import shutil
 import traceback
-import swmmout
+#import swmmout
 import swmm_ea_controller
 from PyQt4 import QtCore, QtGui
 
@@ -135,7 +135,6 @@ def swmmCost(fillers, linestring, outfile,parameters):
 def swmmRun(swmminputfile, rptfile, binfile,parameters):
     ret=sw.RunSwmmDll(swmminputfile,rptfile,binfile)
     err(ret)
-    # rewrite the following with swmmout package. 
     err(sw.OpenSwmmOutFile(binfile))
     results=[]
     t=0.0
