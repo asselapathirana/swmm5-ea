@@ -8,7 +8,7 @@ SWMM5 EA is a simple application to demonstrate how genetic algorithms can be us
 Dependancies
 -------------
 
-SWMM5 EA has been tested only on python 2.7 (2.7.3). I noticed that python 2.7.2 multiprocessing module has a bug. If you use 2.7.2, either upgrade to 2.7.3 or use the program with  num_cpus (Number of CPUs in the Graphical interface) set to 1. 
+SWMM5 EA has been tested only on python 2.7 (2.7.6).  
 SWMM5 EA has following dependancies. 
 
 * guidata>=1.5.1
@@ -29,15 +29,15 @@ The package can be installed in variety of ways.
 
 a) Source distribution: SWMM5_EA-X.Y.Z.K.zip -- can be installed to the python tree with 'python setup.py install'
 b) Sources:  SWMM5_EA-X.Y.Z.K.tar.gz -- includes the whole development material in addition to the distribution
-c) or chcekout the project (same as b, but could be the latest version.) hg clone https://code.google.com/p/swmm5-ea/ (need Mercurial)
+c) Clone the latest source from github (same as b, but could be the latest version.) https://github.com/asselapathirana/swmm5-ea/
 
 :On Windows:
 
-a) Install as a stand-alone software: Use the installer SWMM5_EA-X.Y.Z.K.exe (available from https://code.google.com/p/swmm5-ea/ ) -- This is the recommended method if you just want to use the software. 
+a) Install as a stand-alone software: Use the installer SWMM5_EA-X.Y.Z.K.exe (available from https://github.com/asselapathirana/swmm5-ea/releases as a zip file -- unzip after download to get exe file. Sorry: github does not allow hosting exe files. ) -- This is the recommended method if you just want to use the software. 
 b) Install as a python package: Use SWMM5_EA-X.Y.Z.K.win32.exe
 c) Source distribution: SWMM5_EA-X.Y.Z.K.zip -- can be installed to the python tree with 'python setup.py install'
 d) Sources:  SWMM5_EA-X.Y.Z.K.tar.gz -- includes the whole development material in addition to the distribution
-e) or chcekout the project (same as d, but could be the latest version.) hg clone https://code.google.com/p/swmm5-ea/ (need Mercurial)
+e) Clone the latest source from github (same as b, but could be the latest version.) https://github.com/asselapathirana/swmm5-ea/
 
 Usage:
 ------

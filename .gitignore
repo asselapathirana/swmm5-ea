@@ -1,3 +1,5 @@
+MANIFEST
+service/Output/*
 #innosetup generates script
 *.iss
 #python??.???

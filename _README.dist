@@ -1,6 +1,8 @@
 As of 12/Aug/2015 inspyred has a new observer that use email package. need to edit ec/observers.py and remove the class that uses this and the import
 in order to get windows installer to be built (cx_freeze does not like freezing email module it seems)
 
+using git: use git bash in windows. *********s
+
 #import email
 import inspyred
 import math
