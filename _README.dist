@@ -3,6 +3,7 @@ in order to get windows installer to be built (cx_freeze does not like freezing 
 
 using git: use git bash in windows. *********s
 
+May have to patch oberver.py as so
 #import email
 import inspyred
 import math
@@ -10,7 +11,7 @@ import os
 #import smtplib
 import time
 
-like above.
+-- and remove classes referring to email and smtplib
 ---
 
 running from python prompt (or ide): call swmm_ea_controller.py
@@ -18,30 +19,26 @@ running from python prompt (or ide): call swmm_ea_controller.py
 Creating a new version and distribute
 a) Change the version details in swmm5ea/swmm_ea_controller.py
 b) Change the version details in swmm/swmm/setup.py
-Check everything and commit
-hg commit -m "message"
-hg push
+Check everything and commit and push
+git status
+git commit -am "message"
+git push origin master
 
-How to distribute
+How to distribute (pypi and binaries)
 
 * Checklist
 (a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
-(b) If you change the google code password, check  ~/.googlecode.password file (cywgin) and update it. 
-
-0. Use make html to build docoumentation from swmm5ea/doc directory. 
+ 
+0. Use make html to build docoumentation from swmm5ea/doc directory. Make a zip file of swmm5ea/doc/_build/html directory (with index.html on root of the zip file). Destination somewhere outside the repo.
 0.1 try the program on ide : call swmm_ea_controller.py
 1. Build the stand-alone and windows binary versions
-python setup.py bdist_wininst
-go to service; python setup.py (this automatically run install.iss with innosetup  too)
-(Best to get a fresh commandline for those two commands)
-(step 1 can be done onnly in windows!)
+  python setup.py bdist_wininst
+go to service; 
+  python setup.py 
+(this automatically run install.iss with innosetup  too.)\
 
-** Do the following within cygwin system with gpg key ** 
-2. go to swmm5-ea root (this directory)
-python setup.py register sdist  bdist_wininst upload --sign
-(source and windows installer packages. Can be done both in windows or POSIX)
-3. for swmm5-ea google code site hosts the instalable version (stand-alone). To upload it 
-cd to service
-./upload2google.bash Output/SWMM5_EA-x.y.z.k.exe
-(If the server says "Forbidden (403)" that might mean there's already a file under that name. Confusing)
-Delete the file and try again)
+Create a release on github (use github web interface). Zip and upload windows installer to the release page. 
+
+upload to pypi with 
+ twine upload --username assela --password xxxxx <filename> 
+filename - tar.gz and wininst

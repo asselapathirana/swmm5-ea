@@ -1,3 +1,4 @@
+swmm5ea/doc/_build
 MANIFEST
 service/Output/*
 #innosetup generates script
