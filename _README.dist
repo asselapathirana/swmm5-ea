@@ -40,5 +40,5 @@ go to service;
 Create a release on github (use github web interface). Zip and upload windows installer to the release page. 
 
 upload to pypi with 
- twine upload --username assela --password xxxxx <filename> 
+ twine upload --username xxxx  --password xxxxx <filename> 
 filename - tar.gz and wininst
