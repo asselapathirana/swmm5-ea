@@ -24,7 +24,7 @@ git status
 git commit -am "message"
 git push origin master
 
-How to distribute (pypi and binaries)
+How/ to distribute (pypi and binaries)
 
 * Checklist
 (a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
@@ -42,3 +42,5 @@ Create a release on github (use github web interface). Zip and upload windows in
 upload to pypi with 
  twine upload --username xxxxxx  --password xxxxx <filename> 
 filename - tar.gz and wininst
+
+Upload the documentation zip file created above to pypi (to be hosted at  http://pythonhosted.org/SWMM5_EA)
