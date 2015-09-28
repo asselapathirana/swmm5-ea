@@ -17,8 +17,8 @@ import time
 running from python prompt (or ide): call swmm_ea_controller.py
 
 Creating a new version and distribute
-a) Change the version details in swmm5ea/swmm_ea_controller.py
-b) Change the version details in swmm/swmm/setup.py
+a) Change the version details in metadata.py
+
 Check everything and commit and push
 git status
 git commit -am "message"

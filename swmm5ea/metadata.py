@@ -5,7 +5,7 @@ from glob import glob
 # program metadata
 
 NAME=u"SWMM5_EA" # do not have spaces !!
-VERSION="5.1.0.1dev"
+VERSION="5.1.0.10"
 VERSION2=VERSION[:[m.start() for m in re.finditer(r"\.",VERSION)][1]]
 DESCRIPTION=u"SWMM5-EA"
 LICENSE=u"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
@@ -16,7 +16,7 @@ TARGET="swmm5ec.exe"
 SETUPNAME=NAME+"-"+VERSION
 PLATFORM="POSIX, WINDOWS"
 EMAIL="assela@pathirana.net"
-DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip"
+#DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip"
 CLASSIFY=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
