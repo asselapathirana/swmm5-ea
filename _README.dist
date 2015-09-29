@@ -33,14 +33,19 @@ How/ to distribute (pypi and binaries)
 0.1 try the program on ide : call swmm_ea_controller.py
 1. Build the stand-alone and windows binary versions
   python setup.py bdist_wininst
-go to service; 
+cd service
   python setup.py 
 (this automatically run install.iss with innosetup  too.)\
 
 Create a release on github (use github web interface). Zip and upload windows installer to the release page. 
 
 upload to pypi with 
- twine upload --username xxxxxx  --password xxxxx <filename> 
+ twine upload --username xxxxxx  --password yyyyy <filename> xxxxx-short, yyyyy, ^@
 filename - tar.gz and wininst
+
+update the front page of pypi package with 
+python setup.py check --restructuredtext 
+(^ to check the README.txt files rst formatting)
+python setup.py register (if authentication problems, delete .pypirc file (%HOME%\pypirc) and try again
 
 Upload the documentation zip file created above to pypi (to be hosted at  http://pythonhosted.org/SWMM5_EA)

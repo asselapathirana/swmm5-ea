@@ -16,7 +16,7 @@ TARGET="swmm5ec.exe"
 SETUPNAME=NAME+"-"+VERSION
 PLATFORM="POSIX, WINDOWS"
 EMAIL="assela@pathirana.net"
-#DLURL="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip"
+DLURL="https://github.com/asselapathirana/swmm5-ea/releases"
 CLASSIFY=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
