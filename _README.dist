@@ -16,45 +16,63 @@ import time
 
 running from python prompt (or ide): call swmm_ea_controller.py
 
+Select the correct python version (winpython 2.7.x ) and open the command prompt. 
+pip install SWMM5 --upgrade (and make sure the correct version of swmm library is installed. THIS IS KEY!)
+Double check by opening a swmm5 file saved by latest epa-swmm binary. IMPORTANT
+from swmm5.swmm5tools import SWMM5Simulation, SWMM5Error
+ss=SWMM5Simulation("xxxx.inp")
+
+
 Creating a new version and distribute
 a) Change the version details in metadata.py
+
+
+
+How/ to distribute (pypi and binaries)
+
+* Checklist
+(a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
+
+
+0.1 try the program on ide : call swmm_ea_controller.py
+1. Build the stand-alone and windows binary versions
+  python setup.py bdist_wininst
+  python setup.py sdist
+cd service
+  python setup.py 
+(this automatically run install.iss with innosetup  too.)\
+
+At this stage install the new swmm5ea and verify that it can manage latest input file versions. 
+(create a project and load a swmmm file - new version - then initialize. If no error, then all is fine. But to make sure run a optimization)
+ 
+00. update the front page of pypi package with 
+python setup.py check --restructuredtext 
+(^ to check the README.txt files rst formatting)
+python setup.py register (if authentication problems, delete .pypirc file (%HOME%\.pypirc) and try again
+NOTE: The uploader will offer to store the login information. Say YES (But at the end of all uploads be sure to delete it. del %HOME%\pypirc )
+ 
+0. Update documentation as follows (to be hosted at  http://pythonhosted.org/SWMM5_EA)
+easy_install sphinx-pypi-upload
+python setup.py build_sphinx
+(be aware of warnings. If complains of lack of LaTeX, install texlive for windows http://www.tug.org/texlive/acquire-netinstall.html)
+python setup.py upload_sphinx (this step needs the stored credentials from step 00)
+
+upload to pypi with 
+ twine upload --username xxxxxx  --password yyyyy <filename> xxxxx-short, yyyyy, ^@
+filename - tar.gz and wininst
+
+
+Now update the source repository. 
 
 Check everything and commit and push
 git status
 git commit -am "message"
 git push origin master
 
-How/ to distribute (pypi and binaries)
-
-* Checklist
-(a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
- 
-00. update the front page of pypi package with 
-python setup.py check --restructuredtext 
-(^ to check the README.txt files rst formatting)
-python setup.py register (if authentication problems, delete .pypirc file (%HOME%\pypirc) and try again
-NOTE: The uploader will offer to store the login information. Say YES (But at the end of all uploads be sure to delete it. del %HOME%\pypirc )
- 
-0. Update documentation as follows (to be hosted at  http://pythonhosted.org/SWMM5_EA)
-easy_install sphinx-pypi-upload
-python setup.py build_sphinx
-python setup.py upload_sphinx (this step needs the stored credentials from step 00)
-
-0.1 try the program on ide : call swmm_ea_controller.py
-1. Build the stand-alone and windows binary versions
-  python setup.py bdist_wininst
-cd service
-  python setup.py 
-(this automatically run install.iss with innosetup  too.)\
-
-Create a release on github (use github web interface). Zip and upload windows installer to the release page. 
-
-upload to pypi with 
- twine upload --username xxxxxx  --password yyyyy <filename> xxxxx-short, yyyyy, ^@
-filename - tar.gz and wininst
+Create a release on github (use github web interface). Zip and upload windows installer to the release page.
 
 FINALLY: 
-del %HOME%\pypirc 
+del %HOME%\.pypirc 
 To get rid of stored login information
 
 
