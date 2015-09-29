@@ -29,8 +29,16 @@ How/ to distribute (pypi and binaries)
 * Checklist
 (a) Check the version in metadata.py Check other variables there too (e.g. those contribute to LIST_OF_FILE_GLOBS)
  
-0. Use make html to build docoumentation from swmm5ea/doc directory. Make a zip file of swmm5ea/doc/_build/html directory (with index.html on root of the zip file). Destination somewhere outside the repo. Upload the documentation zip file created above (step 0) to pypi (to be hosted at  http://pythonhosted.org/SWMM5_EA)
-
+00. update the front page of pypi package with 
+python setup.py check --restructuredtext 
+(^ to check the README.txt files rst formatting)
+python setup.py register (if authentication problems, delete .pypirc file (%HOME%\pypirc) and try again
+NOTE: The uploader will offer to store the login information. Say YES (But at the end of all uploads be sure to delete it. del %HOME%\pypirc )
+ 
+0. Update documentation as follows (to be hosted at  http://pythonhosted.org/SWMM5_EA)
+easy_install sphinx-pypi-upload
+python setup.py build_sphinx
+python setup.py upload_sphinx (this step needs the stored credentials from step 00)
 
 0.1 try the program on ide : call swmm_ea_controller.py
 1. Build the stand-alone and windows binary versions
@@ -45,9 +53,9 @@ upload to pypi with
  twine upload --username xxxxxx  --password yyyyy <filename> xxxxx-short, yyyyy, ^@
 filename - tar.gz and wininst
 
-update the front page of pypi package with 
-python setup.py check --restructuredtext 
-(^ to check the README.txt files rst formatting)
-python setup.py register (if authentication problems, delete .pypirc file (%HOME%\pypirc) and try again
+FINALLY: 
+del %HOME%\pypirc 
+To get rid of stored login information
+
 
 

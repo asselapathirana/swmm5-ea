@@ -1,5 +1,6 @@
 import sys, os
-from distutils.core import setup
+#from distutils.core import setup
+from setuptools import setup
 from itertools import product
 sys.path.append("."+os.sep+os.sep+"swmm5ea")
 import swmm_ea_controller as sc
