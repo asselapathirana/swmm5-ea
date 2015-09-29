@@ -16,7 +16,7 @@ import time
 
 running from python prompt (or ide): call swmm_ea_controller.py
 
-Select the correct python version (winpython 2.7.x ) and open the command prompt. 
+Select the correct python version (winpython 2.7.x - note: WinPython-64bit-2.7.6.4 worked well. WinPython-64bit-2.7.10.2 did not work! Selecting an older version is OK.   ) and open the command prompt. 
 pip install SWMM5 --upgrade (and make sure the correct version of swmm library is installed. THIS IS KEY!)
 Double check by opening a swmm5 file saved by latest epa-swmm binary. IMPORTANT
 from swmm5.swmm5tools import SWMM5Simulation, SWMM5Error
@@ -63,6 +63,7 @@ filename - tar.gz and wininst
 
 
 Now update the source repository. 
+(do in git-bash for windows)
 
 Check everything and commit and push
 git status
