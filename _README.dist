@@ -21,6 +21,7 @@ pip install SWMM5 --upgrade (and make sure the correct version of swmm library i
 Double check by opening a swmm5 file saved by latest epa-swmm binary. IMPORTANT
 from swmm5.swmm5tools import SWMM5Simulation, SWMM5Error
 ss=SWMM5Simulation("xxxx.inp")
+ss.SWMM5_Version()   # verify the version from this.
 
 
 Creating a new version and distribute

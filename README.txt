@@ -10,7 +10,7 @@ Cost-benefit optimization of interventions.
 
 SWMM5-EA Versions
 -----------------
-
+* Version 5.1.0.103 is identical source with 5.1.0.102. Only the (swmm5) binaries have been optimized. 
 * Version 5.1.0.102 released to fix a bug in version 5.1.0.10. Do not use 5.1.0.10. It has compatibility problems. 
 
 SWMM Versions
